@@ -557,6 +557,21 @@ if(ENABLE_EXAMPLES)
   target_link_libraries(coap-server
                         PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
 
+
+  add_executable(coap-my-client ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/client.c)
+  target_link_libraries(coap-my-client
+                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
+
+  # add_executable(coap-test-get-client ${CMAKE_CURRENT_LIST_DIR}/example_minimal/get/client.c)
+  # target_link_libraries(coap-test-get-client
+  #                       PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
+
+
+  # add_executable(coap-test-get-server ${CMAKE_CURRENT_LIST_DIR}/example_minimal/get/server.c)
+  # target_link_libraries(coap-test-get-server
+  #                       PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
+
+
   if(NOT WIN32)
     add_executable(etsi_iot_01 ${CMAKE_CURRENT_LIST_DIR}/examples/etsi_iot_01.c)
     target_link_libraries(etsi_iot_01

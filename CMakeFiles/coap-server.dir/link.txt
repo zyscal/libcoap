@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/coap-server.dir/examples/coap-server.c.o  -o coap-server  libcoap-3.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

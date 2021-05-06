@@ -1424,6 +1424,7 @@ get_session(
 
 int
 main(int argc, char **argv) {
+  printf("test client\n\n");
   coap_context_t  *ctx = NULL;
   coap_session_t *session = NULL;
   coap_address_t dst;
@@ -1649,6 +1650,10 @@ main(int argc, char **argv) {
     coap_log( LOG_EMERG, "cannot create client session\n" );
     goto finish;
   }
+  printf("node_str : %s\n", node_str);
+  printf("local port : %s\n", port_str);
+  printf("address size : %d", dst.size);
+
   coap_session_init_token(session, the_token.length, the_token.s);
 
   /* add Uri-Host if server address differs from uri.host */

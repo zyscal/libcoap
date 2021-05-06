@@ -1,0 +1,1024 @@
+The system is: Linux - 5.4.0-72-generic - x86_64
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/c++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/3.16.3/CompilerIdCXX/a.out"
+
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/3.16.3/CompilerIdC/a.out"
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bce93/fast && /usr/bin/make -f CMakeFiles/cmTC_bce93.dir/build.make CMakeFiles/cmTC_bce93.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_bce93.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_bce93.dir/testCXXCompiler.cxx.o -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/testCXXCompiler.cxx"
+Linking CXX executable cmTC_bce93
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bce93.dir/link.txt --verbose=1
+/usr/bin/c++       CMakeFiles/cmTC_bce93.dir/testCXXCompiler.cxx.o  -o cmTC_bce93 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_9ab29/fast && /usr/bin/make -f CMakeFiles/cmTC_9ab29.dir/build.make CMakeFiles/cmTC_9ab29.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++    -v -o CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccQgmYKX.s
+GNU C++14 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"
+ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/include/c++/9
+ /usr/include/x86_64-linux-gnu/c++/9
+ /usr/include/c++/9/backward
+ /usr/lib/gcc/x86_64-linux-gnu/9/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+GNU C++14 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 466f818abe2f30ba03783f22bd12d815
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccQgmYKX.s
+GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+Linking CXX executable cmTC_9ab29
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ab29.dir/link.txt --verbose=1
+/usr/bin/c++      -v CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9ab29 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_9ab29' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwC3gwp.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9ab29 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_9ab29' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/include/c++/9]
+    add: [/usr/include/x86_64-linux-gnu/c++/9]
+    add: [/usr/include/c++/9/backward]
+    add: [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+    add: [/usr/local/include]
+    add: [/usr/include/x86_64-linux-gnu]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/usr/include/c++/9] ==> [/usr/include/c++/9]
+  collapse include dir [/usr/include/x86_64-linux-gnu/c++/9] ==> [/usr/include/x86_64-linux-gnu/c++/9]
+  collapse include dir [/usr/include/c++/9/backward] ==> [/usr/include/c++/9/backward]
+  collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/9/include] ==> [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/usr/include/c++/9;/usr/include/x86_64-linux-gnu/c++/9;/usr/include/c++/9/backward;/usr/lib/gcc/x86_64-linux-gnu/9/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/make cmTC_9ab29/fast && /usr/bin/make -f CMakeFiles/cmTC_9ab29.dir/build.make CMakeFiles/cmTC_9ab29.dir/build]
+  ignore line: [make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++    -v -o CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccQgmYKX.s]
+  ignore line: [GNU C++14 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/9"]
+  ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/include/c++/9]
+  ignore line: [ /usr/include/x86_64-linux-gnu/c++/9]
+  ignore line: [ /usr/include/c++/9/backward]
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/include/x86_64-linux-gnu]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++14 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 466f818abe2f30ba03783f22bd12d815]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccQgmYKX.s]
+  ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [Linking CXX executable cmTC_9ab29]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ab29.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9ab29 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_9ab29' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwC3gwp.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9ab29 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccwC3gwp.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_9ab29] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..]
+    arg [CMakeFiles/cmTC_9ab29.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9] ==> [/usr/lib/gcc/x86_64-linux-gnu/9]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> [/usr/lib]
+  implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/9;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6ec57/fast && /usr/bin/make -f CMakeFiles/cmTC_6ec57.dir/build.make CMakeFiles/cmTC_6ec57.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6ec57.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_6ec57.dir/testCCompiler.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/testCCompiler.c"
+Linking C executable cmTC_6ec57
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6ec57.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_6ec57.dir/testCCompiler.c.o  -o cmTC_6ec57 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_c9a14/fast && /usr/bin/make -f CMakeFiles/cmTC_c9a14.dir/build.make CMakeFiles/cmTC_c9a14.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc   -v -o CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/cc1 -quiet -v -imultiarch x86_64-linux-gnu /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cceZhdZm.s
+GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/x86_64-linux-gnu/9/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: bbf13931d8de1abe14040c9909cb6969
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o /tmp/cceZhdZm.s
+GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+Linking C executable cmTC_c9a14
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c9a14.dir/link.txt --verbose=1
+/usr/bin/cc     -v CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o  -o cmTC_c9a14 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c9a14' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/cchOysWN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_c9a14 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c9a14' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+    add: [/usr/local/include]
+    add: [/usr/include/x86_64-linux-gnu]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/9/include] ==> [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/9/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/make cmTC_c9a14/fast && /usr/bin/make -f CMakeFiles/cmTC_c9a14.dir/build.make CMakeFiles/cmTC_c9a14.dir/build]
+  ignore line: [make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1 -quiet -v -imultiarch x86_64-linux-gnu /usr/share/cmake-3.16/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o -version -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cceZhdZm.s]
+  ignore line: [GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/include/x86_64-linux-gnu]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: bbf13931d8de1abe14040c9909cb6969]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o /tmp/cceZhdZm.s]
+  ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [Linking C executable cmTC_c9a14]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c9a14.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o  -o cmTC_c9a14 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c9a14' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/cchOysWN.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_c9a14 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cchOysWN.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_c9a14] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..]
+    arg [CMakeFiles/cmTC_c9a14.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9] ==> [/usr/lib/gcc/x86_64-linux-gnu/9]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> [/usr/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/9;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+Determining if the include file byteswap.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_0c592/fast && /usr/bin/make -f CMakeFiles/cmTC_0c592.dir/build.make CMakeFiles/cmTC_0c592.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0c592.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_0c592.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_0c592
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c592.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_0c592.dir/CheckIncludeFile.c.o  -o cmTC_0c592 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_ddf03/fast && /usr/bin/make -f CMakeFiles/cmTC_ddf03.dir/build.make CMakeFiles/cmTC_ddf03.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ddf03.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_ddf03.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_ddf03
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ddf03.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_ddf03.dir/CheckIncludeFile.c.o  -o cmTC_ddf03 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file limits.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_c4fe3/fast && /usr/bin/make -f CMakeFiles/cmTC_c4fe3.dir/build.make CMakeFiles/cmTC_c4fe3.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c4fe3.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_c4fe3.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_c4fe3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c4fe3.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_c4fe3.dir/CheckIncludeFile.c.o  -o cmTC_c4fe3 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file memory.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_cbdda/fast && /usr/bin/make -f CMakeFiles/cmTC_cbdda.dir/build.make CMakeFiles/cmTC_cbdda.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_cbdda.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_cbdda.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_cbdda
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cbdda.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_cbdda.dir/CheckIncludeFile.c.o  -o cmTC_cbdda 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file strings.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a865d/fast && /usr/bin/make -f CMakeFiles/cmTC_a865d.dir/build.make CMakeFiles/cmTC_a865d.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a865d.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_a865d.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_a865d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a865d.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_a865d.dir/CheckIncludeFile.c.o  -o cmTC_a865d 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file string.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_fde5f/fast && /usr/bin/make -f CMakeFiles/cmTC_fde5f.dir/build.make CMakeFiles/cmTC_fde5f.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fde5f.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_fde5f.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_fde5f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fde5f.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_fde5f.dir/CheckIncludeFile.c.o  -o cmTC_fde5f 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/sysctl.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_0f5ef/fast && /usr/bin/make -f CMakeFiles/cmTC_0f5ef.dir/build.make CMakeFiles/cmTC_0f5ef.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0f5ef.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_0f5ef.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+In file included from /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:
+/usr/include/x86_64-linux-gnu/sys/sysctl.h:21:2: warning: #warning "The <sys/sysctl.h> header is deprecated and will be removed." [-Wcpp]
+   21 | #warning "The <sys/sysctl.h> header is deprecated and will be removed."
+      |  ^~~~~~~
+Linking C executable cmTC_0f5ef
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f5ef.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_0f5ef.dir/CheckIncludeFile.c.o  -o cmTC_0f5ef 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file net/if.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_dec8b/fast && /usr/bin/make -f CMakeFiles/cmTC_dec8b.dir/build.make CMakeFiles/cmTC_dec8b.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_dec8b.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_dec8b.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_dec8b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dec8b.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_dec8b.dir/CheckIncludeFile.c.o  -o cmTC_dec8b 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file netinet/in.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_9443c/fast && /usr/bin/make -f CMakeFiles/cmTC_9443c.dir/build.make CMakeFiles/cmTC_9443c.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9443c.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_9443c.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_9443c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9443c.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_9443c.dir/CheckIncludeFile.c.o  -o cmTC_9443c 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/epoll.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_8e79c/fast && /usr/bin/make -f CMakeFiles/cmTC_8e79c.dir/build.make CMakeFiles/cmTC_8e79c.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8e79c.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_8e79c.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_8e79c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8e79c.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_8e79c.dir/CheckIncludeFile.c.o  -o cmTC_8e79c 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/timerfd.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6e41f/fast && /usr/bin/make -f CMakeFiles/cmTC_6e41f.dir/build.make CMakeFiles/cmTC_6e41f.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6e41f.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_6e41f.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_6e41f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6e41f.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_6e41f.dir/CheckIncludeFile.c.o  -o cmTC_6e41f 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file arpa/inet.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bdbce/fast && /usr/bin/make -f CMakeFiles/cmTC_bdbce.dir/build.make CMakeFiles/cmTC_bdbce.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bdbce.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_bdbce.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_bdbce
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bdbce.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_bdbce.dir/CheckIncludeFile.c.o  -o cmTC_bdbce 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stdbool.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_4743d/fast && /usr/bin/make -f CMakeFiles/cmTC_4743d.dir/build.make CMakeFiles/cmTC_4743d.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4743d.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_4743d.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_4743d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4743d.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_4743d.dir/CheckIncludeFile.c.o  -o cmTC_4743d 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file netdb.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_41caf/fast && /usr/bin/make -f CMakeFiles/cmTC_41caf.dir/build.make CMakeFiles/cmTC_41caf.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_41caf.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_41caf.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_41caf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_41caf.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_41caf.dir/CheckIncludeFile.c.o  -o cmTC_41caf 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_72bf9/fast && /usr/bin/make -f CMakeFiles/cmTC_72bf9.dir/build.make CMakeFiles/cmTC_72bf9.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_72bf9.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_72bf9.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_72bf9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_72bf9.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_72bf9.dir/CheckIncludeFile.c.o  -o cmTC_72bf9 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stdlib.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f4fc5/fast && /usr/bin/make -f CMakeFiles/cmTC_f4fc5.dir/build.make CMakeFiles/cmTC_f4fc5.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f4fc5.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_f4fc5.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_f4fc5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f4fc5.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_f4fc5.dir/CheckIncludeFile.c.o  -o cmTC_f4fc5 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_39b1a/fast && /usr/bin/make -f CMakeFiles/cmTC_39b1a.dir/build.make CMakeFiles/cmTC_39b1a.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_39b1a.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_39b1a.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_39b1a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_39b1a.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_39b1a.dir/CheckIncludeFile.c.o  -o cmTC_39b1a 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file syslog.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_c0f95/fast && /usr/bin/make -f CMakeFiles/cmTC_c0f95.dir/build.make CMakeFiles/cmTC_c0f95.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c0f95.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_c0f95.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_c0f95
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c0f95.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_c0f95.dir/CheckIncludeFile.c.o  -o cmTC_c0f95 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/ioctl.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f786e/fast && /usr/bin/make -f CMakeFiles/cmTC_f786e.dir/build.make CMakeFiles/cmTC_f786e.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f786e.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_f786e.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_f786e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f786e.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_f786e.dir/CheckIncludeFile.c.o  -o cmTC_f786e 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/socket.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f7fe6/fast && /usr/bin/make -f CMakeFiles/cmTC_f7fe6.dir/build.make CMakeFiles/cmTC_f7fe6.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f7fe6.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_f7fe6.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_f7fe6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7fe6.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_f7fe6.dir/CheckIncludeFile.c.o  -o cmTC_f7fe6 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/stat.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_1d663/fast && /usr/bin/make -f CMakeFiles/cmTC_1d663.dir/build.make CMakeFiles/cmTC_1d663.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1d663.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_1d663.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_1d663
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1d663.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_1d663.dir/CheckIncludeFile.c.o  -o cmTC_1d663 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/time.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3d143/fast && /usr/bin/make -f CMakeFiles/cmTC_3d143.dir/build.make CMakeFiles/cmTC_3d143.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3d143.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_3d143.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_3d143
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3d143.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_3d143.dir/CheckIncludeFile.c.o  -o cmTC_3d143 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bf9ec/fast && /usr/bin/make -f CMakeFiles/cmTC_bf9ec.dir/build.make CMakeFiles/cmTC_bf9ec.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bf9ec.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_bf9ec.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_bf9ec
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bf9ec.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_bf9ec.dir/CheckIncludeFile.c.o  -o cmTC_bf9ec 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/unistd.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_5311c/fast && /usr/bin/make -f CMakeFiles/cmTC_5311c.dir/build.make CMakeFiles/cmTC_5311c.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5311c.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_5311c.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_5311c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5311c.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_5311c.dir/CheckIncludeFile.c.o  -o cmTC_5311c 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file time.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bec08/fast && /usr/bin/make -f CMakeFiles/cmTC_bec08.dir/build.make CMakeFiles/cmTC_bec08.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bec08.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_bec08.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_bec08
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bec08.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_bec08.dir/CheckIncludeFile.c.o  -o cmTC_bec08 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file unistd.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_5c4f0/fast && /usr/bin/make -f CMakeFiles/cmTC_5c4f0.dir/build.make CMakeFiles/cmTC_5c4f0.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5c4f0.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_5c4f0.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_5c4f0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c4f0.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_5c4f0.dir/CheckIncludeFile.c.o  -o cmTC_5c4f0 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file float.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_298c2/fast && /usr/bin/make -f CMakeFiles/cmTC_298c2.dir/build.make CMakeFiles/cmTC_298c2.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_298c2.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_298c2.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_298c2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_298c2.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_298c2.dir/CheckIncludeFile.c.o  -o cmTC_298c2 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_84ee7/fast && /usr/bin/make -f CMakeFiles/cmTC_84ee7.dir/build.make CMakeFiles/cmTC_84ee7.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_84ee7.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -std=gnu11 -o CMakeFiles/cmTC_84ee7.dir/CheckIncludeFile.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp/CheckIncludeFile.c"
+Linking C executable cmTC_84ee7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84ee7.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_84ee7.dir/CheckIncludeFile.c.o  -o cmTC_84ee7 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function malloc exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_7bbfb/fast && /usr/bin/make -f CMakeFiles/cmTC_7bbfb.dir/build.make CMakeFiles/cmTC_7bbfb.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7bbfb.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=malloc   -std=gnu11 -o CMakeFiles/cmTC_7bbfb.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘malloc’; expected ‘void *(long unsigned int)’ [-Wbuiltin-declaration-mismatch]
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:1:1: note: ‘malloc’ is declared in header ‘<stdlib.h>’
+  +++ |+#include <stdlib.h>
+    1 | #ifdef CHECK_FUNCTION_EXISTS
+Linking C executable cmTC_7bbfb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7bbfb.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=malloc    CMakeFiles/cmTC_7bbfb.dir/CheckFunctionExists.c.o  -o cmTC_7bbfb 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function memset exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_aa4c5/fast && /usr/bin/make -f CMakeFiles/cmTC_aa4c5.dir/build.make CMakeFiles/cmTC_aa4c5.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_aa4c5.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=memset   -std=gnu11 -o CMakeFiles/cmTC_aa4c5.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘memset’; expected ‘void *(void *, int,  long unsigned int)’ [-Wbuiltin-declaration-mismatch]
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:1:1: note: ‘memset’ is declared in header ‘<string.h>’
+  +++ |+#include <string.h>
+    1 | #ifdef CHECK_FUNCTION_EXISTS
+Linking C executable cmTC_aa4c5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aa4c5.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=memset    CMakeFiles/cmTC_aa4c5.dir/CheckFunctionExists.c.o  -o cmTC_aa4c5 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function select exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_ec87c/fast && /usr/bin/make -f CMakeFiles/cmTC_ec87c.dir/build.make CMakeFiles/cmTC_ec87c.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ec87c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=select   -std=gnu11 -o CMakeFiles/cmTC_ec87c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ec87c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ec87c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=select    CMakeFiles/cmTC_ec87c.dir/CheckFunctionExists.c.o  -o cmTC_ec87c 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function socket exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_6aefc/fast && /usr/bin/make -f CMakeFiles/cmTC_6aefc.dir/build.make CMakeFiles/cmTC_6aefc.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6aefc.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=socket   -std=gnu11 -o CMakeFiles/cmTC_6aefc.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_6aefc
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6aefc.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=socket    CMakeFiles/cmTC_6aefc.dir/CheckFunctionExists.c.o  -o cmTC_6aefc 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strcasecmp exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_63d30/fast && /usr/bin/make -f CMakeFiles/cmTC_63d30.dir/build.make CMakeFiles/cmTC_63d30.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_63d30.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strcasecmp   -std=gnu11 -o CMakeFiles/cmTC_63d30.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘strcasecmp’; expected ‘int(const char *, const char *)’ [-Wbuiltin-declaration-mismatch]
+<command-line>: note: in definition of macro ‘CHECK_FUNCTION_EXISTS’
+Linking C executable cmTC_63d30
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63d30.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=strcasecmp    CMakeFiles/cmTC_63d30.dir/CheckFunctionExists.c.o  -o cmTC_63d30 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function pthread_mutex_lock exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_75575/fast && /usr/bin/make -f CMakeFiles/cmTC_75575.dir/build.make CMakeFiles/cmTC_75575.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_75575.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_mutex_lock   -std=gnu11 -o CMakeFiles/cmTC_75575.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_75575
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_75575.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_mutex_lock    CMakeFiles/cmTC_75575.dir/CheckFunctionExists.c.o  -o cmTC_75575 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function getaddrinfo exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_a4f88/fast && /usr/bin/make -f CMakeFiles/cmTC_a4f88.dir/build.make CMakeFiles/cmTC_a4f88.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a4f88.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=getaddrinfo   -std=gnu11 -o CMakeFiles/cmTC_a4f88.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_a4f88
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a4f88.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=getaddrinfo    CMakeFiles/cmTC_a4f88.dir/CheckFunctionExists.c.o  -o cmTC_a4f88 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strnlen exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_53ece/fast && /usr/bin/make -f CMakeFiles/cmTC_53ece.dir/build.make CMakeFiles/cmTC_53ece.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_53ece.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strnlen   -std=gnu11 -o CMakeFiles/cmTC_53ece.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘strnlen’; expected ‘long unsigned int(const char *, long unsigned int)’ [-Wbuiltin-declaration-mismatch]
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+Linking C executable cmTC_53ece
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_53ece.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=strnlen    CMakeFiles/cmTC_53ece.dir/CheckFunctionExists.c.o  -o cmTC_53ece 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strrchr exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_784e6/fast && /usr/bin/make -f CMakeFiles/cmTC_784e6.dir/build.make CMakeFiles/cmTC_784e6.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_784e6.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strrchr   -std=gnu11 -o CMakeFiles/cmTC_784e6.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘strrchr’; expected ‘char *(const char *, int)’ [-Wbuiltin-declaration-mismatch]
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+/usr/share/cmake-3.16/Modules/CheckFunctionExists.c:1:1: note: ‘strrchr’ is declared in header ‘<string.h>’
+  +++ |+#include <string.h>
+    1 | #ifdef CHECK_FUNCTION_EXISTS
+Linking C executable cmTC_784e6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_784e6.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=strrchr    CMakeFiles/cmTC_784e6.dir/CheckFunctionExists.c.o  -o cmTC_784e6 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function getrandom exists passed with the following output:
+Change Dir: /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e8fb9/fast && /usr/bin/make -f CMakeFiles/cmTC_e8fb9.dir/build.make CMakeFiles/cmTC_e8fb9.dir/build
+make[1]: Entering directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e8fb9.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=getrandom   -std=gnu11 -o CMakeFiles/cmTC_e8fb9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e8fb9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e8fb9.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=getrandom    CMakeFiles/cmTC_e8fb9.dir/CheckFunctionExists.c.o  -o cmTC_e8fb9 
+make[1]: Leaving directory '/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/CMakeTmp'
+
+
+

@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/coap-client_min.dir/examples/example_minimal/libcoap-minimal/client.cc.o  -o coap-client_min  libcoap-3.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

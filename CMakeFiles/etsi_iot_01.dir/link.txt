@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o  -o etsi_iot_01  libcoap-3.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

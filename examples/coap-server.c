@@ -234,6 +234,24 @@ hnd_get_index(coap_resource_t *resource,
                                0x2ffff, 0, strlen(INDEX),
                                (const uint8_t *)INDEX, NULL, NULL);
 }
+static void
+hnd_post_anjay(
+coap_context_t *ctx, 
+coap_resource_t *resource,
+coap_session_t *session, 
+coap_pdu_t *request, 
+coap_binary_t *token,
+coap_string_t *query, 
+coap_pdu_t *response) {
+
+  // printf("enter into post \n");
+  coap_pdu_set_code(response, COAP_RESPONSE_CODE_CREATED);  
+  // printf("end of post \n");
+
+  // /* .. code .. */
+
+  // coap_pdu_set_code(response, COAP_RESPONSE_CODE_CHANGED);
+}
 
 static void
 hnd_get_time(coap_resource_t *resource,
@@ -241,45 +259,47 @@ hnd_get_time(coap_resource_t *resource,
              const coap_pdu_t *request,
              const coap_string_t *query,
              coap_pdu_t *response) {
-  unsigned char buf[40];
-  size_t len;
-  time_t now;
-  coap_tick_t t;
-  (void)request;
 
-  if (my_clock_base) {
+            coap_pdu_set_code(response, COAP_RESPONSE_CODE_CREATED);  
+  // unsigned char buf[40];
+  // size_t len;
+  // time_t now;
+  // coap_tick_t t;
+  // (void)request;
 
-    /* calculate current time */
-    coap_ticks(&t);
-    now = my_clock_base + (t / COAP_TICKS_PER_SECOND);
+  // if (my_clock_base) {
 
-    if (query != NULL
-        && coap_string_equal(query, coap_make_str_const("ticks"))) {
-          /* output ticks */
-          len = snprintf((char *)buf, sizeof(buf), "%u", (unsigned int)now);
+  //   /* calculate current time */
+  //   coap_ticks(&t);
+  //   now = my_clock_base + (t / COAP_TICKS_PER_SECOND);
 
-    } else {      /* output human-readable time */
-      struct tm *tmp;
-      tmp = gmtime(&now);
-      if (!tmp) {
-        /* If 'now' is not valid */
-        coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
-        return;
-      }
-      else {
-        len = strftime((char *)buf, sizeof(buf), "%b %d %H:%M:%S", tmp);
-      }
-    }
-    coap_pdu_set_code(response, COAP_RESPONSE_CODE_CONTENT);
-    coap_add_data_large_response(resource, session, request, response,
-                                 query, COAP_MEDIATYPE_TEXT_PLAIN, 1, 0,
-                                 len,
-                                 buf, NULL, NULL);
-  }
-  else {
-    /* if my_clock_base was deleted, we pretend to have no such resource */
-    coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
-  }
+  //   if (query != NULL
+  //       && coap_string_equal(query, coap_make_str_const("ticks"))) {
+  //         /* output ticks */
+  //         len = snprintf((char *)buf, sizeof(buf), "%u", (unsigned int)now);
+
+  //   } else {      /* output human-readable time */
+  //     struct tm *tmp;
+  //     tmp = gmtime(&now);
+  //     if (!tmp) {
+  //       /* If 'now' is not valid */
+  //       coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
+  //       return;
+  //     }
+  //     else {
+  //       len = strftime((char *)buf, sizeof(buf), "%b %d %H:%M:%S", tmp);
+  //     }
+  //   }
+  //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_CONTENT);
+  //   coap_add_data_large_response(resource, session, request, response,
+  //                                query, COAP_MEDIATYPE_TEXT_PLAIN, 1, 0,
+  //                                len,
+  //                                buf, NULL, NULL);
+  // }
+  // else {
+  //   /* if my_clock_base was deleted, we pretend to have no such resource */
+  //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
+  // }
 }
 
 static void
@@ -1523,38 +1543,41 @@ hnd_unknown_put(coap_resource_t *resource COAP_UNUSED,
                 const coap_string_t *query,
                 coap_pdu_t *response
 ) {
-  coap_resource_t *r;
-  coap_string_t *uri_path;
 
-  /* check if creating a new resource is allowed */
-  if (dynamic_count >= support_dynamic) {
-    coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_ACCEPTABLE);
-    return;
-  }
 
-  /* get the uri_path - will get used by coap_resource_init() */
-  uri_path = coap_get_uri_path(request);
-  if (!uri_path) {
-    coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
-    return;
-  }
+  coap_pdu_set_code(resource, COAP_RESPONSE_CODE_CREATED);
+  // coap_resource_t *r;
+  // coap_string_t *uri_path;
 
-  /*
-   * Create a resource to handle the new URI
-   * uri_path will get deleted when the resource is removed
-   */
-  r = coap_resource_init((coap_str_const_t*)uri_path,
-        COAP_RESOURCE_FLAGS_RELEASE_URI | resource_flags);
-  coap_add_attr(r, coap_make_str_const("title"), coap_make_str_const("\"Dynamic\""), 0);
-  coap_register_handler(r, COAP_REQUEST_PUT, hnd_put);
-  coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete);
-  /* We possibly want to Observe the GETs */
-  coap_resource_set_get_observable(r, 1);
-  coap_register_handler(r, COAP_REQUEST_GET, hnd_get);
-  coap_add_resource(coap_session_get_context(session), r);
+  // /* check if creating a new resource is allowed */
+  // if (dynamic_count >= support_dynamic) {
+  //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_ACCEPTABLE);
+  //   return;
+  // }
 
-  /* Do the PUT for this first call */
-  hnd_put(r, session, request, query, response);
+  // /* get the uri_path - will get used by coap_resource_init() */
+  // uri_path = coap_get_uri_path(request);
+  // if (!uri_path) {
+  //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
+  //   return;
+  // }
+
+  // /*
+  //  * Create a resource to handle the new URI
+  //  * uri_path will get deleted when the resource is removed
+  //  */
+  // r = coap_resource_init((coap_str_const_t*)uri_path,
+  //       COAP_RESOURCE_FLAGS_RELEASE_URI | resource_flags);
+  // coap_add_attr(r, coap_make_str_const("title"), coap_make_str_const("\"Dynamic\""), 0);
+  // coap_register_handler(r, COAP_REQUEST_PUT, hnd_put);
+  // coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete);
+  // /* We possibly want to Observe the GETs */
+  // coap_resource_set_get_observable(r, 1);
+  // coap_register_handler(r, COAP_REQUEST_GET, hnd_get);
+  // coap_add_resource(coap_session_get_context(session), r);
+
+  // /* Do the PUT for this first call */
+  // hnd_put(r, session, request, query, response);
 }
 
 #if SERVER_CAN_PROXY
@@ -1720,6 +1743,9 @@ proxy_nack_handler(coap_session_t *session,
 
 #endif /* SERVER_CAN_PROXY */
 
+
+
+
 static void
 init_resources(coap_context_t *ctx) {
   coap_resource_t *r;
@@ -1734,16 +1760,21 @@ init_resources(coap_context_t *ctx) {
   /* store clock base to use in /time */
   my_clock_base = clock_offset;
 
-  r = coap_resource_init(coap_make_str_const("time"), resource_flags);
-  coap_register_handler(r, COAP_REQUEST_GET, hnd_get_time);
-  coap_register_handler(r, COAP_REQUEST_PUT, hnd_put_time);
-  coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete_time);
-  coap_resource_set_get_observable(r, 1);
 
-  coap_add_attr(r, coap_make_str_const("ct"), coap_make_str_const("0"), 0);
-  coap_add_attr(r, coap_make_str_const("title"), coap_make_str_const("\"Internal Clock\""), 0);
-  coap_add_attr(r, coap_make_str_const("rt"), coap_make_str_const("\"ticks\""), 0);
-  coap_add_attr(r, coap_make_str_const("if"), coap_make_str_const("\"clock\""), 0);
+  r = coap_resource_init(coap_make_str_const("rdd"), resource_flags);
+  coap_register_handler(r, COAP_REQUEST_POST, hnd_post_anjay);
+  coap_add_resource(ctx, r);
+
+  r = coap_resource_init(coap_make_str_const("rd"), resource_flags);
+  coap_register_handler(r, COAP_REQUEST_POST, hnd_get_time);
+  // coap_register_handler(r, COAP_REQUEST_PUT, hnd_put_time);
+  // coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete_time);
+  // coap_resource_set_get_observable(r, 1);
+
+  // coap_add_attr(r, coap_make_str_const("ct"), coap_make_str_const("0"), 0);
+  // coap_add_attr(r, coap_make_str_const("title"), coap_make_str_const("\"Internal Clock\""), 0);
+  // coap_add_attr(r, coap_make_str_const("rt"), coap_make_str_const("\"ticks\""), 0);
+  // coap_add_attr(r, coap_make_str_const("if"), coap_make_str_const("\"clock\""), 0);
 
   coap_add_resource(ctx, r);
   time_resource = r;
@@ -2796,8 +2827,10 @@ main(int argc, char **argv) {
         }
       }
       if (result > 0) {
+        printf("select result > 0 : %d\n", result);
         if (FD_ISSET(coap_fd, &readfds)) {
           result = coap_io_process(ctx, COAP_IO_NO_WAIT);
+          // ctx->
         }
       }
       if (result >= 0) {

@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/coap-test-get-client.dir/example_minimal/get/client.c.o  -o coap-test-get-client  libcoap-3.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 

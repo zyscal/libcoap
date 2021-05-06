@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/tiny.dir/examples/tiny.c.o  -o tiny  libcoap-3.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so 
