@@ -428,6 +428,7 @@ target_sources(
           ${CMAKE_CURRENT_LIST_DIR}/src/str.c
           ${CMAKE_CURRENT_LIST_DIR}/src/subscribe.c
           ${CMAKE_CURRENT_LIST_DIR}/src/uri.c
+
           # no need to parse those files if we do not need them
           $<$<BOOL:${HAVE_OPENSSL}>:${CMAKE_CURRENT_LIST_DIR}/src/coap_openssl.c>
           $<$<BOOL:${HAVE_LIBTINYDTLS}>:${CMAKE_CURRENT_LIST_DIR}/src/coap_tinydtls.c>
@@ -461,7 +462,15 @@ target_sources(
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/subscribe.h
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/uri.h
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/uthash.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/utlist.h)
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/utlist.h
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_server_header.h
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_client_header.h
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_analyzer_server_header.h
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_analyzer_client_header.h
+          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_analyzer_port.h
+          )
+
+find_package(Threads)
 target_include_directories(
   ${COAP_LIBRARY_NAME}
   PUBLIC # config headers are generated during configuration time
@@ -471,7 +480,12 @@ target_include_directories(
          $<INSTALL_INTERFACE:include/>
          $<$<BOOL:${USE_VENDORED_TINYDTLS}>:${CMAKE_BINARY_DIR}/include/tinydtls>
          $<$<BOOL:${HAVE_LIBGNUTLS}>:${GNUTLS_INCLUDE_DIR}>
-         $<$<BOOL:${HAVE_LIBGNUTLS}>:${MBEDTLS_INCLUDE_DIRS}>)
+         $<$<BOOL:${HAVE_LIBGNUTLS}>:${MBEDTLS_INCLUDE_DIRS}>
+         
+         )
+
+
+
 target_link_libraries(
   ${COAP_LIBRARY_NAME}
   PUBLIC $<$<BOOL:${HAVE_OPENSSL}>:OpenSSL::SSL>
@@ -558,10 +572,17 @@ if(ENABLE_EXAMPLES)
                         PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
 
 
-  add_executable(coap-my-client ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/client.c)
-  target_link_libraries(coap-my-client
-                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
+  add_executable(QoS_organizer 
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer.c  )
 
+  add_executable(QoS_analyzer 
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer.c  )
+
+
+  target_link_libraries(QoS_organizer
+                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
+  target_link_libraries(QoS_analyzer
+                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
   # add_executable(coap-test-get-client ${CMAKE_CURRENT_LIST_DIR}/example_minimal/get/client.c)
   # target_link_libraries(coap-test-get-client
   #                       PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})

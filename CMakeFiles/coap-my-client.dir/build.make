@@ -57,27 +57,27 @@ include CMakeFiles/coap-my-client.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/coap-my-client.dir/flags.make
 
-CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o: CMakeFiles/coap-my-client.dir/flags.make
-CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o: my_libcoap/client.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/client.c"
+CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o: CMakeFiles/coap-my-client.dir/flags.make
+CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o: my_libcoap/QoS_organizer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer.c"
 
-CMakeFiles/coap-my-client.dir/my_libcoap/client.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/coap-my-client.dir/my_libcoap/client.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/client.c" > CMakeFiles/coap-my-client.dir/my_libcoap/client.c.i
+CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer.c" > CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.i
 
-CMakeFiles/coap-my-client.dir/my_libcoap/client.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/coap-my-client.dir/my_libcoap/client.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/client.c" -o CMakeFiles/coap-my-client.dir/my_libcoap/client.c.s
+CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer.c" -o CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.s
 
 # Object files for target coap-my-client
 coap__my__client_OBJECTS = \
-"CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o"
+"CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o"
 
 # External object files for target coap-my-client
 coap__my__client_EXTERNAL_OBJECTS =
 
-coap-my-client: CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o
+coap-my-client: CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o
 coap-my-client: CMakeFiles/coap-my-client.dir/build.make
 coap-my-client: libcoap-3.a
 coap-my-client: /usr/lib/x86_64-linux-gnu/libssl.so

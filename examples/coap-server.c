@@ -2761,7 +2761,7 @@ main(int argc, char **argv) {
   coap_startup();
   coap_dtls_set_log_level(log_level);
   coap_set_log_level(log_level);
-
+  printf("addr_str :%s,%s", addr_str, port_str);
   ctx = get_context(addr_str, port_str);
   if (!ctx)
     return -1;

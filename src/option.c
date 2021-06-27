@@ -208,7 +208,6 @@ coap_check_option(const coap_pdu_t *pdu, coap_option_num_t number,
 uint32_t
 coap_opt_length(const coap_opt_t *opt) {
   uint32_t length;
-
   length = *opt & 0x0f;
   switch (*opt & 0xf0) {
   case 0xf0:
@@ -225,7 +224,6 @@ coap_opt_length(const coap_opt_t *opt) {
   default:
     ++opt;
   }
-
   switch (length) {
   case 0x0f:
     coap_log(LOG_DEBUG, "illegal option length\n");

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/client.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

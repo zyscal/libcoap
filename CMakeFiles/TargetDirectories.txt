@@ -3,12 +3,13 @@
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-3.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-client.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-rd.dir
+/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_organizer.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-server.dir
+/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir
+/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/tiny.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/etsi_iot_01.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/edit_cache.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/rebuild_cache.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/list_install_components.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/install.dir
-/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/tiny.dir
-/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-my-client.dir
 /home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/doc_doxygen.dir

@@ -747,7 +747,7 @@ coap_option_check_critical(coap_context_t *ctx,
 }
 
 coap_mid_t
-coap_send_ack(coap_session_t *session, coap_pdu_t *request) {
+ coap_send_ack(coap_session_t *session, coap_pdu_t *request) {
   coap_pdu_t *response;
   coap_mid_t result = COAP_INVALID_MID;
 

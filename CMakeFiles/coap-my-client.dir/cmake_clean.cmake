@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/coap-my-client.dir/my_libcoap/client.c.o"
+  "CMakeFiles/coap-my-client.dir/my_libcoap/QoS_organizer.c.o"
   "coap-my-client"
   "coap-my-client.pdb"
 )

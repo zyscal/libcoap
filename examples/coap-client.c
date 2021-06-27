@@ -708,7 +708,15 @@ cmdline_uri(char *arg, int create_uri_opts) {
       if (uri.path.length > BUFSIZE)
         coap_log(LOG_WARNING, "URI path will be truncated (max buffer %d)\n", BUFSIZE);
       res = coap_split_path(uri.path.s, uri.path.length, buf, &buflen);
-
+      printf("\nabout buf\n");
+      printf("buf length : %d\n", coap_opt_length(buf));
+      unsigned char *pointer = buf;
+      for (int i = 0; i < coap_opt_length(buf); i++)
+      {
+        printf("%d ", *pointer);
+        pointer++;
+      }
+      printf("\n");
       while (res--) {
         coap_insert_optlist(&optlist,
                     coap_new_optlist(COAP_OPTION_URI_PATH,
@@ -1629,7 +1637,11 @@ main(int argc, char **argv) {
   coap_context_set_block_mode(ctx, block_mode);
 
   dst.size = res;
+  printf("dst.size : %d\n", res);
   dst.addr.sin.sin_port = htons( port );
+  printf("port_str : %s\n", port_str);
+  printf("user_length : %d\n",user_length);
+  
 
   session = get_session(
     ctx,
@@ -1693,6 +1705,23 @@ main(int argc, char **argv) {
   /* set block option if requested at commandline */
   if (flags & FLAGS_BLOCK)
     set_blocksize();
+  printf("\n");
+  coap_optlist_t *opt_test = optlist;
+  while (opt_test != NULL)
+  {
+    printf("opt_test num : %d\n", opt_test->number);
+    uint8_t* data_test = opt_test->data;
+    for(int i = 0; i < opt_test->length; i++)
+    {
+      printf("%c", (char)data_test);
+      data_test++;
+    }
+    printf("\n");
+    opt_test = opt_test->next;
+    /* code */
+  }
+  printf("\n");
+  
 
   if (! (pdu = coap_new_request(ctx, session, method, &optlist, payload.s, payload.length))) {
     goto finish;
