@@ -478,7 +478,7 @@ target_include_directories(
          $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include/>
          $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/>
          $<INSTALL_INTERFACE:include/>
-         $<$<BOOL:${USE_VENDORED_TINYDTLS}>:${CMAKE_BINARY_DIR}/include/tinydtls>
+         $<$<AND:$<BOOL:${HAVE_LIBTINYDTLS}>,$<BOOL:${USE_VENDORED_TINYDTLS}>>:${CMAKE_BINARY_DIR}/include/tinydtls>
          $<$<BOOL:${HAVE_LIBGNUTLS}>:${GNUTLS_INCLUDE_DIR}>
          $<$<BOOL:${HAVE_LIBGNUTLS}>:${MBEDTLS_INCLUDE_DIRS}>
          
@@ -565,6 +565,9 @@ if(ENABLE_EXAMPLES)
                         PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
 
   add_executable(coap-rd ${CMAKE_CURRENT_LIST_DIR}/examples/coap-rd.c)
+  target_include_directories(coap-rd
+    PRIVATE
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}>)
   target_link_libraries(coap-rd PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
 
   add_executable(coap-server ${CMAKE_CURRENT_LIST_DIR}/examples/coap-server.c)

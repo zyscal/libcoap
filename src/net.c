@@ -747,7 +747,11 @@ coap_option_check_critical(coap_context_t *ctx,
 }
 
 coap_mid_t
+<<<<<<< HEAD
  coap_send_ack(coap_session_t *session, coap_pdu_t *request) {
+=======
+coap_send_ack(coap_session_t *session, const coap_pdu_t *request) {
+>>>>>>> 30fead8cf7c622e29f62ad41f368b6457acb062c
   coap_pdu_t *response;
   coap_mid_t result = COAP_INVALID_MID;
 
@@ -898,8 +902,8 @@ coap_send_pdu(coap_session_t *session, coap_pdu_t *pdu, coap_queue_t *node) {
 
 coap_mid_t
 coap_send_error(coap_session_t *session,
-  coap_pdu_t *request,
-  unsigned char code,
+  const coap_pdu_t *request,
+  coap_pdu_code_t code,
   coap_opt_filter_t *opts) {
   coap_pdu_t *response;
   coap_mid_t result = COAP_INVALID_MID;
@@ -915,7 +919,8 @@ coap_send_error(coap_session_t *session,
 }
 
 coap_mid_t
-coap_send_message_type(coap_session_t *session, coap_pdu_t *request, unsigned char type) {
+coap_send_message_type(coap_session_t *session, const coap_pdu_t *request,
+                       coap_pdu_type_t type) {
   coap_pdu_t *response;
   coap_mid_t result = COAP_INVALID_MID;
 
@@ -2054,7 +2059,7 @@ coap_cancel_all_messages(coap_context_t *context, coap_session_t *session,
 }
 
 coap_pdu_t *
-coap_new_error_response(coap_pdu_t *request, unsigned char code,
+coap_new_error_response(const coap_pdu_t *request, coap_pdu_code_t code,
   coap_opt_filter_t *opts) {
   coap_opt_iterator_t opt_iter;
   coap_pdu_t *response;
@@ -2829,6 +2834,11 @@ skip_handler:
       respond = no_response(pdu, response, session);
       if (respond != RESPONSE_DROP) {
         coap_mid_t mid = pdu->mid;
+        if (COAP_RESPONSE_CLASS(response->code) != 2) {
+          if (observe) {
+            coap_remove_option(response, COAP_OPTION_OBSERVE);
+          }
+        }
         if (COAP_RESPONSE_CLASS(response->code) > 2) {
           if (observe)
             coap_delete_observer(resource, session, &token);
