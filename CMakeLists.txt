@@ -578,6 +578,24 @@ if(ENABLE_EXAMPLES)
   add_executable(QoS_organizer 
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer.c  )
 
+  #wakaama 
+  if(DTLS)
+    message(FATAL_ERROR "DTLS option is not supported." )
+  endif()
+  include(${CMAKE_CURRENT_LIST_DIR}/my_libcoap/core/wakaama.cmake)
+  include(${CMAKE_CURRENT_LIST_DIR}/my_libcoap/shared/shared.cmake)
+  add_definitions(-DLWM2M_SERVER_MODE)
+  add_definitions(${SHARED_DEFINITIONS} ${WAKAAMA_DEFINITIONS})
+  include_directories (${WAKAAMA_SOURCES_DIR} ${SHARED_INCLUDE_DIRS})
+  SET(SOURCES
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/lwm2mserver.c
+  )
+  add_executable(wakaama_server ${SOURCES} ${WAKAAMA_SOURCES} ${SHARED_SOURCES})
+  set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:WITH_LOGS>)
+  SOURCE_GROUP(wakaama FILES ${WAKAAMA_SOURCES})
+  #end wakaama
+
+
   add_executable(QoS_analyzer 
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer.c  )
 

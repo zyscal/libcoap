@@ -27,5 +27,4 @@ CMakeFiles/coap-server.dir/examples/coap-server.c.o: include/coap3/resource.h
 CMakeFiles/coap-server.dir/examples/coap-server.c.o: include/coap3/str.h
 CMakeFiles/coap-server.dir/examples/coap-server.c.o: include/coap3/subscribe.h
 CMakeFiles/coap-server.dir/examples/coap-server.c.o: include/coap3/uri.h
-CMakeFiles/coap-server.dir/examples/coap-server.c.o: include/coap3/uthash.h
 

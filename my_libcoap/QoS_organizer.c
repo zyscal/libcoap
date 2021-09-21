@@ -17,7 +17,6 @@
 
 void* organizer_client(void* arg)
 {
-      
     printf("enter into organizer_client\n");
     organizer_client_ctx = coap_new_context( NULL );
     coap_address_t dst;
@@ -63,13 +62,9 @@ void* organizer_client(void* arg)
   // organizer_client_session, method, &organizer_client_request_option, 
   // payload_test.s, payload_test.length);
   // coap_send_large(organizer_client_session, pdu);
-
-
-
   uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
   while (1)
   {
-
     int result = coap_io_process(organizer_client_ctx, wait_ms);
     if (result < 0)
     {
@@ -80,7 +75,6 @@ void* organizer_client(void* arg)
     {
       // printf("there is something recv, result : %d\n", result);
     }
-    
   }
   printf("test point\n");
 }
@@ -99,7 +93,7 @@ int main()
     else{
         printf("thread organizer_client failed!\n");
     }
-  
+    
   //organizer首先与analyzer建立连接
   organizer_server_ctx = setup_server_context();
   init_resources(organizer_server_ctx);
@@ -116,7 +110,6 @@ int main()
     {
       // printf("there is something recv, result : %d\n", result);
     }
-    
   }
   printf("out of while \n");
     ///////////////

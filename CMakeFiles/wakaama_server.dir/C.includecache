@@ -1,0 +1,56 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/er-coap-13/er-coap-13.h
+stdint.h
+-
+stddef.h
+-
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/internals.h
+liblwm2m.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/liblwm2m.h
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+stdint.h
+-
+stddef.h
+-
+stdbool.h
+-
+er-coap-13/er-coap-13.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/er-coap-13/er-coap-13.h
+inttypes.h
+-
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/liblwm2m.h
+stdint.h
+-
+stddef.h
+-
+stdbool.h
+-
+time.h
+-
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/registration.c
+internals.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/internals.h
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+limits.h
+-
+

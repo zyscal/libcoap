@@ -80,6 +80,18 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -111,18 +123,6 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -220,6 +220,19 @@ coap-server: cmake_check_build_system
 coap-server/fast:
 	$(MAKE) -f CMakeFiles/coap-server.dir/build.make CMakeFiles/coap-server.dir/build
 .PHONY : coap-server/fast
+
+#=============================================================================
+# Target rules for targets named wakaama_server
+
+# Build rule for target.
+wakaama_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wakaama_server
+.PHONY : wakaama_server
+
+# fast build rule for target.
+wakaama_server/fast:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/build
+.PHONY : wakaama_server/fast
 
 #=============================================================================
 # Target rules for targets named QoS_analyzer
@@ -461,6 +474,654 @@ my_libcoap/QoS_organizer.s: my_libcoap/QoS_organizer.c.s
 my_libcoap/QoS_organizer.c.s:
 	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.s
 .PHONY : my_libcoap/QoS_organizer.c.s
+
+my_libcoap/core/block1.o: my_libcoap/core/block1.c.o
+
+.PHONY : my_libcoap/core/block1.o
+
+# target to build an object file
+my_libcoap/core/block1.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o
+.PHONY : my_libcoap/core/block1.c.o
+
+my_libcoap/core/block1.i: my_libcoap/core/block1.c.i
+
+.PHONY : my_libcoap/core/block1.i
+
+# target to preprocess a source file
+my_libcoap/core/block1.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.i
+.PHONY : my_libcoap/core/block1.c.i
+
+my_libcoap/core/block1.s: my_libcoap/core/block1.c.s
+
+.PHONY : my_libcoap/core/block1.s
+
+# target to generate assembly for a file
+my_libcoap/core/block1.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.s
+.PHONY : my_libcoap/core/block1.c.s
+
+my_libcoap/core/bootstrap.o: my_libcoap/core/bootstrap.c.o
+
+.PHONY : my_libcoap/core/bootstrap.o
+
+# target to build an object file
+my_libcoap/core/bootstrap.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o
+.PHONY : my_libcoap/core/bootstrap.c.o
+
+my_libcoap/core/bootstrap.i: my_libcoap/core/bootstrap.c.i
+
+.PHONY : my_libcoap/core/bootstrap.i
+
+# target to preprocess a source file
+my_libcoap/core/bootstrap.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.i
+.PHONY : my_libcoap/core/bootstrap.c.i
+
+my_libcoap/core/bootstrap.s: my_libcoap/core/bootstrap.c.s
+
+.PHONY : my_libcoap/core/bootstrap.s
+
+# target to generate assembly for a file
+my_libcoap/core/bootstrap.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.s
+.PHONY : my_libcoap/core/bootstrap.c.s
+
+my_libcoap/core/data.o: my_libcoap/core/data.c.o
+
+.PHONY : my_libcoap/core/data.o
+
+# target to build an object file
+my_libcoap/core/data.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o
+.PHONY : my_libcoap/core/data.c.o
+
+my_libcoap/core/data.i: my_libcoap/core/data.c.i
+
+.PHONY : my_libcoap/core/data.i
+
+# target to preprocess a source file
+my_libcoap/core/data.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.i
+.PHONY : my_libcoap/core/data.c.i
+
+my_libcoap/core/data.s: my_libcoap/core/data.c.s
+
+.PHONY : my_libcoap/core/data.s
+
+# target to generate assembly for a file
+my_libcoap/core/data.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.s
+.PHONY : my_libcoap/core/data.c.s
+
+my_libcoap/core/discover.o: my_libcoap/core/discover.c.o
+
+.PHONY : my_libcoap/core/discover.o
+
+# target to build an object file
+my_libcoap/core/discover.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o
+.PHONY : my_libcoap/core/discover.c.o
+
+my_libcoap/core/discover.i: my_libcoap/core/discover.c.i
+
+.PHONY : my_libcoap/core/discover.i
+
+# target to preprocess a source file
+my_libcoap/core/discover.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.i
+.PHONY : my_libcoap/core/discover.c.i
+
+my_libcoap/core/discover.s: my_libcoap/core/discover.c.s
+
+.PHONY : my_libcoap/core/discover.s
+
+# target to generate assembly for a file
+my_libcoap/core/discover.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.s
+.PHONY : my_libcoap/core/discover.c.s
+
+my_libcoap/core/er-coap-13/er-coap-13.o: my_libcoap/core/er-coap-13/er-coap-13.c.o
+
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.o
+
+# target to build an object file
+my_libcoap/core/er-coap-13/er-coap-13.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.c.o
+
+my_libcoap/core/er-coap-13/er-coap-13.i: my_libcoap/core/er-coap-13/er-coap-13.c.i
+
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.i
+
+# target to preprocess a source file
+my_libcoap/core/er-coap-13/er-coap-13.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.i
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.c.i
+
+my_libcoap/core/er-coap-13/er-coap-13.s: my_libcoap/core/er-coap-13/er-coap-13.c.s
+
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.s
+
+# target to generate assembly for a file
+my_libcoap/core/er-coap-13/er-coap-13.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.s
+.PHONY : my_libcoap/core/er-coap-13/er-coap-13.c.s
+
+my_libcoap/core/json.o: my_libcoap/core/json.c.o
+
+.PHONY : my_libcoap/core/json.o
+
+# target to build an object file
+my_libcoap/core/json.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o
+.PHONY : my_libcoap/core/json.c.o
+
+my_libcoap/core/json.i: my_libcoap/core/json.c.i
+
+.PHONY : my_libcoap/core/json.i
+
+# target to preprocess a source file
+my_libcoap/core/json.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.i
+.PHONY : my_libcoap/core/json.c.i
+
+my_libcoap/core/json.s: my_libcoap/core/json.c.s
+
+.PHONY : my_libcoap/core/json.s
+
+# target to generate assembly for a file
+my_libcoap/core/json.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.s
+.PHONY : my_libcoap/core/json.c.s
+
+my_libcoap/core/json_common.o: my_libcoap/core/json_common.c.o
+
+.PHONY : my_libcoap/core/json_common.o
+
+# target to build an object file
+my_libcoap/core/json_common.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o
+.PHONY : my_libcoap/core/json_common.c.o
+
+my_libcoap/core/json_common.i: my_libcoap/core/json_common.c.i
+
+.PHONY : my_libcoap/core/json_common.i
+
+# target to preprocess a source file
+my_libcoap/core/json_common.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.i
+.PHONY : my_libcoap/core/json_common.c.i
+
+my_libcoap/core/json_common.s: my_libcoap/core/json_common.c.s
+
+.PHONY : my_libcoap/core/json_common.s
+
+# target to generate assembly for a file
+my_libcoap/core/json_common.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.s
+.PHONY : my_libcoap/core/json_common.c.s
+
+my_libcoap/core/liblwm2m.o: my_libcoap/core/liblwm2m.c.o
+
+.PHONY : my_libcoap/core/liblwm2m.o
+
+# target to build an object file
+my_libcoap/core/liblwm2m.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o
+.PHONY : my_libcoap/core/liblwm2m.c.o
+
+my_libcoap/core/liblwm2m.i: my_libcoap/core/liblwm2m.c.i
+
+.PHONY : my_libcoap/core/liblwm2m.i
+
+# target to preprocess a source file
+my_libcoap/core/liblwm2m.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.i
+.PHONY : my_libcoap/core/liblwm2m.c.i
+
+my_libcoap/core/liblwm2m.s: my_libcoap/core/liblwm2m.c.s
+
+.PHONY : my_libcoap/core/liblwm2m.s
+
+# target to generate assembly for a file
+my_libcoap/core/liblwm2m.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.s
+.PHONY : my_libcoap/core/liblwm2m.c.s
+
+my_libcoap/core/list.o: my_libcoap/core/list.c.o
+
+.PHONY : my_libcoap/core/list.o
+
+# target to build an object file
+my_libcoap/core/list.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o
+.PHONY : my_libcoap/core/list.c.o
+
+my_libcoap/core/list.i: my_libcoap/core/list.c.i
+
+.PHONY : my_libcoap/core/list.i
+
+# target to preprocess a source file
+my_libcoap/core/list.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.i
+.PHONY : my_libcoap/core/list.c.i
+
+my_libcoap/core/list.s: my_libcoap/core/list.c.s
+
+.PHONY : my_libcoap/core/list.s
+
+# target to generate assembly for a file
+my_libcoap/core/list.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.s
+.PHONY : my_libcoap/core/list.c.s
+
+my_libcoap/core/management.o: my_libcoap/core/management.c.o
+
+.PHONY : my_libcoap/core/management.o
+
+# target to build an object file
+my_libcoap/core/management.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o
+.PHONY : my_libcoap/core/management.c.o
+
+my_libcoap/core/management.i: my_libcoap/core/management.c.i
+
+.PHONY : my_libcoap/core/management.i
+
+# target to preprocess a source file
+my_libcoap/core/management.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.i
+.PHONY : my_libcoap/core/management.c.i
+
+my_libcoap/core/management.s: my_libcoap/core/management.c.s
+
+.PHONY : my_libcoap/core/management.s
+
+# target to generate assembly for a file
+my_libcoap/core/management.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.s
+.PHONY : my_libcoap/core/management.c.s
+
+my_libcoap/core/objects.o: my_libcoap/core/objects.c.o
+
+.PHONY : my_libcoap/core/objects.o
+
+# target to build an object file
+my_libcoap/core/objects.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o
+.PHONY : my_libcoap/core/objects.c.o
+
+my_libcoap/core/objects.i: my_libcoap/core/objects.c.i
+
+.PHONY : my_libcoap/core/objects.i
+
+# target to preprocess a source file
+my_libcoap/core/objects.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.i
+.PHONY : my_libcoap/core/objects.c.i
+
+my_libcoap/core/objects.s: my_libcoap/core/objects.c.s
+
+.PHONY : my_libcoap/core/objects.s
+
+# target to generate assembly for a file
+my_libcoap/core/objects.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.s
+.PHONY : my_libcoap/core/objects.c.s
+
+my_libcoap/core/observe.o: my_libcoap/core/observe.c.o
+
+.PHONY : my_libcoap/core/observe.o
+
+# target to build an object file
+my_libcoap/core/observe.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o
+.PHONY : my_libcoap/core/observe.c.o
+
+my_libcoap/core/observe.i: my_libcoap/core/observe.c.i
+
+.PHONY : my_libcoap/core/observe.i
+
+# target to preprocess a source file
+my_libcoap/core/observe.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.i
+.PHONY : my_libcoap/core/observe.c.i
+
+my_libcoap/core/observe.s: my_libcoap/core/observe.c.s
+
+.PHONY : my_libcoap/core/observe.s
+
+# target to generate assembly for a file
+my_libcoap/core/observe.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.s
+.PHONY : my_libcoap/core/observe.c.s
+
+my_libcoap/core/packet.o: my_libcoap/core/packet.c.o
+
+.PHONY : my_libcoap/core/packet.o
+
+# target to build an object file
+my_libcoap/core/packet.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o
+.PHONY : my_libcoap/core/packet.c.o
+
+my_libcoap/core/packet.i: my_libcoap/core/packet.c.i
+
+.PHONY : my_libcoap/core/packet.i
+
+# target to preprocess a source file
+my_libcoap/core/packet.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.i
+.PHONY : my_libcoap/core/packet.c.i
+
+my_libcoap/core/packet.s: my_libcoap/core/packet.c.s
+
+.PHONY : my_libcoap/core/packet.s
+
+# target to generate assembly for a file
+my_libcoap/core/packet.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.s
+.PHONY : my_libcoap/core/packet.c.s
+
+my_libcoap/core/registration.o: my_libcoap/core/registration.c.o
+
+.PHONY : my_libcoap/core/registration.o
+
+# target to build an object file
+my_libcoap/core/registration.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o
+.PHONY : my_libcoap/core/registration.c.o
+
+my_libcoap/core/registration.i: my_libcoap/core/registration.c.i
+
+.PHONY : my_libcoap/core/registration.i
+
+# target to preprocess a source file
+my_libcoap/core/registration.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.i
+.PHONY : my_libcoap/core/registration.c.i
+
+my_libcoap/core/registration.s: my_libcoap/core/registration.c.s
+
+.PHONY : my_libcoap/core/registration.s
+
+# target to generate assembly for a file
+my_libcoap/core/registration.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.s
+.PHONY : my_libcoap/core/registration.c.s
+
+my_libcoap/core/senml_json.o: my_libcoap/core/senml_json.c.o
+
+.PHONY : my_libcoap/core/senml_json.o
+
+# target to build an object file
+my_libcoap/core/senml_json.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o
+.PHONY : my_libcoap/core/senml_json.c.o
+
+my_libcoap/core/senml_json.i: my_libcoap/core/senml_json.c.i
+
+.PHONY : my_libcoap/core/senml_json.i
+
+# target to preprocess a source file
+my_libcoap/core/senml_json.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.i
+.PHONY : my_libcoap/core/senml_json.c.i
+
+my_libcoap/core/senml_json.s: my_libcoap/core/senml_json.c.s
+
+.PHONY : my_libcoap/core/senml_json.s
+
+# target to generate assembly for a file
+my_libcoap/core/senml_json.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.s
+.PHONY : my_libcoap/core/senml_json.c.s
+
+my_libcoap/core/tlv.o: my_libcoap/core/tlv.c.o
+
+.PHONY : my_libcoap/core/tlv.o
+
+# target to build an object file
+my_libcoap/core/tlv.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o
+.PHONY : my_libcoap/core/tlv.c.o
+
+my_libcoap/core/tlv.i: my_libcoap/core/tlv.c.i
+
+.PHONY : my_libcoap/core/tlv.i
+
+# target to preprocess a source file
+my_libcoap/core/tlv.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.i
+.PHONY : my_libcoap/core/tlv.c.i
+
+my_libcoap/core/tlv.s: my_libcoap/core/tlv.c.s
+
+.PHONY : my_libcoap/core/tlv.s
+
+# target to generate assembly for a file
+my_libcoap/core/tlv.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.s
+.PHONY : my_libcoap/core/tlv.c.s
+
+my_libcoap/core/transaction.o: my_libcoap/core/transaction.c.o
+
+.PHONY : my_libcoap/core/transaction.o
+
+# target to build an object file
+my_libcoap/core/transaction.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o
+.PHONY : my_libcoap/core/transaction.c.o
+
+my_libcoap/core/transaction.i: my_libcoap/core/transaction.c.i
+
+.PHONY : my_libcoap/core/transaction.i
+
+# target to preprocess a source file
+my_libcoap/core/transaction.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.i
+.PHONY : my_libcoap/core/transaction.c.i
+
+my_libcoap/core/transaction.s: my_libcoap/core/transaction.c.s
+
+.PHONY : my_libcoap/core/transaction.s
+
+# target to generate assembly for a file
+my_libcoap/core/transaction.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.s
+.PHONY : my_libcoap/core/transaction.c.s
+
+my_libcoap/core/uri.o: my_libcoap/core/uri.c.o
+
+.PHONY : my_libcoap/core/uri.o
+
+# target to build an object file
+my_libcoap/core/uri.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o
+.PHONY : my_libcoap/core/uri.c.o
+
+my_libcoap/core/uri.i: my_libcoap/core/uri.c.i
+
+.PHONY : my_libcoap/core/uri.i
+
+# target to preprocess a source file
+my_libcoap/core/uri.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.i
+.PHONY : my_libcoap/core/uri.c.i
+
+my_libcoap/core/uri.s: my_libcoap/core/uri.c.s
+
+.PHONY : my_libcoap/core/uri.s
+
+# target to generate assembly for a file
+my_libcoap/core/uri.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.s
+.PHONY : my_libcoap/core/uri.c.s
+
+my_libcoap/core/utils.o: my_libcoap/core/utils.c.o
+
+.PHONY : my_libcoap/core/utils.o
+
+# target to build an object file
+my_libcoap/core/utils.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o
+.PHONY : my_libcoap/core/utils.c.o
+
+my_libcoap/core/utils.i: my_libcoap/core/utils.c.i
+
+.PHONY : my_libcoap/core/utils.i
+
+# target to preprocess a source file
+my_libcoap/core/utils.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.i
+.PHONY : my_libcoap/core/utils.c.i
+
+my_libcoap/core/utils.s: my_libcoap/core/utils.c.s
+
+.PHONY : my_libcoap/core/utils.s
+
+# target to generate assembly for a file
+my_libcoap/core/utils.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.s
+.PHONY : my_libcoap/core/utils.c.s
+
+my_libcoap/lwm2mserver.o: my_libcoap/lwm2mserver.c.o
+
+.PHONY : my_libcoap/lwm2mserver.o
+
+# target to build an object file
+my_libcoap/lwm2mserver.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.o
+.PHONY : my_libcoap/lwm2mserver.c.o
+
+my_libcoap/lwm2mserver.i: my_libcoap/lwm2mserver.c.i
+
+.PHONY : my_libcoap/lwm2mserver.i
+
+# target to preprocess a source file
+my_libcoap/lwm2mserver.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.i
+.PHONY : my_libcoap/lwm2mserver.c.i
+
+my_libcoap/lwm2mserver.s: my_libcoap/lwm2mserver.c.s
+
+.PHONY : my_libcoap/lwm2mserver.s
+
+# target to generate assembly for a file
+my_libcoap/lwm2mserver.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.s
+.PHONY : my_libcoap/lwm2mserver.c.s
+
+my_libcoap/shared/commandline.o: my_libcoap/shared/commandline.c.o
+
+.PHONY : my_libcoap/shared/commandline.o
+
+# target to build an object file
+my_libcoap/shared/commandline.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o
+.PHONY : my_libcoap/shared/commandline.c.o
+
+my_libcoap/shared/commandline.i: my_libcoap/shared/commandline.c.i
+
+.PHONY : my_libcoap/shared/commandline.i
+
+# target to preprocess a source file
+my_libcoap/shared/commandline.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.i
+.PHONY : my_libcoap/shared/commandline.c.i
+
+my_libcoap/shared/commandline.s: my_libcoap/shared/commandline.c.s
+
+.PHONY : my_libcoap/shared/commandline.s
+
+# target to generate assembly for a file
+my_libcoap/shared/commandline.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.s
+.PHONY : my_libcoap/shared/commandline.c.s
+
+my_libcoap/shared/connection.o: my_libcoap/shared/connection.c.o
+
+.PHONY : my_libcoap/shared/connection.o
+
+# target to build an object file
+my_libcoap/shared/connection.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o
+.PHONY : my_libcoap/shared/connection.c.o
+
+my_libcoap/shared/connection.i: my_libcoap/shared/connection.c.i
+
+.PHONY : my_libcoap/shared/connection.i
+
+# target to preprocess a source file
+my_libcoap/shared/connection.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.i
+.PHONY : my_libcoap/shared/connection.c.i
+
+my_libcoap/shared/connection.s: my_libcoap/shared/connection.c.s
+
+.PHONY : my_libcoap/shared/connection.s
+
+# target to generate assembly for a file
+my_libcoap/shared/connection.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.s
+.PHONY : my_libcoap/shared/connection.c.s
+
+my_libcoap/shared/memtrace.o: my_libcoap/shared/memtrace.c.o
+
+.PHONY : my_libcoap/shared/memtrace.o
+
+# target to build an object file
+my_libcoap/shared/memtrace.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o
+.PHONY : my_libcoap/shared/memtrace.c.o
+
+my_libcoap/shared/memtrace.i: my_libcoap/shared/memtrace.c.i
+
+.PHONY : my_libcoap/shared/memtrace.i
+
+# target to preprocess a source file
+my_libcoap/shared/memtrace.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.i
+.PHONY : my_libcoap/shared/memtrace.c.i
+
+my_libcoap/shared/memtrace.s: my_libcoap/shared/memtrace.c.s
+
+.PHONY : my_libcoap/shared/memtrace.s
+
+# target to generate assembly for a file
+my_libcoap/shared/memtrace.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.s
+.PHONY : my_libcoap/shared/memtrace.c.s
+
+my_libcoap/shared/platform.o: my_libcoap/shared/platform.c.o
+
+.PHONY : my_libcoap/shared/platform.o
+
+# target to build an object file
+my_libcoap/shared/platform.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o
+.PHONY : my_libcoap/shared/platform.c.o
+
+my_libcoap/shared/platform.i: my_libcoap/shared/platform.c.i
+
+.PHONY : my_libcoap/shared/platform.i
+
+# target to preprocess a source file
+my_libcoap/shared/platform.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.i
+.PHONY : my_libcoap/shared/platform.c.i
+
+my_libcoap/shared/platform.s: my_libcoap/shared/platform.c.s
+
+.PHONY : my_libcoap/shared/platform.s
+
+# target to generate assembly for a file
+my_libcoap/shared/platform.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.s
+.PHONY : my_libcoap/shared/platform.c.s
 
 src/address.o: src/address.c.o
 
@@ -1118,18 +1779,19 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... install"
 	@echo "... coap-3"
 	@echo "... coap-client"
 	@echo "... coap-rd"
 	@echo "... QoS_organizer"
 	@echo "... coap-server"
+	@echo "... wakaama_server"
 	@echo "... QoS_analyzer"
 	@echo "... tiny"
 	@echo "... etsi_iot_01"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
-	@echo "... install"
 	@echo "... doc_doxygen"
 	@echo "... examples/coap-client.o"
 	@echo "... examples/coap-client.i"
@@ -1152,6 +1814,78 @@ help:
 	@echo "... my_libcoap/QoS_organizer.o"
 	@echo "... my_libcoap/QoS_organizer.i"
 	@echo "... my_libcoap/QoS_organizer.s"
+	@echo "... my_libcoap/core/block1.o"
+	@echo "... my_libcoap/core/block1.i"
+	@echo "... my_libcoap/core/block1.s"
+	@echo "... my_libcoap/core/bootstrap.o"
+	@echo "... my_libcoap/core/bootstrap.i"
+	@echo "... my_libcoap/core/bootstrap.s"
+	@echo "... my_libcoap/core/data.o"
+	@echo "... my_libcoap/core/data.i"
+	@echo "... my_libcoap/core/data.s"
+	@echo "... my_libcoap/core/discover.o"
+	@echo "... my_libcoap/core/discover.i"
+	@echo "... my_libcoap/core/discover.s"
+	@echo "... my_libcoap/core/er-coap-13/er-coap-13.o"
+	@echo "... my_libcoap/core/er-coap-13/er-coap-13.i"
+	@echo "... my_libcoap/core/er-coap-13/er-coap-13.s"
+	@echo "... my_libcoap/core/json.o"
+	@echo "... my_libcoap/core/json.i"
+	@echo "... my_libcoap/core/json.s"
+	@echo "... my_libcoap/core/json_common.o"
+	@echo "... my_libcoap/core/json_common.i"
+	@echo "... my_libcoap/core/json_common.s"
+	@echo "... my_libcoap/core/liblwm2m.o"
+	@echo "... my_libcoap/core/liblwm2m.i"
+	@echo "... my_libcoap/core/liblwm2m.s"
+	@echo "... my_libcoap/core/list.o"
+	@echo "... my_libcoap/core/list.i"
+	@echo "... my_libcoap/core/list.s"
+	@echo "... my_libcoap/core/management.o"
+	@echo "... my_libcoap/core/management.i"
+	@echo "... my_libcoap/core/management.s"
+	@echo "... my_libcoap/core/objects.o"
+	@echo "... my_libcoap/core/objects.i"
+	@echo "... my_libcoap/core/objects.s"
+	@echo "... my_libcoap/core/observe.o"
+	@echo "... my_libcoap/core/observe.i"
+	@echo "... my_libcoap/core/observe.s"
+	@echo "... my_libcoap/core/packet.o"
+	@echo "... my_libcoap/core/packet.i"
+	@echo "... my_libcoap/core/packet.s"
+	@echo "... my_libcoap/core/registration.o"
+	@echo "... my_libcoap/core/registration.i"
+	@echo "... my_libcoap/core/registration.s"
+	@echo "... my_libcoap/core/senml_json.o"
+	@echo "... my_libcoap/core/senml_json.i"
+	@echo "... my_libcoap/core/senml_json.s"
+	@echo "... my_libcoap/core/tlv.o"
+	@echo "... my_libcoap/core/tlv.i"
+	@echo "... my_libcoap/core/tlv.s"
+	@echo "... my_libcoap/core/transaction.o"
+	@echo "... my_libcoap/core/transaction.i"
+	@echo "... my_libcoap/core/transaction.s"
+	@echo "... my_libcoap/core/uri.o"
+	@echo "... my_libcoap/core/uri.i"
+	@echo "... my_libcoap/core/uri.s"
+	@echo "... my_libcoap/core/utils.o"
+	@echo "... my_libcoap/core/utils.i"
+	@echo "... my_libcoap/core/utils.s"
+	@echo "... my_libcoap/lwm2mserver.o"
+	@echo "... my_libcoap/lwm2mserver.i"
+	@echo "... my_libcoap/lwm2mserver.s"
+	@echo "... my_libcoap/shared/commandline.o"
+	@echo "... my_libcoap/shared/commandline.i"
+	@echo "... my_libcoap/shared/commandline.s"
+	@echo "... my_libcoap/shared/connection.o"
+	@echo "... my_libcoap/shared/connection.i"
+	@echo "... my_libcoap/shared/connection.s"
+	@echo "... my_libcoap/shared/memtrace.o"
+	@echo "... my_libcoap/shared/memtrace.i"
+	@echo "... my_libcoap/shared/memtrace.s"
+	@echo "... my_libcoap/shared/platform.o"
+	@echo "... my_libcoap/shared/platform.i"
+	@echo "... my_libcoap/shared/platform.s"
 	@echo "... src/address.o"
 	@echo "... src/address.i"
 	@echo "... src/address.s"

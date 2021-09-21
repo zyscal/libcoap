@@ -26,5 +26,4 @@ CMakeFiles/tiny.dir/examples/tiny.c.o: include/coap3/resource.h
 CMakeFiles/tiny.dir/examples/tiny.c.o: include/coap3/str.h
 CMakeFiles/tiny.dir/examples/tiny.c.o: include/coap3/subscribe.h
 CMakeFiles/tiny.dir/examples/tiny.c.o: include/coap3/uri.h
-CMakeFiles/tiny.dir/examples/tiny.c.o: include/coap3/uthash.h
 

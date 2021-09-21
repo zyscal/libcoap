@@ -20,7 +20,6 @@
 typedef unsigned char method_t;
 
 #define leshan_server_port 5683
-
 #define analyzer_server_port 5800
 #define analyzer_client_port 5900
 #define analyzer_client_port_str "5900"
@@ -29,7 +28,7 @@ typedef unsigned char method_t;
 
 #define organizer_client_port 5700
 #define organizer_client_port_str "5700"
-
+  
 
 coap_context_t *organizer_client_ctx = NULL;
 coap_context_t *organizer_server_ctx = NULL;

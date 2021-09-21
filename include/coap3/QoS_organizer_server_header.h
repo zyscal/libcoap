@@ -154,6 +154,10 @@ static coap_context_t * setup_server_context (void) {
 
   return context;
 }
+
+
+
+
 static void init_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
@@ -163,9 +167,9 @@ static void init_resources (coap_context_t *ctx) {
 
 
 
-// r = coap_resource_init(coap_make_str_const("time"), COAP_RESOURCE_FLAGS_NOTIFY_CON);
-// coap_register_handler(r, COAP_REQUEST_GET, hnd_get_time);
-// coap_add_resource(ctx, r);
+  // r = coap_resource_init(coap_make_str_const("time"), COAP_RESOURCE_FLAGS_NOTIFY_CON);
+  // coap_register_handler(r, COAP_REQUEST_GET, hnd_get_time);
+  // coap_add_resource(ctx, r);
 
   // coap_resource_t *test;
   // test = coap_resource_unknown_init(hnd_unknown_put);

@@ -27,5 +27,4 @@ CMakeFiles/coap-client.dir/examples/coap-client.c.o: include/coap3/resource.h
 CMakeFiles/coap-client.dir/examples/coap-client.c.o: include/coap3/str.h
 CMakeFiles/coap-client.dir/examples/coap-client.c.o: include/coap3/subscribe.h
 CMakeFiles/coap-client.dir/examples/coap-client.c.o: include/coap3/uri.h
-CMakeFiles/coap-client.dir/examples/coap-client.c.o: include/coap3/uthash.h
 

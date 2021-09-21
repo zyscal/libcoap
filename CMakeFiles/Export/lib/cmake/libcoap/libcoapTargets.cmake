@@ -54,7 +54,7 @@ endif()
 add_library(libcoap::coap-3 STATIC IMPORTED)
 
 set_target_properties(libcoap::coap-3 PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include/;\$<\$<BOOL:ON>:/home/zyscal/Documents/CoAP over TCP/libcoap/include/tinydtls>;\$<\$<BOOL:>:GNUTLS_INCLUDE_DIR-NOTFOUND>;\$<\$<BOOL:>:>"
+  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include/;\$<\$<AND:\$<BOOL:>,\$<BOOL:ON>>:/home/zyscal/Documents/CoAP over TCP/libcoap/include/tinydtls>;\$<\$<BOOL:>:GNUTLS_INCLUDE_DIR-NOTFOUND>;\$<\$<BOOL:>:>"
   INTERFACE_LINK_LIBRARIES "\$<\$<BOOL:1>:OpenSSL::SSL>;\$<\$<BOOL:1>:OpenSSL::Crypto>;\$<\$<BOOL:>:>;\$<\$<BOOL:>:tinydtls>;\$<\$<BOOL:>:>;\$<\$<BOOL:>:>;\$<\$<BOOL:>:>"
 )
 

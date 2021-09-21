@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_FLAGS = -g  
 
-C_DEFINES = 
+C_DEFINES = -DLWM2M_LITTLE_ENDIAN -DLWM2M_SERVER_MODE -DLWM2M_WITH_LOGS
 
-C_INCLUDES = -I"/home/zyscal/Documents/CoAP over TCP/libcoap" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/include" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/include/tinydtls" 
+C_INCLUDES = -I"/home/zyscal/Documents/CoAP over TCP/libcoap" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/include" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared" 
 

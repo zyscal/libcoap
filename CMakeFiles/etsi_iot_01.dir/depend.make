@@ -26,5 +26,4 @@ CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o: include/coap3/resource.h
 CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o: include/coap3/str.h
 CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o: include/coap3/subscribe.h
 CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o: include/coap3/uri.h
-CMakeFiles/etsi_iot_01.dir/examples/etsi_iot_01.c.o: include/coap3/uthash.h
 

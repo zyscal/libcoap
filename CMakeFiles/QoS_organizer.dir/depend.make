@@ -30,5 +30,4 @@ CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o: include/coap3/resourc
 CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o: include/coap3/str.h
 CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o: include/coap3/subscribe.h
 CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o: include/coap3/uri.h
-CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o: include/coap3/uthash.h
 

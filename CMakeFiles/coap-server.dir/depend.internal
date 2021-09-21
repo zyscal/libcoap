@@ -28,4 +28,3 @@ CMakeFiles/coap-server.dir/examples/coap-server.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
- include/coap3/uthash.h

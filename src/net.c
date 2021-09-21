@@ -575,8 +575,8 @@ coap_new_context(
       coap_free_context(c);
       return NULL;
     }
-  }
-
+  }  
+     
   /* set default CSM timeout */
   c->csm_timeout = 30;
 
@@ -747,11 +747,7 @@ coap_option_check_critical(coap_context_t *ctx,
 }
 
 coap_mid_t
-<<<<<<< HEAD
- coap_send_ack(coap_session_t *session, coap_pdu_t *request) {
-=======
 coap_send_ack(coap_session_t *session, const coap_pdu_t *request) {
->>>>>>> 30fead8cf7c622e29f62ad41f368b6457acb062c
   coap_pdu_t *response;
   coap_mid_t result = COAP_INVALID_MID;
 

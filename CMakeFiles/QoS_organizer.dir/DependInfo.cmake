@@ -8,11 +8,19 @@ set(CMAKE_DEPENDS_CHECK_C
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_C
+  "LWM2M_LITTLE_ENDIAN"
+  "LWM2M_SERVER_MODE"
+  "LWM2M_WITH_LOGS"
+  )
+
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "my_libcoap/core"
+  "my_libcoap/shared"
   "."
   "include"
-  "include/tinydtls"
   )
 
 # Targets to which this target links.

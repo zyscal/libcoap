@@ -31,4 +31,3 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
- include/coap3/uthash.h
