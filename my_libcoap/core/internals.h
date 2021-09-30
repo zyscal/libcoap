@@ -298,24 +298,24 @@ lwm2m_transaction_t * transaction_new(void * sessionH, coap_method_t method, cha
 int transaction_send(lwm2m_context_t * contextP, lwm2m_transaction_t * transacP);
 void transaction_free(lwm2m_transaction_t * transacP);
 void transaction_remove(lwm2m_context_t * contextP, lwm2m_transaction_t * transacP);
-bool transaction_handleResponse(lwm2m_context_t * contextP, void * fromSessionH, coap_packet_t * message, coap_packet_t * response);
+bool transaction_handleResponse(lwm2m_context_t * contextP, void * fromSessionH, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 void transaction_step(lwm2m_context_t * contextP, time_t currentTime, time_t * timeoutP);
 
 // defined in management.c
-uint8_t dm_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, coap_packet_t * message, coap_packet_t * response);
+uint8_t dm_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 
 // defined in observe.c
-uint8_t observe_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, int size, lwm2m_data_t * dataP, coap_packet_t * message, coap_packet_t * response);
+uint8_t observe_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, int size, lwm2m_data_t * dataP, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 void observe_cancel(lwm2m_context_t * contextP, uint16_t mid, void * fromSessionH);
 uint8_t observe_setParameters(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, lwm2m_attributes_t * attrP);
 void observe_step(lwm2m_context_t * contextP, time_t currentTime, time_t * timeoutP);
 void observe_clear(lwm2m_context_t * contextP, lwm2m_uri_t * uriP);
-bool observe_handleNotify(lwm2m_context_t * contextP, void * fromSessionH, coap_packet_t * message, coap_packet_t * response);
+bool observe_handleNotify(lwm2m_context_t * contextP, void * fromSessionH, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 void observe_remove(lwm2m_observation_t * observationP);
 lwm2m_observed_t * observe_findByUri(lwm2m_context_t * contextP, lwm2m_uri_t * uriP);
 
 // defined in registration.c
-uint8_t registration_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, void * fromSessionH, coap_packet_t * message, coap_packet_t * response);
+uint8_t registration_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, void * fromSessionH, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 void registration_deregister(lwm2m_context_t * contextP, lwm2m_server_t * serverP);
 void registration_freeClient(lwm2m_client_t * clientP);
 uint8_t registration_start(lwm2m_context_t * contextP, bool restartFailed);
@@ -323,14 +323,14 @@ void registration_step(lwm2m_context_t * contextP, time_t currentTime, time_t * 
 lwm2m_status_t registration_getStatus(lwm2m_context_t * contextP);
 
 // defined in packet.c
-uint8_t message_send(lwm2m_context_t * contextP, coap_packet_t * message, void * sessionH);
+uint8_t message_send(lwm2m_context_t * contextP, coap_packet_t_wakaama * message, void * sessionH);
 
 // defined in bootstrap.c
 void bootstrap_step(lwm2m_context_t * contextP, time_t currentTime, time_t* timeoutP);
-uint8_t bootstrap_handleCommand(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, coap_packet_t * message, coap_packet_t * response);
+uint8_t bootstrap_handleCommand(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, lwm2m_server_t * serverP, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 uint8_t bootstrap_handleDeleteAll(lwm2m_context_t * context, void * fromSessionH);
 uint8_t bootstrap_handleFinish(lwm2m_context_t * context, void * fromSessionH);
-uint8_t bootstrap_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, void * fromSessionH, coap_packet_t * message, coap_packet_t * response);
+uint8_t bootstrap_handleRequest(lwm2m_context_t * contextP, lwm2m_uri_t * uriP, void * fromSessionH, coap_packet_t_wakaama * message, coap_packet_t_wakaama * response);
 void bootstrap_start(lwm2m_context_t * contextP);
 lwm2m_status_t bootstrap_getStatus(lwm2m_context_t * contextP);
 

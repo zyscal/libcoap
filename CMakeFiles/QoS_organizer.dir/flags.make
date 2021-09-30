@@ -6,5 +6,5 @@ C_FLAGS = -g   -pedantic -Wall -Wcast-qual -Wextra -Wformat-security -Winline -W
 
 C_DEFINES = -DLWM2M_LITTLE_ENDIAN -DLWM2M_SERVER_MODE -DLWM2M_WITH_LOGS
 
-C_INCLUDES = -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared" -I"/home/zyscal/Documents/CoAP over TCP/libcoap" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/include" 
+C_INCLUDES = -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server_header.h" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h" -I"/home/zyscal/Documents/CoAP over TCP/libcoap" -I"/home/zyscal/Documents/CoAP over TCP/libcoap/include" 
 

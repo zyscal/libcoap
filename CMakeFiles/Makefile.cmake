@@ -80,7 +80,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/coap-3.dir/DependInfo.cmake"
   "CMakeFiles/coap-client.dir/DependInfo.cmake"
   "CMakeFiles/coap-rd.dir/DependInfo.cmake"
-  "CMakeFiles/QoS_organizer.dir/DependInfo.cmake"
   "CMakeFiles/coap-server.dir/DependInfo.cmake"
   "CMakeFiles/wakaama_server.dir/DependInfo.cmake"
   "CMakeFiles/QoS_analyzer.dir/DependInfo.cmake"

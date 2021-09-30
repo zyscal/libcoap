@@ -56,7 +56,6 @@ CMAKE_BINARY_DIR = "/home/zyscal/Documents/CoAP over TCP/libcoap"
 all: CMakeFiles/coap-3.dir/all
 all: CMakeFiles/coap-client.dir/all
 all: CMakeFiles/coap-rd.dir/all
-all: CMakeFiles/QoS_organizer.dir/all
 all: CMakeFiles/coap-server.dir/all
 all: CMakeFiles/wakaama_server.dir/all
 all: CMakeFiles/QoS_analyzer.dir/all
@@ -75,7 +74,6 @@ preinstall:
 clean: CMakeFiles/coap-3.dir/clean
 clean: CMakeFiles/coap-client.dir/clean
 clean: CMakeFiles/coap-rd.dir/clean
-clean: CMakeFiles/QoS_organizer.dir/clean
 clean: CMakeFiles/coap-server.dir/clean
 clean: CMakeFiles/wakaama_server.dir/clean
 clean: CMakeFiles/QoS_analyzer.dir/clean
@@ -167,33 +165,6 @@ CMakeFiles/coap-rd.dir/clean:
 .PHONY : CMakeFiles/coap-rd.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/QoS_organizer.dir
-
-# All Build rule for target.
-CMakeFiles/QoS_organizer.dir/all: CMakeFiles/coap-3.dir/all
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/depend
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=3,4 "Built target QoS_organizer"
-.PHONY : CMakeFiles/QoS_organizer.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/QoS_organizer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 27
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/QoS_organizer.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 0
-.PHONY : CMakeFiles/QoS_organizer.dir/rule
-
-# Convenience name for target.
-QoS_organizer: CMakeFiles/QoS_organizer.dir/rule
-
-.PHONY : QoS_organizer
-
-# clean rule for target.
-CMakeFiles/QoS_organizer.dir/clean:
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/clean
-.PHONY : CMakeFiles/QoS_organizer.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/coap-server.dir
 
 # All Build rule for target.
@@ -224,15 +195,15 @@ CMakeFiles/coap-server.dir/clean:
 # Target rules for target CMakeFiles/wakaama_server.dir
 
 # All Build rule for target.
-CMakeFiles/wakaama_server.dir/all:
+CMakeFiles/wakaama_server.dir/all: CMakeFiles/coap-3.dir/all
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/depend
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65 "Built target wakaama_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68 "Built target wakaama_server"
 .PHONY : CMakeFiles/wakaama_server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/wakaama_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 25
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 53
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/wakaama_server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 0
 .PHONY : CMakeFiles/wakaama_server.dir/rule
@@ -254,12 +225,12 @@ CMakeFiles/wakaama_server.dir/clean:
 CMakeFiles/QoS_analyzer.dir/all: CMakeFiles/coap-3.dir/all
 	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/depend
 	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=1,2 "Built target QoS_analyzer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=1,2,3,4 "Built target QoS_analyzer"
 .PHONY : CMakeFiles/QoS_analyzer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/QoS_analyzer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 27
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 29
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/QoS_analyzer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" 0
 .PHONY : CMakeFiles/QoS_analyzer.dir/rule

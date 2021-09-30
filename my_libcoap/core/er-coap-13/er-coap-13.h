@@ -172,14 +172,14 @@ typedef enum {
   COAP_OPTION_MAX_AGE = 14,       /* 0-4 B */
   COAP_OPTION_URI_QUERY = 15,     /* 0-270 B */
   COAP_OPTION_ACCEPT = 17,        /* 0-2 B */
-  COAP_OPTION_TOKEN = 19,         /* 1-8 B */
+  coap_option_t_wakaamaOKEN = 19,         /* 1-8 B */
   COAP_OPTION_LOCATION_QUERY = 20, /* 1-270 B */
   COAP_OPTION_BLOCK2 = 23,        /* 1-3 B */
   COAP_OPTION_BLOCK1 = 27,        /* 1-3 B */
   COAP_OPTION_SIZE = 28,          /* 0-4 B */
   COAP_OPTION_PROXY_URI = 35,     /* 1-270 B */
   OPTION_MAX_VALUE = 0xFFFF
-} coap_option_t;
+} coap_option_t_wakaama;
 
 /* CoAP Content-Types */
 typedef enum {
@@ -261,7 +261,7 @@ typedef struct {
   uint16_t payload_len;
   uint8_t *payload;
 
-} coap_packet_t;
+} coap_packet_t_wakaama;
 
 /* Option format serialization*/
 #define COAP_SERIALIZE_INT_OPTION(number, field, text)  \

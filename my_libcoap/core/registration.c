@@ -615,7 +615,7 @@ static void prv_handleRegistrationReply(lwm2m_context_t * contextP,
                                         lwm2m_transaction_t * transacP,
                                         void * message)
 {
-    coap_packet_t * packet = (coap_packet_t *)message;
+    coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
     lwm2m_server_t * targetP = (lwm2m_server_t *)(transacP->userData);
 
 #ifdef LWM2M_VERSION_1_0
@@ -779,7 +779,7 @@ static void prv_handleRegistrationUpdateReply(lwm2m_context_t * contextP,
                                               lwm2m_transaction_t * transacP,
                                               void * message)
 {
-    coap_packet_t * packet = (coap_packet_t *)message;
+    coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
     lwm2m_server_t * targetP = (lwm2m_server_t *)(transacP->userData);
 
     (void)contextP; /* unused */
@@ -1582,8 +1582,8 @@ static int prv_getLocationString(uint16_t id,
 uint8_t registration_handleRequest(lwm2m_context_t * contextP,
                                    lwm2m_uri_t * uriP,
                                    void * fromSessionH,
-                                   coap_packet_t * message,
-                                   coap_packet_t * response)
+                                   coap_packet_t_wakaama * message,
+                                   coap_packet_t_wakaama * response)
 {
     uint8_t result;
     time_t tv_sec;

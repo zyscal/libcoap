@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o"
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o"
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o"
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o"
@@ -18,7 +22,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o"
-  "CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o"

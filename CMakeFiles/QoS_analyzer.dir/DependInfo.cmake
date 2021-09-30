@@ -4,7 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -19,6 +21,12 @@ set(CMAKE_TARGET_DEFINITIONS_C
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "my_libcoap/core"
   "my_libcoap/shared"
+  "my_libcoap/QoS_organizer_analyzer_port.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_server_header.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_client_header.h"
+  "my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h"
   "."
   "include"
   )

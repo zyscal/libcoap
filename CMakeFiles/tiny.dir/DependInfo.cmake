@@ -19,6 +19,12 @@ set(CMAKE_TARGET_DEFINITIONS_C
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "my_libcoap/core"
   "my_libcoap/shared"
+  "my_libcoap/QoS_organizer_analyzer_port.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_server_header.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_client_header.h"
+  "my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h"
   "."
   "include"
   )

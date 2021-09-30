@@ -162,8 +162,8 @@ static int prv_readAttributes(multi_option_t * query,
 uint8_t dm_handleRequest(lwm2m_context_t * contextP,
                          lwm2m_uri_t * uriP,
                          lwm2m_server_t * serverP,
-                         coap_packet_t * message,
-                         coap_packet_t * response)
+                         coap_packet_t_wakaama * message,
+                         coap_packet_t_wakaama * response)
 {
     uint8_t result;
     lwm2m_media_type_t format;
@@ -378,7 +378,7 @@ static void prv_resultCallback(lwm2m_context_t * contextP,
     }
     else
     {
-        coap_packet_t * packet = (coap_packet_t *)message;
+        coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
 
         //if packet is a CREATE response and the instanceId was assigned by the client
         if (packet->code == COAP_201_CREATED
@@ -611,7 +611,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
 #define _PRV_BUFFER_SIZE 32
     lwm2m_client_t * clientP;
     lwm2m_transaction_t * transaction;
-    coap_packet_t * coap_pkt;
+    coap_packet_t_wakaama * coap_pkt;
     uint8_t buffer[_PRV_BUFFER_SIZE];
     size_t length;
 
@@ -649,7 +649,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         transaction->userData = (void *)dataP;
     }
 
-    coap_pkt = (coap_packet_t *)transaction->message;
+    coap_pkt = (coap_packet_t_wakaama *)transaction->message;
     free_multi_option(coap_pkt->uri_query);
     if (attrP->toSet & LWM2M_ATTR_FLAG_MIN_PERIOD)
     {

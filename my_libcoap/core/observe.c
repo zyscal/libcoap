@@ -162,8 +162,8 @@ uint8_t observe_handleRequest(lwm2m_context_t * contextP,
                               lwm2m_server_t * serverP,
                               int size,
                               lwm2m_data_t * dataP,
-                              coap_packet_t * message,
-                              coap_packet_t * response)
+                              coap_packet_t_wakaama * message,
+                              coap_packet_t_wakaama * response)
 {
     lwm2m_observed_t * observedP;
     lwm2m_watcher_t * watcherP;
@@ -522,7 +522,7 @@ void observe_step(lwm2m_context_t * contextP,
         int64_t integerValue = 0;
         uint64_t unsignedValue = 0;
         bool storeValue = false;
-        coap_packet_t message[1];
+        coap_packet_t_wakaama message[1];
         time_t interval;
 
         // TODO: handle resource instances
@@ -889,7 +889,7 @@ static void prv_obsRequestCallback(lwm2m_context_t * contextP,
 {
     lwm2m_observation_t * observationP = NULL;
     observation_data_t * observationData = (observation_data_t *)transacP->userData;
-    coap_packet_t * packet = (coap_packet_t *)message;
+    coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
     uint8_t code;
     lwm2m_client_t * clientP;
     lwm2m_uri_t * uriP = & observationData->uri;
@@ -984,7 +984,7 @@ static void prv_obsCancelRequestCallback(lwm2m_context_t * contextP,
                                          void * message)
 {
     cancellation_data_t * cancelP = (cancellation_data_t *)transacP->userData;
-    coap_packet_t * packet = (coap_packet_t *)message;
+    coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
     uint8_t code;
     lwm2m_client_t * clientP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)cancelP->contextP->clientList, cancelP->client);
 
@@ -1195,8 +1195,8 @@ int lwm2m_observe_cancel(lwm2m_context_t * contextP,
 
 bool observe_handleNotify(lwm2m_context_t * contextP,
                            void * fromSessionH,
-                           coap_packet_t * message,
-        				   coap_packet_t * response)
+                           coap_packet_t_wakaama * message,
+        				   coap_packet_t_wakaama * response)
 {
     uint8_t * tokenP;
     int token_len;

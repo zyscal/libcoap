@@ -1,6 +1,6 @@
-#include<coap3/QoS_analyzer_client_header.h>
-#include<coap3/QoS_analyzer_server_header.h>
-#include<coap3/QoS_organizer_analyzer_port.h>
+#include "QoS_analyzer_client_header.h"
+#include "QoS_analyzer_server_header.h"
+
 #include<coap3/coap.h>
 #include<stdio.h>
 #include <string.h>
@@ -13,7 +13,11 @@
 #include<netdb.h>
 #include <netinet/in.h>
 #include <errno.h>
-
+coap_context_t *analyzer_client_ctx;
+coap_context_t *analyzer_server_ctx;
+coap_session_t *analyzer_client_session;
+pthread_mutex_t analyzer_mutex;
+int len_analyer_received;
 void* analyzer_client(void* arg)
 {
       
@@ -42,6 +46,8 @@ void* analyzer_client(void* arg)
   );
     if ( !analyzer_client_session ) {
     printf("cannot create client analyzer_client_session\n");
+  } else {
+    printf("create analyzer_client_session success!\n");
   }
   coap_register_response_handler(analyzer_client_ctx, message_handler);
 
@@ -68,7 +74,7 @@ void* analyzer_client(void* arg)
 
 int main()
 {
-
+    pthread_mutex_init(&analyzer_mutex,NULL);
     pthread_t tids[0];
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)

@@ -115,18 +115,18 @@ Contains code snippets which are:
 #define COAP_RESPONSE_TIMEOUT_BACKOFF_MASK  ((CLOCK_SECOND * COAP_RESPONSE_TIMEOUT * (COAP_RESPONSE_RANDOM_FACTOR - 1)) + 1.5)
 
 static int prv_checkFinished(lwm2m_transaction_t * transacP,
-                             coap_packet_t * receivedMessage)
+                             coap_packet_t_wakaama * receivedMessage)
 {
     int len;
     uint8_t* token;
-    coap_packet_t * transactionMessage = transacP->message;
+    coap_packet_t_wakaama * transactionMessage = transacP->message;
 
     if (COAP_DELETE < transactionMessage->code)
     {
         // response
         return transacP->ack_received ? 1 : 0;
     }
-    if (!IS_OPTION(transactionMessage, COAP_OPTION_TOKEN))
+    if (!IS_OPTION(transactionMessage, coap_option_t_wakaamaOKEN))
     {
         // request without token
         return transacP->ack_received ? 1 : 0;
@@ -164,7 +164,7 @@ lwm2m_transaction_t * transaction_new(void * sessionH,
     if (NULL == transacP) return NULL;
     memset(transacP, 0, sizeof(lwm2m_transaction_t));
 
-    transacP->message = lwm2m_malloc(sizeof(coap_packet_t));
+    transacP->message = lwm2m_malloc(sizeof(coap_packet_t_wakaama));
     if (NULL == transacP->message) goto error;
 
     coap_init_message(transacP->message, COAP_TYPE_CON, method, mID);
@@ -266,8 +266,8 @@ void transaction_remove(lwm2m_context_t * contextP,
 
 bool transaction_handleResponse(lwm2m_context_t * contextP,
                                  void * fromSessionH,
-                                 coap_packet_t * message,
-                                 coap_packet_t * response)
+                                 coap_packet_t_wakaama * message,
+                                 coap_packet_t_wakaama * response)
 {
     bool found = false;
     bool reset = false;

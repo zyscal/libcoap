@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.o"
+  "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.o"
+  "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o"
+  "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o"
   "QoS_analyzer"
   "QoS_analyzer.pdb"
 )

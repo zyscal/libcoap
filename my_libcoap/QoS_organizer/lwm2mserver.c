@@ -55,8 +55,8 @@
 
 #include "liblwm2m.h"
 
-#include <string.h>
-#include <stdlib.h>
+
+
 #include <unistd.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -70,13 +70,28 @@
 #include <errno.h>
 #include <signal.h>
 #include <inttypes.h>
-
+#include "QoS_organizer_server_header.h"
+#include "QoS_organizer_client_header.h"
+#include <coap3/coap.h>
+#include <string.h>
+#include <stdlib.h>
+#include <pthread.h>
 #include "commandline.h"
 #include "connection.h"
 
 #define MAX_PACKET_SIZE 1024
 
 static int g_quit = 0;
+coap_context_t *organizer_client_ctx = NULL;
+coap_context_t *organizer_server_ctx = NULL;
+coap_session_t *organizer_client_session = NULL;
+
+
+
+int len_organizer_received;
+
+pthread_mutex_t organizer_mutex;
+
 
 static void prv_print_error(uint8_t status)
 {
@@ -845,9 +860,97 @@ void print_usage(void)
     fprintf(stdout, "\r\n");
 }
 
+void* organizer_client(void* arg)
+{
+    printf("enter into organizer_client\n");
+    organizer_client_ctx = coap_new_context( NULL );
+    if(organizer_client == NULL){
+        printf("organizer client ctx is NULL\n");
+    } else {
+        printf("organizer is not NULL \n");
+    }
+    coap_address_t dst;
+    static coap_str_const_t server;
+    char server_ip[] = "192.168.3.24";
+    server.s = server_ip;
+    server.length = sizeof(server_ip);
+    printf("before resolve address\n");
+    int res = resolve_address(&server, &dst.addr.sa);
+    printf("res : %d\n", res);
+    dst.size = res;
+    printf("dst.size : %d\n", res);
+    dst.addr.sin.sin_port = htons(analyzer_server_port);
+    coap_context_set_keepalive(organizer_client_ctx, 3);
+    coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
+
+    organizer_client_session = get_session(
+    organizer_client_ctx,
+    "192.168.3.24", organizer_client_port_str,
+    COAP_PROTO_TCP,
+    &dst,
+    NULL,
+    0,
+    NULL,
+    0
+  );
+    if ( !organizer_client_session ) {
+    printf("cannot create client organizer_client_session\n");
+  } else
+  {
+      printf("create client session success \n");
+  }
+  
+  coap_register_response_handler(organizer_client_ctx, message_handler);
+  // coap_register_option(organizer_client_ctx, COAP_OPTION_URI_PATH);
+  // coap_pdu_t  *pdu;
+  // method_t method = COAP_REQUEST_POST;
+  // coap_string_t payload_test;
+  // char *test_payload_char = "testtes111111111111111111111111";
+  // cmdline_input(test_payload_char, &payload_test);
+  // printf("payload_test size : %d\n", payload_test.length);
+  // unsigned char uri_path[] = "rd";
+  // coap_optlist_t *organizer_client_request_option = 
+  // coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path) - 1, uri_path);
+  // printf("end of optlist\n"); 
+  // printf("opt num : %d\n", organizer_client_request_option->number);
+  // pdu = coap_new_request_organizer_server(organizer_client_ctx, 
+  // organizer_client_session, method, &organizer_client_request_option, 
+  // payload_test.s, payload_test.length);
+  // coap_send_large(organizer_client_session, pdu);
+  uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
+  while (1)
+  {
+    int result = coap_io_process(organizer_client_ctx, wait_ms);
+    if (result < 0)
+    {
+      printf("before break");
+      break;
+    }
+    else
+    {
+      printf("there is something recv, result : %d\n", result);
+    }
+  }
+  printf("test point\n");
+}
 
 int main(int argc, char *argv[])
 {
+
+    pthread_mutex_init(&organizer_mutex,NULL);
+    pthread_t tids[0];
+    int create_result = pthread_create(&tids[0], NULL, organizer_client, NULL);
+    if(create_result == 0)
+    {
+        printf("thread organizer_client success!\n");
+    }
+    else{
+        printf("thread organizer_client failed!\n");
+    }
+    
+
+
+
     int sock;
     fd_set readfds;
     struct timeval tv;

@@ -80,18 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -123,6 +111,18 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -194,19 +194,6 @@ coap-rd: cmake_check_build_system
 coap-rd/fast:
 	$(MAKE) -f CMakeFiles/coap-rd.dir/build.make CMakeFiles/coap-rd.dir/build
 .PHONY : coap-rd/fast
-
-#=============================================================================
-# Target rules for targets named QoS_organizer
-
-# Build rule for target.
-QoS_organizer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 QoS_organizer
-.PHONY : QoS_organizer
-
-# fast build rule for target.
-QoS_organizer/fast:
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/build
-.PHONY : QoS_organizer/fast
 
 #=============================================================================
 # Target rules for targets named coap-server
@@ -421,59 +408,194 @@ examples/tiny.c.s:
 	$(MAKE) -f CMakeFiles/tiny.dir/build.make CMakeFiles/tiny.dir/examples/tiny.c.s
 .PHONY : examples/tiny.c.s
 
-my_libcoap/QoS_analyzer.o: my_libcoap/QoS_analyzer.c.o
+my_libcoap/QoS_analyzer/QoS_analyzer.o: my_libcoap/QoS_analyzer/QoS_analyzer.c.o
 
-.PHONY : my_libcoap/QoS_analyzer.o
-
-# target to build an object file
-my_libcoap/QoS_analyzer.c.o:
-	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.o
-.PHONY : my_libcoap/QoS_analyzer.c.o
-
-my_libcoap/QoS_analyzer.i: my_libcoap/QoS_analyzer.c.i
-
-.PHONY : my_libcoap/QoS_analyzer.i
-
-# target to preprocess a source file
-my_libcoap/QoS_analyzer.c.i:
-	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.i
-.PHONY : my_libcoap/QoS_analyzer.c.i
-
-my_libcoap/QoS_analyzer.s: my_libcoap/QoS_analyzer.c.s
-
-.PHONY : my_libcoap/QoS_analyzer.s
-
-# target to generate assembly for a file
-my_libcoap/QoS_analyzer.c.s:
-	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer.c.s
-.PHONY : my_libcoap/QoS_analyzer.c.s
-
-my_libcoap/QoS_organizer.o: my_libcoap/QoS_organizer.c.o
-
-.PHONY : my_libcoap/QoS_organizer.o
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.o
 
 # target to build an object file
-my_libcoap/QoS_organizer.c.o:
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.o
-.PHONY : my_libcoap/QoS_organizer.c.o
+my_libcoap/QoS_analyzer/QoS_analyzer.c.o:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.o
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.c.o
 
-my_libcoap/QoS_organizer.i: my_libcoap/QoS_organizer.c.i
+my_libcoap/QoS_analyzer/QoS_analyzer.i: my_libcoap/QoS_analyzer/QoS_analyzer.c.i
 
-.PHONY : my_libcoap/QoS_organizer.i
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.i
 
 # target to preprocess a source file
-my_libcoap/QoS_organizer.c.i:
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.i
-.PHONY : my_libcoap/QoS_organizer.c.i
+my_libcoap/QoS_analyzer/QoS_analyzer.c.i:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.i
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.c.i
 
-my_libcoap/QoS_organizer.s: my_libcoap/QoS_organizer.c.s
+my_libcoap/QoS_analyzer/QoS_analyzer.s: my_libcoap/QoS_analyzer/QoS_analyzer.c.s
 
-.PHONY : my_libcoap/QoS_organizer.s
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.s
 
 # target to generate assembly for a file
-my_libcoap/QoS_organizer.c.s:
-	$(MAKE) -f CMakeFiles/QoS_organizer.dir/build.make CMakeFiles/QoS_organizer.dir/my_libcoap/QoS_organizer.c.s
-.PHONY : my_libcoap/QoS_organizer.c.s
+my_libcoap/QoS_analyzer/QoS_analyzer.c.s:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.s
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer.c.s
+
+my_libcoap/QoS_analyzer/QoS_analyzer_client.o: my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.o
+
+# target to build an object file
+my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o
+
+my_libcoap/QoS_analyzer/QoS_analyzer_client.i: my_libcoap/QoS_analyzer/QoS_analyzer_client.c.i
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.i
+
+# target to preprocess a source file
+my_libcoap/QoS_analyzer/QoS_analyzer_client.c.i:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.i
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.c.i
+
+my_libcoap/QoS_analyzer/QoS_analyzer_client.s: my_libcoap/QoS_analyzer/QoS_analyzer_client.c.s
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_analyzer/QoS_analyzer_client.c.s:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.s
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_client.c.s
+
+my_libcoap/QoS_analyzer/QoS_analyzer_server.o: my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.o
+
+# target to build an object file
+my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o
+
+my_libcoap/QoS_analyzer/QoS_analyzer_server.i: my_libcoap/QoS_analyzer/QoS_analyzer_server.c.i
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.i
+
+# target to preprocess a source file
+my_libcoap/QoS_analyzer/QoS_analyzer_server.c.i:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.i
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.c.i
+
+my_libcoap/QoS_analyzer/QoS_analyzer_server.s: my_libcoap/QoS_analyzer/QoS_analyzer_server.c.s
+
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_analyzer/QoS_analyzer_server.c.s:
+	$(MAKE) -f CMakeFiles/QoS_analyzer.dir/build.make CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.s
+.PHONY : my_libcoap/QoS_analyzer/QoS_analyzer_server.c.s
+
+my_libcoap/QoS_organizer/QoS_organizer_client.o: my_libcoap/QoS_organizer/QoS_organizer_client.c.o
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/QoS_organizer_client.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.c.o
+
+my_libcoap/QoS_organizer/QoS_organizer_client.i: my_libcoap/QoS_organizer/QoS_organizer_client.c.i
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/QoS_organizer_client.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.i
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.c.i
+
+my_libcoap/QoS_organizer/QoS_organizer_client.s: my_libcoap/QoS_organizer/QoS_organizer_client.c.s
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/QoS_organizer_client.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.s
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_client.c.s
+
+my_libcoap/QoS_organizer/QoS_organizer_server.o: my_libcoap/QoS_organizer/QoS_organizer_server.c.o
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/QoS_organizer_server.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.c.o
+
+my_libcoap/QoS_organizer/QoS_organizer_server.i: my_libcoap/QoS_organizer/QoS_organizer_server.c.i
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/QoS_organizer_server.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.i
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.c.i
+
+my_libcoap/QoS_organizer/QoS_organizer_server.s: my_libcoap/QoS_organizer/QoS_organizer_server.c.s
+
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/QoS_organizer_server.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.s
+.PHONY : my_libcoap/QoS_organizer/QoS_organizer_server.c.s
+
+my_libcoap/QoS_organizer/lwm2mserver.o: my_libcoap/QoS_organizer/lwm2mserver.c.o
+
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/lwm2mserver.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.c.o
+
+my_libcoap/QoS_organizer/lwm2mserver.i: my_libcoap/QoS_organizer/lwm2mserver.c.i
+
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/lwm2mserver.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.i
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.c.i
+
+my_libcoap/QoS_organizer/lwm2mserver.s: my_libcoap/QoS_organizer/lwm2mserver.c.s
+
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/lwm2mserver.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.s
+.PHONY : my_libcoap/QoS_organizer/lwm2mserver.c.s
+
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.o: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
+
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
+
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.i: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.i
+
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.i
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.i
+
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.s: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.s
+
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.s
+.PHONY : my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.s
 
 my_libcoap/core/block1.o: my_libcoap/core/block1.c.o
 
@@ -987,33 +1109,6 @@ my_libcoap/core/utils.s: my_libcoap/core/utils.c.s
 my_libcoap/core/utils.c.s:
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.s
 .PHONY : my_libcoap/core/utils.c.s
-
-my_libcoap/lwm2mserver.o: my_libcoap/lwm2mserver.c.o
-
-.PHONY : my_libcoap/lwm2mserver.o
-
-# target to build an object file
-my_libcoap/lwm2mserver.c.o:
-	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.o
-.PHONY : my_libcoap/lwm2mserver.c.o
-
-my_libcoap/lwm2mserver.i: my_libcoap/lwm2mserver.c.i
-
-.PHONY : my_libcoap/lwm2mserver.i
-
-# target to preprocess a source file
-my_libcoap/lwm2mserver.c.i:
-	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.i
-.PHONY : my_libcoap/lwm2mserver.c.i
-
-my_libcoap/lwm2mserver.s: my_libcoap/lwm2mserver.c.s
-
-.PHONY : my_libcoap/lwm2mserver.s
-
-# target to generate assembly for a file
-my_libcoap/lwm2mserver.c.s:
-	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.s
-.PHONY : my_libcoap/lwm2mserver.c.s
 
 my_libcoap/shared/commandline.o: my_libcoap/shared/commandline.c.o
 
@@ -1779,11 +1874,9 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... install"
 	@echo "... coap-3"
 	@echo "... coap-client"
 	@echo "... coap-rd"
-	@echo "... QoS_organizer"
 	@echo "... coap-server"
 	@echo "... wakaama_server"
 	@echo "... QoS_analyzer"
@@ -1792,6 +1885,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... list_install_components"
+	@echo "... install"
 	@echo "... doc_doxygen"
 	@echo "... examples/coap-client.o"
 	@echo "... examples/coap-client.i"
@@ -1808,12 +1902,27 @@ help:
 	@echo "... examples/tiny.o"
 	@echo "... examples/tiny.i"
 	@echo "... examples/tiny.s"
-	@echo "... my_libcoap/QoS_analyzer.o"
-	@echo "... my_libcoap/QoS_analyzer.i"
-	@echo "... my_libcoap/QoS_analyzer.s"
-	@echo "... my_libcoap/QoS_organizer.o"
-	@echo "... my_libcoap/QoS_organizer.i"
-	@echo "... my_libcoap/QoS_organizer.s"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer.o"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer.i"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer.s"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_client.o"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_client.i"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_client.s"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_server.o"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_server.i"
+	@echo "... my_libcoap/QoS_analyzer/QoS_analyzer_server.s"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_client.o"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_client.i"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_client.s"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_server.o"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_server.i"
+	@echo "... my_libcoap/QoS_organizer/QoS_organizer_server.s"
+	@echo "... my_libcoap/QoS_organizer/lwm2mserver.o"
+	@echo "... my_libcoap/QoS_organizer/lwm2mserver.i"
+	@echo "... my_libcoap/QoS_organizer/lwm2mserver.s"
+	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.o"
+	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.i"
+	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.s"
 	@echo "... my_libcoap/core/block1.o"
 	@echo "... my_libcoap/core/block1.i"
 	@echo "... my_libcoap/core/block1.s"
@@ -1871,9 +1980,6 @@ help:
 	@echo "... my_libcoap/core/utils.o"
 	@echo "... my_libcoap/core/utils.i"
 	@echo "... my_libcoap/core/utils.s"
-	@echo "... my_libcoap/lwm2mserver.o"
-	@echo "... my_libcoap/lwm2mserver.i"
-	@echo "... my_libcoap/lwm2mserver.s"
 	@echo "... my_libcoap/shared/commandline.o"
 	@echo "... my_libcoap/shared/commandline.i"
 	@echo "... my_libcoap/shared/commandline.s"

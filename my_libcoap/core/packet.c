@@ -89,13 +89,14 @@ Contains code snippets which are:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "../QoS_organizer/QoS_organizer_priority_queue.h"
+#include "../QoS_organizer_analyzer_port.h"
 #include <stdio.h>
 
 
 static void handle_reset(lwm2m_context_t * contextP,
                          void * fromSessionH,
-                         coap_packet_t * message)
+                         coap_packet_t_wakaama * message)
 {
 #ifdef LWM2M_CLIENT_MODE
     LOG("Entering");
@@ -105,8 +106,8 @@ static void handle_reset(lwm2m_context_t * contextP,
 
 static uint8_t handle_request(lwm2m_context_t * contextP,
                               void * fromSessionH,
-                              coap_packet_t * message,
-                              coap_packet_t * response)
+                              coap_packet_t_wakaama * message,
+                              coap_packet_t_wakaama * response)
 {
     lwm2m_uri_t uri;
     lwm2m_request_type_t requestType;
@@ -176,6 +177,14 @@ static uint8_t handle_request(lwm2m_context_t * contextP,
     // ZYS Qos_organizer
         printf("enter into handle_request, case LWM2M_REQUEST_TYPE_REG\n");
         result = registration_handleRequest(contextP, &uri, fromSessionH, message, response);
+        if (result == COAP_201_CREATED) // 此处应当将注册信息添加到注册队列中
+        {
+            pthread_mutex_lock(&organizer_mutex);
+            wakaamaCoapToLibcoapReg(message);
+            pthread_mutex_unlock(&organizer_mutex);
+            /* code */
+        }
+        
         break;
 #endif
 #ifdef LWM2M_BOOTSTRAP_SERVER_MODE
@@ -208,8 +217,8 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
                          void * fromSessionH)
 {
     uint8_t coap_error_code = NO_ERROR;
-    static coap_packet_t message[1];
-    static coap_packet_t response[1];
+    static coap_packet_t_wakaama message[1];
+    static coap_packet_t_wakaama response[1];
 
     LOG("Entering");
     coap_error_code = coap_parse_message(message, buffer, (uint16_t)length);
@@ -444,7 +453,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
 
 
 uint8_t message_send(lwm2m_context_t * contextP,
-                     coap_packet_t * message,
+                     coap_packet_t_wakaama * message,
                      void * sessionH)
 {
     uint8_t result = COAP_500_INTERNAL_SERVER_ERROR;

@@ -30,7 +30,7 @@
 
 
 static void prv_handleResponse(lwm2m_server_t * bootstrapServer,
-                               coap_packet_t * message)
+                               coap_packet_t_wakaama * message)
 {
     if (COAP_204_CHANGED == message->code)
     {
@@ -49,7 +49,7 @@ static void prv_handleBootstrapReply(lwm2m_context_t * contextP,
                                      void * message)
 {
     lwm2m_server_t * bootstrapServer = (lwm2m_server_t *)transaction->userData;
-    coap_packet_t * coapMessage = (coap_packet_t *)message;
+    coap_packet_t_wakaama * coapMessage = (coap_packet_t_wakaama *)message;
 
     (void)contextP; /* unused */
 
@@ -373,8 +373,8 @@ static void prv_tagAllServer(lwm2m_context_t * contextP,
 uint8_t bootstrap_handleCommand(lwm2m_context_t * contextP,
                                 lwm2m_uri_t * uriP,
                                 lwm2m_server_t * serverP,
-                                coap_packet_t * message,
-                                coap_packet_t * response)
+                                coap_packet_t_wakaama * message,
+                                coap_packet_t_wakaama * response)
 {
     uint8_t result;
     lwm2m_media_type_t format;
@@ -578,8 +578,8 @@ uint8_t bootstrap_handleDeleteAll(lwm2m_context_t * contextP,
 uint8_t bootstrap_handleRequest(lwm2m_context_t * contextP,
                                 lwm2m_uri_t * uriP,
                                 void * fromSessionH,
-                                coap_packet_t * message,
-                                coap_packet_t * response)
+                                coap_packet_t_wakaama * message,
+                                coap_packet_t_wakaama * response)
 {
     uint8_t result;
     char * name;
@@ -648,7 +648,7 @@ static void prv_resultCallback(lwm2m_context_t * contextP,
     }
     else
     {
-        coap_packet_t * packet = (coap_packet_t *)message;
+        coap_packet_t_wakaama * packet = (coap_packet_t_wakaama *)message;
 
         dataP->callback(transacP->peerH,
                         packet->code,

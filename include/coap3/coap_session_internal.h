@@ -17,6 +17,7 @@
 #define COAP_SESSION_INTERNAL_H_
 
 #include "coap_io_internal.h"
+#include "uthash.h"
 
 #define COAP_DEFAULT_SESSION_TIMEOUT 300
 #define COAP_PARTIAL_SESSION_TIMEOUT_TICKS (30 * COAP_TICKS_PER_SECOND)

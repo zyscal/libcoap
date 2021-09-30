@@ -4,6 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/lwm2mserver.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/block1.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/bootstrap.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/data.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o"
@@ -23,7 +27,6 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/transaction.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/uri.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/utils.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o"
-  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/lwm2mserver.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/lwm2mserver.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/commandline.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/connection.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/memtrace.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o"
@@ -43,10 +46,19 @@ set(CMAKE_TARGET_DEFINITIONS_C
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "my_libcoap/core"
   "my_libcoap/shared"
+  "my_libcoap/QoS_organizer_analyzer_port.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_server_header.h"
+  "my_libcoap/QoS_organizer/QoS_organizer_client_header.h"
+  "my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h"
+  "my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h"
+  "."
+  "include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/coap-3.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

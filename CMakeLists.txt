@@ -463,11 +463,6 @@ target_sources(
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/uri.h
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/uthash.h
           ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/utlist.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_server_header.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_client_header.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_analyzer_server_header.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_analyzer_client_header.h
-          ${CMAKE_CURRENT_LIST_DIR}/include/coap${LIBCOAP_API_VERSION}/QoS_organizer_analyzer_port.h
           )
 
 find_package(Threads)
@@ -575,9 +570,6 @@ if(ENABLE_EXAMPLES)
                         PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME})
 
 
-  add_executable(QoS_organizer 
-  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer.c  )
-
   #wakaama 
   if(DTLS)
     message(FATAL_ERROR "DTLS option is not supported." )
@@ -586,23 +578,43 @@ if(ENABLE_EXAMPLES)
   include(${CMAKE_CURRENT_LIST_DIR}/my_libcoap/shared/shared.cmake)
   add_definitions(-DLWM2M_SERVER_MODE)
   add_definitions(${SHARED_DEFINITIONS} ${WAKAAMA_DEFINITIONS})
-  include_directories (${WAKAAMA_SOURCES_DIR} ${SHARED_INCLUDE_DIRS})
+  include_directories (${WAKAAMA_SOURCES_DIR} ${SHARED_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer_analyzer_port.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h
+
+  )
   SET(SOURCES
-  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/lwm2mserver.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/lwm2mserver.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_client.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_server.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
   )
   add_executable(wakaama_server ${SOURCES} ${WAKAAMA_SOURCES} ${SHARED_SOURCES})
   set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:WITH_LOGS>)
   SOURCE_GROUP(wakaama FILES ${WAKAAMA_SOURCES})
   #end wakaama
 
+  # QoS_analyzer
+  include_directories (
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer_analyzer_port.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
+  )
 
   add_executable(QoS_analyzer 
-  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer.c  )
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_client.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_server.c
+  )
 
 
-  target_link_libraries(QoS_organizer
-                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
+  # target_link_libraries(QoS_organizer
+  #                       PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
   target_link_libraries(QoS_analyzer
+                        PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
+  target_link_libraries(wakaama_server
                         PUBLIC ${PROJECT_NAME}::${COAP_LIBRARY_NAME} -lpthread -lm)
   # add_executable(coap-test-get-client ${CMAKE_CURRENT_LIST_DIR}/example_minimal/get/client.c)
   # target_link_libraries(coap-test-get-client

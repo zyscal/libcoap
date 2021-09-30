@@ -1,103 +1,9 @@
-#include<coap3/coap.h>
-#include<stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include<netdb.h>
-#include <netinet/in.h>
-#include <errno.h>
-#include <coap3/QoS_organizer_analyzer_port.h>
-
-#define hexchar_to_dec(c) ((c) & 0x40 ? ((c) & 0x0F) + 9 : ((c) & 0x0F))
-
-static coap_context_t * setup_server_context (void);
-static void init_resources (coap_context_t *ctx);
-static void hnd_post_reg(coap_resource_t *resource,coap_session_t *session, coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response);
-static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
-const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response);
-int cmdline_input(char *text, coap_string_t *buf);
-int check_segment(const uint8_t *s, size_t length);
-void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf);
-void
-free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_ptr);
-
-
-static coap_pdu_t *
-coap_new_request_analyzer_server(coap_context_t *ctx,
-                 coap_session_t *session,
-                 method_t m,
-                 coap_optlist_t **options,
-                 unsigned char *data,
-                 size_t length);
-
-void
-decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
-
-  while (length--) {
-
-    if (*seg == '%') {
-      *buf = (hexchar_to_dec(seg[1]) << 4) + hexchar_to_dec(seg[2]);
-
-      seg += 2; length -= 2;
-    } else {
-      *buf = *seg;
-    }
-
-    ++buf; ++seg;
-  }
-}
-
-int
-check_segment(const uint8_t *s, size_t length) {
-
-  int n = 0;
-
-  while (length) {
-    if (*s == '%') {
-      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
-        return -1;
-
-      s += 2;
-      length -= 2;
-    }
-
-    ++s; ++n; --length;
-  }
-
-  return n;
-}
-
-
-int cmdline_input(char *text, coap_string_t *buf) {
-  int len;
-  printf("test point\n");
-  printf("strlen(test) : %d\n", strlen(text));
-  len = check_segment((unsigned char *)text, strlen(text));
-  printf("len : %d\n", len);
-  if (len < 0)
-    return 0;
-
-  buf->s = (unsigned char *)coap_malloc(len);
-  if (!buf->s)
-  {
-    return 0;
-  }
-    
-  printf("len : %d\n", len);
-  buf->length = len;
-  printf("buf->length : %d\n", len);
-  decode_segment((unsigned char *)text, strlen(text), buf->s);
-  return 1;
-}
+#include "QoS_analyzer_server_header.h"
+#include<netinet/in.h>
 static void hnd_post_unknown(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response){
   printf("enter into hnd_post_unknow\n");
 }
-
 
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
@@ -135,36 +41,17 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
   // hnd_put(r, session, request, query, response);
   return;
 }
+
+
+
 void
 free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_ptr) {
   coap_free(app_ptr);
   return;
 }
 
-static coap_pdu_t *
-coap_new_request_analyzer_server(coap_context_t *ctx,
-                 coap_session_t *session,
-                 method_t m,
-                 coap_optlist_t **options,
-                 unsigned char *data,
-                 size_t length) {
-  coap_pdu_t *pdu;
-  (void)ctx;
-  unsigned char msgtype = COAP_MESSAGE_CON; /* usually, requests are sent confirmable */
-  if (!(pdu = coap_new_pdu(msgtype, m, session)))
-    return NULL;
-  // if ( !coap_add_token(pdu, the_token.length, the_token.s)) {
-  //   coap_log(LOG_DEBUG, "cannot add token to request\n");
-  // }
-  if (options)
-    coap_add_optlist_pdu(pdu, options);
-  if (length) {
-    /* Let the underlying libcoap decide how this data should be sent */
-    coap_add_data_large_request(session, pdu, length, data, free_xmit_data_analyzer_server, data);
-  }
-  return pdu;
-}
-static coap_context_t * setup_server_context (void) {
+
+coap_context_t * setup_server_context (void) {
   coap_endpoint_t *endpoint;
   coap_address_t listen_addr;
   coap_context_t *context = coap_new_context(NULL);
@@ -179,12 +66,14 @@ static coap_context_t * setup_server_context (void) {
   if (!endpoint) {
     coap_free_context(context);
     return NULL;
+  } else {
+    printf("QoS_analyzer create server endpoint success!\n");
   }
   /* Initialize resources - See coap_resource(3) init_resources() example */
 
   return context;
 }
-static void init_resources (coap_context_t *ctx) {
+void init_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_reg);
@@ -200,7 +89,48 @@ static void init_resources (coap_context_t *ctx) {
   // coap_add_resource(ctx, test);
 
 }
+int check_segment_Q_A_S(const uint8_t *s, size_t length) {
+  int n = 0;
+  while (length) {
+    if (*s == '%') {
+      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
+        return -1;
+      s += 2;
+      length -= 2;
+    }
+    ++s; ++n; --length;
+  }
+  return n;
+}
+void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
+  while (length--) {
+    if (*seg == '%') {
+      *buf = (hexchar_to_dec(seg[1]) << 4) + hexchar_to_dec(seg[2]);
 
+      seg += 2; length -= 2;
+    } else {
+      *buf = *seg;
+    }
+    ++buf; ++seg;
+  }
+}
+
+int cmdline_input_Q_A_S(char *text, coap_string_t *buf) {
+  int len;
+  printf("size of test : %d\n", strlen(text));
+  len = check_segment_Q_A_S((unsigned char *)text, strlen(text));
+  if (len < 0)
+    return 0;
+  buf->s = (unsigned char *)coap_malloc(len);
+  if (!buf->s)
+  {
+    return 0;
+  }
+  buf->length = len;
+  printf("buf->length : %d\n", len);
+  decode_segment((unsigned char *)text, strlen(text), buf->s);
+  return 1;
+}
 static void
 hnd_post_reg(
 coap_resource_t *resource,
@@ -208,20 +138,71 @@ coap_session_t *session,
 coap_pdu_t *request, 
 coap_string_t *query, 
 coap_pdu_t *response) {
+  // // 处理边缘信息 session
+  coap_endpoint_t *session_endpoint = session->endpoint;
+  coap_address_t *endpoint_addr = &(session_endpoint->bind_addr);
+  if(endpoint_addr == NULL) {
+    printf("endpoint_addr is NULL \n");
+  } else {
+    printf("endpoint is NOT NULL \n");
+    printf("endpoint_addr size is : %d\n", endpoint_addr->size);
+  }
+  struct sockaddr_in *client_sockaddr_in = &(endpoint_addr->addr.sin);
+  char addr_ip[32];
+  char *IP = inet_ntoa(client_sockaddr_in->sin_addr);
+  if(IP == NULL) {
+    printf("IP is NULL\n");
+  } else {
+    printf("IP is NOT NULL \n");
+  }
+  strcpy(addr_ip, inet_ntoa(client_sockaddr_in->sin_addr));
+  printf("the endpoint add is : %s\n", addr_ip);
+
+
+
+  // 对请求信息进行输出
+  // data长度
   int length_of_data;
   uint8_t *data;
   coap_get_data(request,&length_of_data, &data);
+  printf("len of request : %d\n", length_of_data);
+  // 输出data
+  printf("data is :");
   char *check_data = data;
   for(int i = 0; i < length_of_data; i++)
   {
-    printf("%c ", *check_data);
+    printf("%c", *check_data);
     check_data++;
   }
   printf("\n");
-  //转发到乐山
+  // 输出query
+  printf("query is :");
+  char *check_query = query->s;
+  for(int i = 0; i < query->length; i++){
+    printf("%c",*check_query);
+    check_query++;
+  }
+  printf("\n");
+
+  // 转发到乐山
+  // 创建 pdu
+  coap_pdu_t  *pdu = coap_new_pdu(request->type, request->code, analyzer_client_session);
+  if(pdu == NULL) {
+    printf("create pdu failed !\n");
+  }else {
+    printf("create pdu success! \n");
+  }
+  // token
+  coap_add_token(pdu, request->token_length, request->token);
+  // CONTENT_TYPE
+  unsigned char buf[4];
+  coap_add_option(pdu, COAP_OPTION_CONTENT_TYPE,coap_encode_var_safe(buf, sizeof(buf),
+    COAP_MEDIATYPE_APPLICATION_LINK_FORMAT),buf);
+  // uri_path
   uint8_t uri_path[] = "rd";
   coap_optlist_t *analyzer_client_request_option = 
   coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+  // uri_query
   int number_of_query = 0;
   if(query->length != 0)
   {
@@ -235,7 +216,7 @@ coap_pdu_t *response) {
       {
         coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
         coap_insert_optlist(&analyzer_client_request_option, tem_opt);
-        printf("option len : %d\n", analyzer_client_request_option->length);
+        printf("tem_opt len : %d\n", tem_opt->length);
         uint8_t *check_option = tem_opt -> data;
         int check_len = tem_opt -> length;
         for(int i = 0; i < check_len; i++)
@@ -257,7 +238,7 @@ coap_pdu_t *response) {
     }
     coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
     coap_insert_optlist(&analyzer_client_request_option, tem_opt);
-    printf("option len : %d\n", analyzer_client_request_option->length);
+    printf("tem_opt len : %d\n", tem_opt->length);
     uint8_t *check_option = tem_opt -> data;
     int check_len = tem_opt -> length;
     for(int i = 0; i < check_len; i++)
@@ -266,56 +247,55 @@ coap_pdu_t *response) {
       check_option++;
     }
     printf("\n------------------\n");
-
   }
   printf("num of query : %d\n", number_of_query);
+  // optlist
+  coap_add_optlist_pdu(pdu, &analyzer_client_request_option);
+  // payload
+  int payload_len = request->used_size - (request->data - request->token);
+  printf("payload size : %d\n", payload_len);
 
-
-
-  coap_pdu_t  *pdu;
-  method_t method = COAP_REQUEST_POST;
-  coap_string_t payload_test;
-  cmdline_input(data, &payload_test);
-  pdu = coap_new_request_analyzer_server(analyzer_client_ctx, 
-  analyzer_client_session, method, &analyzer_client_request_option, 
-  payload_test.s, payload_test.length);
+  coap_string_t payload;
+  cmdline_input_Q_A_S(request->data, &payload);
+  coap_add_data_large_request(analyzer_client_session, pdu, payload.length, payload.s,
+  free_xmit_data_analyzer_server,  payload.s);
   int mid_con = coap_send_large(analyzer_client_session, pdu);
+  printf("mid_con is : %d\n", mid_con);
 
-  int get_ack = 0;
-  while (get_ack == 0)
-  {
-    pthread_mutex_lock(&analyzer_mutex);
-    struct coap_pdu_t_node * tem = analyzer_client_head;
-    while (tem != NULL)
-    {
-      if(coap_pdu_get_mid(tem->received) == mid_con)
-      {
-        get_ack = 1;
-        printf("find ack message!! id is : %d\n", mid_con);
-        coap_pdu_set_code(response, coap_pdu_get_code(tem->received));
-        coap_opt_iterator_t opt_iter;
-        coap_opt_t *option;
-        coap_option_iterator_init(tem->received, &opt_iter, COAP_OPT_ALL);
-        while ((option = coap_option_next(&opt_iter)))
-        {
-          coap_add_option(response, opt_iter.number,
-          coap_opt_length(option),
-          coap_opt_value(option));
-        }
-        len_analyer_received--;
-        break;
-      }
-      else
-      {
-        tem = tem->next;
-      }
-      /* code */
-    }
-    pthread_mutex_unlock(&analyzer_mutex);
-  }
+
+  // int get_ack = 0;
+  // while (get_ack == 0)
+  // {
+  //   pthread_mutex_lock(&analyzer_mutex);
+  //   struct coap_pdu_t_node * tem = analyzer_client_head;
+  //   while (tem != NULL)
+  //   {
+  //     if(coap_pdu_get_mid(tem->received) == mid_con)
+  //     {
+  //       get_ack = 1;
+  //       printf("find ack message!! id is : %d\n", mid_con);
+  //       coap_pdu_set_code(response, coap_pdu_get_code(tem->received));
+  //       coap_opt_iterator_t opt_iter;
+  //       coap_opt_t *option;
+  //       coap_option_iterator_init(tem->received, &opt_iter, COAP_OPT_ALL);
+  //       while ((option = coap_option_next(&opt_iter)))
+  //       {
+  //         coap_add_option(response, opt_iter.number,
+  //         coap_opt_length(option),
+  //         coap_opt_value(option));
+  //       }
+  //       len_analyer_received--;
+  //       break;
+  //     }
+  //     else
+  //     {
+  //       tem = tem->next;
+  //     }
+  //     /* code */
+  //   }
+  //   pthread_mutex_unlock(&analyzer_mutex);
+  // }
   printf("end of post \n");
 }
-
-
 
 
