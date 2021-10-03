@@ -39,20 +39,12 @@ extern coap_context_t *analyzer_client_ctx ;
 extern coap_context_t *analyzer_server_ctx ;
 extern coap_session_t *analyzer_client_session ;
 
-struct coap_pdu_t_node
-{
-    struct coap_pdu_t_node *next;
-    struct coap_pdu_t *received;
-    /* data */
-};
-typedef struct coap_pdu_t_node coap_pdu_t_node;
-coap_pdu_t_node *analyzer_client_head;
-coap_pdu_t_node *organizer_client_head;
+
 
 extern int len_analyer_received;
 extern int len_organizer_received;
-extern pthread_mutex_t analyzer_mutex;
 extern pthread_mutex_t organizer_mutex;
+extern pthread_mutex_t organizer_reg_queue_mutex;
 
 
 #endif

@@ -1,105 +1,21 @@
 
 #include "QoS_analyzer_client_header.h"
-
-void handle_response(const coap_pdu_t *received, struct coap_pdu_t_node** pointer)
-{
-  if(*pointer == NULL)
-  {
-      printf("before malloc size of head : %d\n", sizeof(*pointer));
-      *pointer = (coap_pdu_t_node *)malloc(sizeof(coap_pdu_t_node));
-
-  }
-  printf("after malloc size of head : %d\n", sizeof(*pointer));
-  printf("received->used_size : %d\n", received->used_size);
-  printf("received->alloc_size : %d\n", received->alloc_size);
-  printf("received->max_size : %d\n", received->max_size);
-  printf("received->hdr_size : %d\n", received->hdr_size);
-  printf("received->max_hdr_size : %d\n", received->max_hdr_size);
-  printf("received->token_length : %d\n",received->token_length);
-  coap_bin_const_t token = coap_pdu_get_token(received);
-  coap_pdu_type_t type = coap_pdu_get_type(received);
-  coap_pdu_code_t code = coap_pdu_get_code(received);
-  coap_mid_t mid = coap_pdu_get_mid(received);
-
-  printf("type : %d\n", type);
-  printf("code : %d\n", code);
-  printf("mid : %d\n", mid);
-
-
-  size_t data_len;
-  uint8_t *data;
-  coap_get_data(received, &data_len, &data);
-  printf("the ack data len : %d\n", data_len);
-
-
-  (*pointer)->received = coap_pdu_init(type, code, mid, 
-  received->alloc_size + received->hdr_size);
-
-  printf("after init size of head : %d\n", sizeof((*pointer)));
-  if((*pointer)->received == NULL)
-  {
-    printf("analyzer_client_header->received is NULL \n");
-  }
-  else
-  {
-    printf("analyzer_client_header->received not NULL,mid is : %d\n", coap_pdu_get_mid((*pointer)->received));
-  }
-  
-  coap_add_token((*pointer)->received, token.length, token.s);
-  (*pointer)->received->lg_xmit = received->lg_xmit;
-
-  coap_opt_iterator_t opt_iter;
-  coap_opt_t *option;
-  coap_option_iterator_init(received, &opt_iter, COAP_OPT_ALL);
-  
-  while ((option = coap_option_next(&opt_iter)))
-  {
-    printf("-----------------\n");
-    // printf("option number is : %d\n", option->)
-    coap_add_option((*pointer)->received, opt_iter.number,
-      coap_opt_length(option), coap_opt_value(option));
-  }
-  if(data_len != 0)
-  {
-    coap_add_data((*pointer)->received, &data_len, &data);
-  }
-
-  len_analyer_received ++;
-  if((*pointer) != NULL)
-  {
-    printf("head mid is : %d\n", coap_pdu_get_mid((*pointer)->received));
-  }
-}
-
+#include "queue/ACK_queue.h"
+extern coap_pdu_t* InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session);
 coap_response_t
-message_handler(coap_session_t *session COAP_UNUSED,
+message_handler(coap_session_t *session,
                 const coap_pdu_t *sent,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED)
 {
   printf("enter into coap_response_t\n");
-  printf("the response id : %d\n", id);
-  printf("type is : %d\n", coap_pdu_get_type(received));
   if(coap_pdu_get_type(received) == COAP_MESSAGE_ACK ||
   coap_pdu_get_type(received) == COAP_MESSAGE_RST)
-  {
-    pthread_mutex_lock(&analyzer_mutex);
-    struct coap_pdu_t_node *tem = analyzer_client_head;
-    if (tem == NULL)
-    {
-      handle_response(received, &analyzer_client_head);
-    }
-    else
-    {
-      printf("two con message acks\n");
-      for(int i = 1; i < len_analyer_received; i++)
-      {
-        tem = tem->next;
-      }
-      handle_response(received, &(tem->next));
-    }
-    pthread_mutex_unlock(&analyzer_mutex);
-    printf("after unlock\n");
+  { // ACK 数据，应当放到ACK队列中
+    printf("before insert ack\n");
+    coap_pdu_t *ack_pdu = InsertACKMsg(received, session);
+    printf("after insert ack\n");
+    printf("ack mid is : %d\n", coap_pdu_get_mid(ack_pdu));
   }
   coap_response_t ans;
   return ans;

@@ -89,10 +89,10 @@ Contains code snippets which are:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../QoS_organizer/QoS_organizer_priority_queue.h"
+#include "../QoS_organizer/queue/QoS_organizer_priority_queue.h"
 #include "../QoS_organizer_analyzer_port.h"
+#include <coap3/coap_pdu_internal.h>
 #include <stdio.h>
-
 
 static void handle_reset(lwm2m_context_t * contextP,
                          void * fromSessionH,
@@ -176,15 +176,33 @@ static uint8_t handle_request(lwm2m_context_t * contextP,
     case LWM2M_REQUEST_TYPE_REGISTRATION:
     // ZYS Qos_organizer
         printf("enter into handle_request, case LWM2M_REQUEST_TYPE_REG\n");
-        result = registration_handleRequest(contextP, &uri, fromSessionH, message, response);
+        int InternalID = -1;
+        result = registration_handleRequest(contextP, &uri, fromSessionH, message, response, &InternalID);
+        
         if (result == COAP_201_CREATED) // 此处应当将注册信息添加到注册队列中
         {
-            pthread_mutex_lock(&organizer_mutex);
-            wakaamaCoapToLibcoapReg(message);
-            pthread_mutex_unlock(&organizer_mutex);
+            struct coap_pdu_t *new_pdu;
+            wakaamaCoapToLibcoapReg(message, InternalID, &new_pdu);
+            if(new_pdu != NULL) {
+                printf("reg ： create new_pdu success\n");
+            } else {
+                printf("reg : failed to create new_pdu\n");
+            }
+            // 检查pdu
+            printf("new_pdu, the new_pdu address: %d\n", new_pdu);
+            printf("new_pdu, type : %d\n", new_pdu->type);
+            // coap_send_large(organizer_client_session, new_pdu);
+
+            // 添加到注册队列中
+            int num = InsertRegMsg(new_pdu);
+            printf("the num after insert : %d\n", num);
+
+            // //
+            // coap_pdu_t* pdu = GetAndDelRegQueueFront();
+            // int mid = coap_send_large(organizer_client_session, pdu);
+            // printf("organizer send reg mid is : %d\n", mid);
             /* code */
         }
-        
         break;
 #endif
 #ifdef LWM2M_BOOTSTRAP_SERVER_MODE

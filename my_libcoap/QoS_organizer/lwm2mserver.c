@@ -54,9 +54,6 @@
 
 
 #include "liblwm2m.h"
-
-
-
 #include <unistd.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -86,11 +83,13 @@ coap_context_t *organizer_client_ctx = NULL;
 coap_context_t *organizer_server_ctx = NULL;
 coap_session_t *organizer_client_session = NULL;
 
-
+// queue
+struct regQueue *head = NULL;
 
 int len_organizer_received;
 
 pthread_mutex_t organizer_mutex;
+pthread_mutex_t organizer_reg_queue_mutex;
 
 
 static void prv_print_error(uint8_t status)
@@ -859,6 +858,11 @@ void print_usage(void)
     fprintf(stdout, "  -l PORT\tSet the local UDP port of the Server. Default: "LWM2M_STANDARD_PORT_STR"\r\n");
     fprintf(stdout, "\r\n");
 }
+void* organizer_client_sender(void* arg) {
+    printf("enter into organizer_client_sender\n");
+    simple_sender();
+}
+
 
 void* organizer_client(void* arg)
 {
@@ -880,7 +884,7 @@ void* organizer_client(void* arg)
     dst.size = res;
     printf("dst.size : %d\n", res);
     dst.addr.sin.sin_port = htons(analyzer_server_port);
-    coap_context_set_keepalive(organizer_client_ctx, 3);
+    coap_context_set_keepalive(organizer_client_ctx, 0);
     coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
 
     organizer_client_session = get_session(
@@ -898,9 +902,18 @@ void* organizer_client(void* arg)
   } else
   {
       printf("create client session success \n");
+      coap_register_response_handler(organizer_client_ctx, message_handler);
+    //   // 开启轮轮询发送线程
+      pthread_t thread;
+      int result = pthread_create(&thread, NULL, organizer_client_sender, NULL);
+      if(result == 0) {
+          printf("create organizer sender thread success \n");
+      } else {
+          printf("failed to create organizer sender thread\n");
+      }
   }
   
-  coap_register_response_handler(organizer_client_ctx, message_handler);
+  
   // coap_register_option(organizer_client_ctx, COAP_OPTION_URI_PATH);
   // coap_pdu_t  *pdu;
   // method_t method = COAP_REQUEST_POST;
@@ -928,7 +941,6 @@ void* organizer_client(void* arg)
     }
     else
     {
-      printf("there is something recv, result : %d\n", result);
     }
   }
   printf("test point\n");
@@ -938,6 +950,7 @@ int main(int argc, char *argv[])
 {
 
     pthread_mutex_init(&organizer_mutex,NULL);
+    pthread_mutex_init(&organizer_reg_queue_mutex,NULL);
     pthread_t tids[0];
     int create_result = pthread_create(&tids[0], NULL, organizer_client, NULL);
     if(create_result == 0)

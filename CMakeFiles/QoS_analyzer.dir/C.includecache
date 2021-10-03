@@ -6,74 +6,12 @@
 
 #IncludeRegexTransform: 
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server.c
-QoS_analyzer_server_header.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
-netinet/in.h
--
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.c
+session_list.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
 coap3/coap.h
--
-stdio.h
--
-string.h
--
-stdlib.h
--
-stdio.h
--
-ctype.h
--
-signal.h
--
-sys/types.h
--
-sys/stat.h
--
-netdb.h
--
-netinet/in.h
--
-coap3/coap_forward_decls.h
--
-coap3/coap_session_internal.h
--
-coap3/address.h
--
-errno.h
--
-../QoS_organizer_analyzer_port.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
-
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
-coap3/coap.h
--
-stdio.h
--
-string.h
--
-stdlib.h
--
-stdio.h
--
-ctype.h
--
-signal.h
--
-sys/types.h
--
-sys/stat.h
--
-netdb.h
--
-netinet/in.h
--
-coap3/coap_pdu_internal.h
--
-pthread.h
--
-errno.h
 -
 
 include/coap3/address.h
@@ -186,31 +124,11 @@ include/coap3/address.h
 net/gnrc.h
 include/coap3/net/gnrc.h
 
-include/coap3/coap_io_internal.h
-sys/types.h
--
-address.h
-include/coap3/address.h
-net/gnrc.h
-include/coap3/net/gnrc.h
-
-include/coap3/coap_pdu_internal.h
-lwip/pbuf.h
--
-stdint.h
--
-
 include/coap3/coap_prng.h
 string.h
 -
 
 include/coap3/coap_session.h
-
-include/coap3/coap_session_internal.h
-coap_io_internal.h
-include/coap3/coap_io_internal.h
-uthash.h
-include/coap3/uthash.h
 
 include/coap3/coap_time.h
 stdint.h
@@ -307,16 +225,4 @@ stdint.h
 -
 str.h
 include/coap3/str.h
-
-include/coap3/uthash.h
-string.h
--
-stddef.h
--
-stdlib.h
--
-stdint.h
--
-stdio.h
--
 

@@ -1,18 +1,16 @@
 #ifndef QoS_O_QUEUE
 #define QoS_O_QUEUE
 #include <coap3/coap.h>
-
+#include <stdbool.h>
+#include "../../QoS_organizer_analyzer_port.h"
 struct regQueue
 {
   coap_pdu_t *msg;
   struct regQueue *next;
   uint8_t level;
 };
-struct regQueue *head = NULL;
+extern struct regQueue *head;
 bool IsRegQueueEmpty();
 coap_pdu_t* GetAndDelRegQueueFront();
 uint8_t InsertRegMsg(coap_pdu_t* NewPdu);
-
-
-
 #endif

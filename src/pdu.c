@@ -148,7 +148,7 @@ coap_delete_pdu(coap_pdu_t *pdu) {
     coap_free_type(COAP_PDU, pdu);
   }
 }
-
+#include <stdio.h>
 coap_pdu_t *
 coap_pdu_duplicate(const coap_pdu_t *old_pdu,
                    coap_session_t *session,
@@ -159,7 +159,6 @@ coap_pdu_duplicate(const coap_pdu_t *old_pdu,
                                   old_pdu->code,
                                   coap_new_message_id(session),
                                   coap_session_max_pdu_size(session));
-
   if (pdu == NULL)
     return NULL;
 

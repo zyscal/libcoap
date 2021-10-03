@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o"
+  "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o"
   "CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o"

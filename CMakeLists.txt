@@ -583,6 +583,8 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.h
 
   )
   SET(SOURCES
@@ -590,6 +592,9 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_client.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_server.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.c
+
   )
   add_executable(wakaama_server ${SOURCES} ${WAKAAMA_SOURCES} ${SHARED_SOURCES})
   set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:WITH_LOGS>)
@@ -601,12 +606,17 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer_analyzer_port.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/ACK_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/sessions/session_list.h
   )
 
   add_executable(QoS_analyzer 
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_client.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_server.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/ACK_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/sessions/session_list.c
+
   )
 
 

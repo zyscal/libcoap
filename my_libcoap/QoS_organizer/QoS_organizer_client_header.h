@@ -12,9 +12,8 @@
 #include <errno.h>
 #include "../QoS_organizer_analyzer_port.h"
 
-void handle_response(const coap_pdu_t *received, struct coap_pdu_t_node** pointer);
-coap_response_t
-message_handler(coap_session_t *session COAP_UNUSED,
+void handle_ACK(const coap_pdu_t *received, struct coap_pdu_t_node** pointer);
+coap_response_t message_handler(coap_session_t *session COAP_UNUSED,
                 const coap_pdu_t *sent,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED);

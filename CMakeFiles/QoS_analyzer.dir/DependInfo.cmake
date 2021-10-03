@@ -7,6 +7,8 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o"
   "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/ACK_queue.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/ACK_queue.c.o"
+  "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.c" "/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -25,8 +27,12 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "my_libcoap/QoS_organizer/QoS_organizer_server_header.h"
   "my_libcoap/QoS_organizer/QoS_organizer_client_header.h"
   "my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h"
+  "my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h"
+  "my_libcoap/QoS_organizer/QoS/sender.h"
   "my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h"
   "my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h"
+  "my_libcoap/QoS_analyzer/queue/ACK_queue.h"
+  "my_libcoap/QoS_analyzer/sessions/session_list.h"
   "."
   "include"
   )

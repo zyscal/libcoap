@@ -1,5 +1,7 @@
 #include "QoS_analyzer_server_header.h"
-#include<netinet/in.h>
+#include <netinet/in.h>
+#include "sessions/session_list.h"
+#include "queue/ACK_queue.h"
 static void hnd_post_unknown(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response){
   printf("enter into hnd_post_unknow\n");
@@ -117,7 +119,6 @@ void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
 
 int cmdline_input_Q_A_S(char *text, coap_string_t *buf) {
   int len;
-  printf("size of test : %d\n", strlen(text));
   len = check_segment_Q_A_S((unsigned char *)text, strlen(text));
   if (len < 0)
     return 0;
@@ -127,7 +128,6 @@ int cmdline_input_Q_A_S(char *text, coap_string_t *buf) {
     return 0;
   }
   buf->length = len;
-  printf("buf->length : %d\n", len);
   decode_segment((unsigned char *)text, strlen(text), buf->s);
   return 1;
 }
@@ -138,27 +138,6 @@ coap_session_t *session,
 coap_pdu_t *request, 
 coap_string_t *query, 
 coap_pdu_t *response) {
-  // // 处理边缘信息 session
-  coap_endpoint_t *session_endpoint = session->endpoint;
-  coap_address_t *endpoint_addr = &(session_endpoint->bind_addr);
-  if(endpoint_addr == NULL) {
-    printf("endpoint_addr is NULL \n");
-  } else {
-    printf("endpoint is NOT NULL \n");
-    printf("endpoint_addr size is : %d\n", endpoint_addr->size);
-  }
-  struct sockaddr_in *client_sockaddr_in = &(endpoint_addr->addr.sin);
-  char addr_ip[32];
-  char *IP = inet_ntoa(client_sockaddr_in->sin_addr);
-  if(IP == NULL) {
-    printf("IP is NULL\n");
-  } else {
-    printf("IP is NOT NULL \n");
-  }
-  strcpy(addr_ip, inet_ntoa(client_sockaddr_in->sin_addr));
-  printf("the endpoint add is : %s\n", addr_ip);
-
-
 
   // 对请求信息进行输出
   // data长度
@@ -203,6 +182,8 @@ coap_pdu_t *response) {
   coap_optlist_t *analyzer_client_request_option = 
   coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
   // uri_query
+  // 创建内部ID
+  int InternalID = -1;
   int number_of_query = 0;
   if(query->length != 0)
   {
@@ -214,17 +195,31 @@ coap_pdu_t *response) {
     {
       if(*query_string_end == '&')
       {
-        coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
-        coap_insert_optlist(&analyzer_client_request_option, tem_opt);
-        printf("tem_opt len : %d\n", tem_opt->length);
-        uint8_t *check_option = tem_opt -> data;
-        int check_len = tem_opt -> length;
-        for(int i = 0; i < check_len; i++)
-        {
-          printf("%c ", *check_option);
-          check_option++;
+        // 从query中拿ID
+        if( *query_string_begin == 'I' && *(query_string_begin + 1) == 'D'){
+          // 找ID
+          query_string_begin += 3; // 跳过“ID=”三个字符
+          int num = 0;
+          while (*query_string_begin >= '0' && *query_string_begin <= '9')
+          {
+            num *= 10;
+            num += *query_string_begin - '0';
+            query_string_begin++;
+          }
+          InternalID = num;
+        } else { // 普通的query
+          coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
+          coap_insert_optlist(&analyzer_client_request_option, tem_opt);
+          printf("tem_opt len : %d\n", tem_opt->length);
+          uint8_t *check_option = tem_opt -> data;
+          int check_len = tem_opt -> length;
+          for(int i = 0; i < check_len; i++)
+          {
+            printf("%c ", *check_option);
+            check_option++;
+          }
+          printf("\n------------------\n");
         }
-        printf("\n------------------\n");
         option_len = 0;
         query_string_end++;
         query_string_begin = query_string_end;
@@ -236,6 +231,7 @@ coap_pdu_t *response) {
         option_len++;
       }
     }
+    // 末端不做ID处理，因为ID=？默认后面会接其他query
     coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
     coap_insert_optlist(&analyzer_client_request_option, tem_opt);
     printf("tem_opt len : %d\n", tem_opt->length);
@@ -249,7 +245,8 @@ coap_pdu_t *response) {
     printf("\n------------------\n");
   }
   printf("num of query : %d\n", number_of_query);
-  // optlist
+  printf("the InternalID is : %d\n", InternalID);
+  // 讲optlist添加到pdu中
   coap_add_optlist_pdu(pdu, &analyzer_client_request_option);
   // payload
   int payload_len = request->used_size - (request->data - request->token);
@@ -259,42 +256,29 @@ coap_pdu_t *response) {
   cmdline_input_Q_A_S(request->data, &payload);
   coap_add_data_large_request(analyzer_client_session, pdu, payload.length, payload.s,
   free_xmit_data_analyzer_server,  payload.s);
-  int mid_con = coap_send_large(analyzer_client_session, pdu);
-  printf("mid_con is : %d\n", mid_con);
+  coap_mid_t mid_con = coap_send_large(analyzer_client_session, pdu);
+  while (true)
+  {
+    // 获取ACK
+    coap_pdu_t* ack = GetAndDelACKQueueFront(mid_con);    /* code */
+    if(ack == NULL) {
+      continue;
+    }
+  
+    coap_pdu_set_code(response, coap_pdu_get_code(ack));
+    coap_opt_iterator_t opt_iter;
+    coap_opt_t *option;
+    coap_option_iterator_init(ack, &opt_iter, COAP_OPT_ALL);
+    while ((option = coap_option_next(&opt_iter)))
+    {
+      coap_add_option(response, opt_iter.number,
+      coap_opt_length(option),
+      coap_opt_value(option));
+    }
+    break;
+  }
 
-
-  // int get_ack = 0;
-  // while (get_ack == 0)
-  // {
-  //   pthread_mutex_lock(&analyzer_mutex);
-  //   struct coap_pdu_t_node * tem = analyzer_client_head;
-  //   while (tem != NULL)
-  //   {
-  //     if(coap_pdu_get_mid(tem->received) == mid_con)
-  //     {
-  //       get_ack = 1;
-  //       printf("find ack message!! id is : %d\n", mid_con);
-  //       coap_pdu_set_code(response, coap_pdu_get_code(tem->received));
-  //       coap_opt_iterator_t opt_iter;
-  //       coap_opt_t *option;
-  //       coap_option_iterator_init(tem->received, &opt_iter, COAP_OPT_ALL);
-  //       while ((option = coap_option_next(&opt_iter)))
-  //       {
-  //         coap_add_option(response, opt_iter.number,
-  //         coap_opt_length(option),
-  //         coap_opt_value(option));
-  //       }
-  //       len_analyer_received--;
-  //       break;
-  //     }
-  //     else
-  //     {
-  //       tem = tem->next;
-  //     }
-  //     /* code */
-  //   }
-  //   pthread_mutex_unlock(&analyzer_mutex);
-  // }
+  // 以上完成了注册信息的转发，下面讲对“session—InternalID—GlobalID”建立映射关系
   printf("end of post \n");
 }
 

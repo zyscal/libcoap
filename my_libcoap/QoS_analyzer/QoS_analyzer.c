@@ -16,8 +16,8 @@
 coap_context_t *analyzer_client_ctx;
 coap_context_t *analyzer_server_ctx;
 coap_session_t *analyzer_client_session;
-pthread_mutex_t analyzer_mutex;
 int len_analyer_received;
+extern pthread_mutex_t analyzer_ack_queue_mutex;
 void* analyzer_client(void* arg)
 {
       
@@ -74,7 +74,7 @@ void* analyzer_client(void* arg)
 
 int main()
 {
-    pthread_mutex_init(&analyzer_mutex,NULL);
+    pthread_mutex_init(&analyzer_ack_queue_mutex,NULL);
     pthread_t tids[0];
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)
