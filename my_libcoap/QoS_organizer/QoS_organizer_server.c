@@ -17,16 +17,10 @@ decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
   }
 }
 
-
-
-
-
-
 static void hnd_post_unknown(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response){
   printf("enter into hnd_post_unknow\n");
 }
-
 
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
@@ -37,7 +31,6 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
   coap_string_t *uri_path;
   /* get the uri_path - which will get used by coap_resource_init() */
   uri_path = coap_get_uri_path(request);
-  printf("uri : %s\n", uri_path);
   if (!uri_path) {
     coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
     return;
@@ -78,7 +71,6 @@ coap_context_t * setup_server_context (void) {
   listen_addr.addr.sin.sin_port = htons (organizer_server_port);
 
   endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
-  // endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_TCP);
   if (!endpoint) {
     coap_free_context(context);
     return NULL;
@@ -166,7 +158,6 @@ int check_segment_o_s(const uint8_t *s, size_t length) {
 }
 int cmdline_input_o_s(char *text, coap_string_t *buf) {
   int len;
-  printf("size of test : %d\n", strlen(text));
   len = check_segment_o_s((unsigned char *)text, strlen(text));
   if (len < 0)
     return 0;
@@ -176,7 +167,6 @@ int cmdline_input_o_s(char *text, coap_string_t *buf) {
     return 0;
   }
   buf->length = len;
-  printf("buf->length : %d\n", len);
   decode_segment((unsigned char *)text, strlen(text), buf->s);
   return 1;
 }
@@ -191,18 +181,8 @@ coap_pdu_t *response) {
   int length_of_data;
   uint8_t *data;
   uint8_t uri_path[] = "rd";
-  printf("###### data size : %d\n",sizeof(data));
-
-
   coap_get_data(request, &length_of_data, &data);
-  printf("length_of_data : %d\n", length_of_data);
   uint8_t * check_data = data;
-  for(int i = 0; i < length_of_data; i++)
-  {
-    printf("%c ", *check_data);
-    check_data++;
-  }
-  printf("\n");
   coap_optlist_t *organizer_client_request_option = 
   coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
 
@@ -219,15 +199,6 @@ coap_pdu_t *response) {
       {
         coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
         coap_insert_optlist(&organizer_client_request_option, tem_opt);
-        printf("option len : %d\n", organizer_client_request_option->length);
-        uint8_t *check_option = tem_opt -> data;
-        int check_len = tem_opt -> length;
-        for(int i = 0; i < check_len; i++)
-        {
-          printf("%c ", *check_option);
-          check_option++;
-        }
-        printf("\n------------------\n");
         option_len = 0;
         query_string_end++;
         query_string_begin = query_string_end;
@@ -241,44 +212,28 @@ coap_pdu_t *response) {
     }
     coap_optlist_t *tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, option_len, query_string_begin);
     coap_insert_optlist(&organizer_client_request_option, tem_opt);
-    printf("option len : %d\n", organizer_client_request_option->length);
-    uint8_t *check_option = tem_opt -> data;
-    int check_len = tem_opt -> length;
-    for(int i = 0; i < check_len; i++)
-    {
-      printf("%c ", *check_option);
-      check_option++;
-    }
-    printf("\n------------------\n");
   }
-  printf("num of query : %d\n", number_of_query);
 
-  // coap_optlist_t *organizer_client_request_option = 
-  // coap_new_optlist(number_of_query, query->length, query->s);
-
-  // //转发到analyzer
-  
+  //转发到analyzer
+  // 创建新的pdu
   coap_pdu_t  *pdu = coap_new_pdu(coap_pdu_get_type(request),
   coap_pdu_get_code(request), organizer_client_session);
-
+  // 获取请求中tocken
   coap_bin_const_t token =   coap_pdu_get_token(request);
-  printf("organizer server token len : %d\n", token.length);
-  int check = coap_add_token(pdu, token.length, token.s);
-  printf("check : %d\n", check);
-
+  // 添加tocken
+  coap_add_token(pdu, token.length, token.s);
+  // 添加optlist
   coap_add_optlist_pdu(pdu, &organizer_client_request_option);
-
-  method_t method = COAP_REQUEST_POST;
+  // 添加payload
   coap_string_t payload_test;
   cmdline_input_o_s(data, &payload_test);
-
   coap_add_data_large_request(organizer_client_session, 
   pdu, payload_test.length, payload_test.s, free_xmit_data_organizer_server, payload_test.s);
-
+  // 发送
   coap_mid_t mid_con = coap_send_large(organizer_client_session, pdu);
 
 
- int get_ack = 0;
+  int get_ack = 0;
   // while (get_ack == 0)
   // {
   //   pthread_mutex_lock(&organizer_mutex);
@@ -310,10 +265,6 @@ coap_pdu_t *response) {
   //   }
   //   pthread_mutex_unlock(&organizer_mutex);
   // }
-  printf("end of post \n");
-
-
-
 }
 
 

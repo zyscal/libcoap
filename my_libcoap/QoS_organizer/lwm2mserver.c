@@ -85,13 +85,14 @@ coap_session_t *organizer_client_session = NULL;
 
 // queue
 struct regQueue *head = NULL;
-
 int len_organizer_received;
-
 pthread_mutex_t organizer_mutex;
 pthread_mutex_t organizer_reg_queue_mutex;
 
 
+// localClientPort 在多边缘模型中，用于区分本机的organizer中client外部端口
+char * localClientPort = NULL;
+lwm2m_context_t * lwm2mH = NULL;
 static void prv_print_error(uint8_t status)
 {
     fprintf(stdout, "Error: ");
@@ -163,6 +164,11 @@ static void prv_dump_client(lwm2m_client_t * targetP)
     lwm2m_client_object_t * objectP;
 
     fprintf(stdout, "Client #%d:\r\n", targetP->internalID);
+    fprintf(stdout, "\tGlobalID: ");
+    for(int i = 0 ; i < targetP->LengthOfGlobalID; i++){
+        fprintf(stdout, "%c", targetP->GlobalID[i]);
+    }
+    fprintf(stdout, "\n");
     fprintf(stdout, "\tname: \"%s\"\r\n", targetP->name);
     fprintf(stdout, "\tversion: \"%s\"\r\n", prv_dump_version(targetP->version));
     prv_dump_binding(targetP->binding);
@@ -859,38 +865,29 @@ void print_usage(void)
     fprintf(stdout, "\r\n");
 }
 void* organizer_client_sender(void* arg) {
-    printf("enter into organizer_client_sender\n");
     simple_sender();
 }
 
 
 void* organizer_client(void* arg)
 {
-    printf("enter into organizer_client\n");
     organizer_client_ctx = coap_new_context( NULL );
-    if(organizer_client == NULL){
-        printf("organizer client ctx is NULL\n");
-    } else {
-        printf("organizer is not NULL \n");
-    }
     coap_address_t dst;
     static coap_str_const_t server;
     char server_ip[] = "192.168.3.24";
     server.s = server_ip;
     server.length = sizeof(server_ip);
-    printf("before resolve address\n");
     int res = resolve_address(&server, &dst.addr.sa);
-    printf("res : %d\n", res);
     dst.size = res;
-    printf("dst.size : %d\n", res);
     dst.addr.sin.sin_port = htons(analyzer_server_port);
     coap_context_set_keepalive(organizer_client_ctx, 0);
     coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
-
     organizer_client_session = get_session(
     organizer_client_ctx,
-    "192.168.3.24", organizer_client_port_str,
+    "192.168.3.24", localClientPort,
     COAP_PROTO_TCP,
+    // COAP_PROTO_UDP,
+
     &dst,
     NULL,
     0,
@@ -901,13 +898,11 @@ void* organizer_client(void* arg)
     printf("cannot create client organizer_client_session\n");
   } else
   {
-      printf("create client session success \n");
       coap_register_response_handler(organizer_client_ctx, message_handler);
-    //   // 开启轮轮询发送线程
+    // 开启轮轮询发送线程
       pthread_t thread;
       int result = pthread_create(&thread, NULL, organizer_client_sender, NULL);
       if(result == 0) {
-          printf("create organizer sender thread success \n");
       } else {
           printf("failed to create organizer sender thread\n");
       }
@@ -936,39 +931,25 @@ void* organizer_client(void* arg)
     int result = coap_io_process(organizer_client_ctx, wait_ms);
     if (result < 0)
     {
-      printf("before break");
       break;
     }
     else
     {
     }
   }
-  printf("test point\n");
 }
+
+
+
+
 
 int main(int argc, char *argv[])
 {
-
-    pthread_mutex_init(&organizer_mutex,NULL);
-    pthread_mutex_init(&organizer_reg_queue_mutex,NULL);
-    pthread_t tids[0];
-    int create_result = pthread_create(&tids[0], NULL, organizer_client, NULL);
-    if(create_result == 0)
-    {
-        printf("thread organizer_client success!\n");
-    }
-    else{
-        printf("thread organizer_client failed!\n");
-    }
-    
-
-
-
     int sock;
     fd_set readfds;
     struct timeval tv;
     int result;
-    lwm2m_context_t * lwm2mH = NULL;
+
     int i;
     connection_t * connList = NULL;
     int addressFamily = AF_INET6;
@@ -1034,37 +1015,45 @@ int main(int argc, char *argv[])
 
             COMMAND_END_LIST
     };
-
-    opt = 1;
-    while (opt < argc)
-    {
-        if (argv[opt] == NULL
-            || argv[opt][0] != '-'
-            || argv[opt][2] != 0)
-        {
-            print_usage();
-            return 0;
-        }
-        switch (argv[opt][1])
-        {
-        case '4':
-            addressFamily = AF_INET;
-            break;
-        case 'l':
-            opt++;
-            if (opt >= argc)
-            {
-                print_usage();
-                return 0;
-            }
-            localPort = argv[opt];
-            break;
-        default:
-            print_usage();
-            return 0;
-        }
-        opt += 1;
-    }
+    localPort = argv[2];
+    localClientPort = argv[4];
+    // opt = 1;
+    // while (opt < argc)
+    // {
+    //     if (argv[opt] == NULL
+    //         || argv[opt][0] != '-'
+    //         || argv[opt][2] != 0)
+    //     {
+    //         print_usage();
+    //         return 0;
+    //     }
+    //     switch (argv[opt][1])
+    //     {
+    //     case '4':
+    //         addressFamily = AF_INET;
+    //         break;
+    //     case 'l':
+    //         opt++;
+    //         if (opt >= argc)
+    //         {
+    //             print_usage();
+    //             return 0;
+    //         }
+    //         localPort = argv[opt];
+    //         break;
+    //     case 'w':
+    //         opt++;
+    //         if(opt >= argc)
+    //         {
+    //             return 0;
+    //         }
+    //         localClientPort = argv[opt];
+    //     default:
+    //         print_usage();
+    //         return 0;
+    //     }
+    //     opt += 1;
+    // }
 
     sock = create_socket(localPort, addressFamily);
     if (sock < 0)
@@ -1089,6 +1078,23 @@ int main(int argc, char *argv[])
     fprintf(stdout, "> "); fflush(stdout);
 
     lwm2m_set_monitoring_callback(lwm2mH, prv_monitor_callback, lwm2mH);
+
+
+
+    pthread_mutex_init(&organizer_mutex,NULL);
+    pthread_mutex_init(&organizer_reg_queue_mutex,NULL);
+    pthread_t tids[0];
+    int create_result = pthread_create(&tids[0], NULL, organizer_client, NULL);
+    if(create_result == 0)
+    {
+    }
+    else{
+        printf("thread organizer_client failed!\n");
+    }
+    
+
+
+
 
     while (0 == g_quit)
     {

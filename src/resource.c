@@ -341,7 +341,9 @@ coap_resource_unknown_init(coap_method_handler_t put_handler) {
     r->is_unknown = 1;
     /* Something unlikely to be used, but it shows up in the logs */
     r->uri_path = coap_new_str_const(coap_unknown_resource_uri, sizeof(coap_unknown_resource_uri)-1);
-    coap_register_handler(r, COAP_REQUEST_PUT, put_handler);
+    // coap_register_handler(r, COAP_REQUEST_PUT, put_handler);
+    coap_register_handler(r, COAP_REQUEST_GET, put_handler);
+
   } else {
     coap_log(LOG_DEBUG, "coap_resource_unknown_init: no memory left\n");
   }

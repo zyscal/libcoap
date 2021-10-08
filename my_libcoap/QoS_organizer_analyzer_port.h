@@ -15,6 +15,9 @@
 #include<coap3/coap_pdu_internal.h>
 #include<pthread.h>
 #include <errno.h>
+#include "liblwm2m.h"
+#include <coap3/coap_session_internal.h>
+
 
 typedef unsigned char method_t;
 
@@ -34,6 +37,7 @@ typedef unsigned char method_t;
 extern coap_context_t *organizer_client_ctx;
 extern coap_context_t *organizer_server_ctx ;
 extern coap_session_t *organizer_client_session;
+extern lwm2m_context_t * lwm2mH;
 
 extern coap_context_t *analyzer_client_ctx ;
 extern coap_context_t *analyzer_server_ctx ;

@@ -502,6 +502,7 @@ int coap_context_get_coap_fd(const coap_context_t *context) {
 coap_context_t *
 coap_new_context(
   const coap_address_t *listen_addr) {
+    
   coap_context_t *c;
 
 #ifdef WITH_CONTIKI
@@ -2479,8 +2480,10 @@ static coap_str_const_t coap_default_uri_wellknown =
           { sizeof(COAP_DEFAULT_URI_WELLKNOWN)-1,
            (const uint8_t *)COAP_DEFAULT_URI_WELLKNOWN };
 
+#include <stdio.h>
 static void
 handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu) {
+  printf("enter into handle request\n");
   coap_method_handler_t h = NULL;
   coap_pdu_t *response = NULL;
   coap_opt_filter_t opt_filter;
@@ -2640,6 +2643,8 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
 
   if ((resource == NULL) || (resource->is_unknown == 1) ||
       (resource->is_proxy_uri == 1)) {
+
+
     /* The resource was not found or there is an unexpected match against the
      * resource defined for handling unknown or proxy URIs.
      * Check if the request URI happens to be the well-known URI, or if the
@@ -2658,7 +2663,6 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
      * else if DELETE return 2.02 (RFC7252: 5.8.4.  DELETE)
      *
      * else return 4.04 */
-
     if (coap_string_equal(uri_path, &coap_default_uri_wellknown)) {
       /* request for .well-known/core */
       if (pdu->code == COAP_REQUEST_CODE_GET) { /* GET */
@@ -2733,13 +2737,14 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
       }
     }
   }
-
+  printf("the resource is found\n");
   /* the resource was found, check if there is a registered handler */
   if ((size_t)pdu->code - 1 <
     sizeof(resource->handler) / sizeof(coap_method_handler_t))
     h = resource->handler[pdu->code - 1];
 
   if (h) {
+    printf("h is not NULL\n");
      coap_log(LOG_DEBUG, "call custom handler for resource '%*.*s'\n",
               (int)resource->uri_path->length, (int)resource->uri_path->length,
               resource->uri_path->s);
@@ -2762,6 +2767,10 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
       if (resource->observable &&
           (pdu->code == COAP_REQUEST_CODE_GET ||
            pdu->code == COAP_REQUEST_CODE_FETCH)) {
+        printf("resource is observable and is get or fetch\n");
+
+
+
         observe = coap_check_option(pdu, COAP_OPTION_OBSERVE, &opt_iter);
         if (observe) {
           observe_action =
@@ -2802,7 +2811,10 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
           else {
             coap_log(LOG_INFO, "observe: unexpected action %d\n", observe_action);
           }
+        } else {
+          printf(" is not observe\n");
         }
+
       }
 
       if (session->block_mode & COAP_BLOCK_USE_LIBCOAP) {
@@ -2822,7 +2834,6 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
        * Call the request handler with everything set up
        */
       h(resource, session, pdu, query, response);
-
       /* Check if lg_xmit generated and update PDU code if so */
       coap_check_code_lg_xmit(session, response, resource, query);
 

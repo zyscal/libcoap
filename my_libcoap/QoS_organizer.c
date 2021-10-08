@@ -17,7 +17,6 @@
 
 void* organizer_client(void* arg)
 {
-    printf("enter into organizer_client\n");
     organizer_client_ctx = coap_new_context( NULL );
     coap_address_t dst;
     static coap_str_const_t server;
@@ -36,6 +35,7 @@ void* organizer_client(void* arg)
     organizer_client_ctx,
     "192.168.3.24", organizer_client_port_str,
     COAP_PROTO_TCP,
+    // COAP_PROTO_UDP,
     &dst,
     NULL,
     0,

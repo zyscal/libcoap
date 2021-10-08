@@ -15,9 +15,8 @@
 #include "../QoS_organizer_analyzer_port.h"
 
 
-
+void init_analyzer_client_resources();
 void free_xmit_data_analyzer_client(coap_session_t *session COAP_UNUSED, void *app_ptr);
-static coap_session_t *setup_client_session (struct in_addr ip_address);
 static coap_session_t* 
 open_session(
   coap_context_t *ctx,
@@ -65,5 +64,6 @@ static char *ca_file = NULL;   /* CA for cert_file - for cert checking in PEM,
                                   DER or PKCS11 URI */
 static char *cert_file = NULL; /* certificate and optional private key in PEM,
                                   or PKCS11 URI*/
+
 
 #endif

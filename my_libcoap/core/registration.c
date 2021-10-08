@@ -1611,11 +1611,11 @@ uint8_t registration_handleRequest(lwm2m_context_t * contextP,
         {
             return COAP_400_BAD_REQUEST;
         }
-        printf("reg, name : %s\n", name);
-        printf("reg, lifetime : %d\n", lifetime);
-        printf("reg, msisdn : %s\n", msisdn);
-        printf("reg, binding : %d\n", binding);
-        printf("reg, version : %d\n", version);
+        // printf("reg, name : %s\n", name);
+        // printf("reg, lifetime : %d\n", lifetime);
+        // printf("reg, msisdn : %s\n", msisdn);
+        // printf("reg, binding : %d\n", binding);
+        // printf("reg, version : %d\n", version);
 
         if (message->content_type != (coap_content_type_t)LWM2M_CONTENT_LINK
          && message->content_type != (coap_content_type_t)LWM2M_CONTENT_TEXT)

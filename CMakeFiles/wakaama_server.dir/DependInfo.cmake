@@ -41,7 +41,6 @@ set(CMAKE_TARGET_DEFINITIONS_C
   "LWM2M_LITTLE_ENDIAN"
   "LWM2M_SERVER_MODE"
   "LWM2M_WITH_LOGS"
-  "WITH_LOGS"
   )
 
 # The include file search paths:

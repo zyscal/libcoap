@@ -899,13 +899,13 @@ coap_session_t *coap_new_client_session(
   const coap_address_t *server,
   coap_proto_t proto
 ) {
-  printf("enter into coap new client session\n");
   coap_session_t *session = coap_session_create_client(ctx, local_if, server, proto);
   if (session) {
     coap_log(LOG_DEBUG, "***%s: new outgoing session\n",
              coap_session_str(session));
     session = coap_session_connect(session);
   }
+  
   return session;
 }
 

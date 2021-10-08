@@ -114,7 +114,7 @@ check_include_file(pthread.h HAVE_PTHREAD_H)
 check_include_file(stdlib.h HAVE_STDINT_H)
 check_include_file(stdint.h HAVE_STDLIB_H)
 check_include_file(inttypes.h HAVE_INTTYPES_H)
-check_include_file(syslog.h HAVE_SYSLOG_H)
+# check_include_file(syslog.h HAVE_SYSLOG_H)
 check_include_file(sys/ioctl.h HAVE_SYS_IOCTL_H)
 check_include_file(sys/socket.h HAVE_SYS_SOCKET_H)
 check_include_file(sys/stat.h HAVE_SYS_STAT_H)
@@ -189,8 +189,9 @@ function(compile_tinydtls)
       --prefix=${CMAKE_BINARY_DIR}
     BUILD_COMMAND make install
     INSTALL_COMMAND ""
-    LOG_DOWNLOAD 1
-    LOG_CONFIGURE 1)
+    # LOG_DOWNLOAD 1
+    # LOG_CONFIGURE 1
+    )
 
   externalproject_add_step(
     external_tinydtls autoreconf
@@ -597,7 +598,9 @@ if(ENABLE_EXAMPLES)
 
   )
   add_executable(wakaama_server ${SOURCES} ${WAKAAMA_SOURCES} ${SHARED_SOURCES})
-  set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:WITH_LOGS>)
+  # set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:WITH_LOGS>)
+  set_property(TARGET wakaama_server APPEND PROPERTY COMPILE_DEFINITIONS)
+
   SOURCE_GROUP(wakaama FILES ${WAKAAMA_SOURCES})
   #end wakaama
 

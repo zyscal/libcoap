@@ -17,9 +17,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -31,6 +33,8 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
+ my_libcoap/core/liblwm2m.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
@@ -46,9 +50,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -60,6 +66,8 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
+ my_libcoap/core/liblwm2m.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
@@ -75,9 +83,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -89,6 +99,8 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
+ my_libcoap/core/liblwm2m.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
@@ -105,9 +117,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -119,6 +133,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
  my_libcoap/core/liblwm2m.h
  my_libcoap/shared/commandline.h
  my_libcoap/shared/connection.h
@@ -137,9 +152,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_prior
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -151,6 +168,8 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_prior
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
+ my_libcoap/core/liblwm2m.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h
@@ -166,9 +185,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapT
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -180,6 +201,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapT
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
  my_libcoap/core/er-coap-13/er-coap-13.h
  my_libcoap/core/internals.h
  my_libcoap/core/liblwm2m.h
@@ -260,9 +282,11 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o
  include/coap3/coap_event.h
  include/coap3/coap_forward_decls.h
  include/coap3/coap_io.h
+ include/coap3/coap_io_internal.h
  include/coap3/coap_pdu_internal.h
  include/coap3/coap_prng.h
  include/coap3/coap_session.h
+ include/coap3/coap_session_internal.h
  include/coap3/coap_time.h
  include/coap3/encode.h
  include/coap3/libcoap.h
@@ -274,6 +298,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o
  include/coap3/str.h
  include/coap3/subscribe.h
  include/coap3/uri.h
+ include/coap3/uthash.h
 CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/er-coap-13/er-coap-13.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/internals.h

@@ -18,7 +18,6 @@ coap_response_t message_handler(coap_session_t *session COAP_UNUSED,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED);
 void free_xmit_data_organizer_client(coap_session_t *session COAP_UNUSED, void *app_ptr);
-static coap_session_t *setup_client_session (struct in_addr ip_address);
 static coap_session_t* open_session(
   coap_context_t *ctx,
   coap_proto_t proto,

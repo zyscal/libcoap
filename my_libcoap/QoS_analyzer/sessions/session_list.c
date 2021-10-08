@@ -4,14 +4,16 @@ anjay_node* insert_anjay_node(organizer_node* Gateway,
 int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
     // organizer 下anjay节点列表为空，则添加在头部
     if(Gateway->anjay_client_node == NULL) {
-        anjay_node* anjay_node_head = (anjay_node*) malloc(sizeof(anjay_node));
-        anjay_node_head->InternalID = InternalID;
-        anjay_node_head->GlobalID = (uint8_t*)malloc(LengthOfGlobalID * sizeof(uint8_t));
+        // printf("当前organizer为空\n");
+        Gateway->anjay_client_node = (anjay_node*) malloc(sizeof(anjay_node));
+        Gateway->anjay_client_node->InternalID = InternalID;
+        Gateway->anjay_client_node->GlobalIDSize = LengthOfGlobalID;
+        Gateway->anjay_client_node->GlobalID = (uint8_t*)malloc(LengthOfGlobalID * sizeof(uint8_t));
         for(int i = 0; i < LengthOfGlobalID; i++){
-            anjay_node_head->GlobalID[i] = GlobalID[i];
+            Gateway->anjay_client_node->GlobalID[i] = GlobalID[i];
         }
-        anjay_node_head->next = NULL;
-        return anjay_node_head;
+        Gateway->anjay_client_node->next = NULL;
+        return Gateway->anjay_client_node;
     }
     // 列表中存在anjay客户端，寻找InternalID是否已经存在
     anjay_node* p = Gateway->anjay_client_node;
@@ -23,6 +25,7 @@ int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
             for(int i = 0; i < LengthOfGlobalID; i++){
                 p->GlobalID[i] = GlobalID[i];
             }
+            p->GlobalIDSize = LengthOfGlobalID;
             return p;
         } else {
             p = p->next;
@@ -33,6 +36,7 @@ int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
         p = Gateway->anjay_client_node;
         anjay_node* new_anjay_node = (anjay_node*)malloc(sizeof(anjay_node));
         new_anjay_node->InternalID = InternalID;
+        new_anjay_node->GlobalIDSize = LengthOfGlobalID;
         new_anjay_node->GlobalID = (uint8_t*)malloc(LengthOfGlobalID * sizeof(uint8_t));
         for(int i = 0 ; i < LengthOfGlobalID; i++){
             new_anjay_node->GlobalID[i] = GlobalID[i];
@@ -58,12 +62,15 @@ organizer_node *handle_organizer(coap_session_t *session){
     // 表中寻找session
     while(p != NULL){
         if(p->session == session){
+            // 找到organizer
+            // printf("找到对应的organizer\n");
             return p;
         } else {
             p = p->next;
         }
     }
     // 没有找到对应的边缘，在开始添加一个新的
+    // printf("没有找到准备创建新的organizer\n");
     return insert_organizer(session);
 }
 
@@ -71,6 +78,7 @@ anjay_node* handle_anjay_node(coap_session_t *session,
 int InternalID, uint8_t *GlobalID, int LengthOfGlobalID){
     // 表中找到对应的organizer
     organizer_node *p = handle_organizer(session);
+
     // 将anjay加入到对应的organzier_node下
     return insert_anjay_node(p, InternalID, GlobalID, LengthOfGlobalID);
 }
@@ -80,4 +88,45 @@ void update_GlobalID(anjay_node* client, char *GlobalID, int GlobalIDSize){
     for(int i = 0; i < GlobalIDSize; i++){
         client->GlobalID[i] = GlobalID;
     }
+}
+// GlobalIDIsSame 判断当前的anjay节点中的GlobalID是否匹配
+bool GlobalIDIsSame(uint8_t *GlobalID, int Length, anjay_node* anjay_client_node) {
+    if(Length != anjay_client_node->GlobalIDSize) {
+        return false;
+    }
+    for(int i = 0; i < Length; i++) {
+        if(GlobalID[i] != anjay_client_node->GlobalID[i]) {
+            return false;
+        }
+    }
+    printf("match!!!\n");
+    return true;
+}
+// OrganizerIsContain 判断当前的organizer中是否存在这个GlobalID
+coap_session_t *OrganizerIsContain(organizer_node* organizer, uint8_t *GlobalID, int Length) {
+    anjay_node* p = organizer->anjay_client_node;
+    while (p != NULL)
+    {
+        if(GlobalIDIsSame(GlobalID, Length, p)) {
+            coap_session_t *ans = organizer->session;
+            return ans;
+        }
+        p = p->next;
+        /* code */
+    }
+    return NULL;
+}
+
+// findSessionByGlobalID 通过GlobalID找到对应的organizer session
+coap_session_t *findSessionByGlobalID(uint8_t *GlobalID, int Length) {
+    organizer_node *p = organizer_node_head.next;
+    while (p != NULL)
+    {
+        coap_session_t *session = OrganizerIsContain(p, GlobalID, Length);
+        if(session != NULL) {
+            return session;
+        }
+        p = p->next;
+    }
+    return NULL;
 }

@@ -1,6 +1,8 @@
 #ifndef ANJAY_NODE
 #define ANJAY_NODE
 #include <coap3/coap.h>
+#include <stdbool.h>
+#include <stdio.h>
 struct anjay_node {
     int InternalID;
     int GlobalIDSize;
@@ -23,4 +25,5 @@ organizer_node *insert_organizer(coap_session_t *session);
 anjay_node* handle_anjay_node(coap_session_t *session, 
 int InternalID, uint8_t *GlobalID, int LengthOfGlobalID);
 void update_GlobalID(anjay_node* client, char *GlobalID, int GlobalIDSize);
+coap_session_t *findSessionByGlobalID(uint8_t *GlobalID, int Length);
 #endif

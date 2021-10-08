@@ -19,7 +19,6 @@ int check_segment_wakcoapToLibcap(const uint8_t *s, size_t length) {
 }
 int cmdline_input_wakcoapToLibcoap(char *text, coap_string_t *buf) {
   int len;
-  printf("size of test : %d\n", strlen(text));
   len = check_segment_wakcoapToLibcap((unsigned char *)text, strlen(text));
   if (len < 0)
     return 0;
@@ -29,7 +28,6 @@ int cmdline_input_wakcoapToLibcoap(char *text, coap_string_t *buf) {
     return 0;
   }
   buf->length = len;
-  printf("buf->length : %d\n", len);
   decode_segment((unsigned char *)text, strlen(text), buf->s);
   return 1;
 }

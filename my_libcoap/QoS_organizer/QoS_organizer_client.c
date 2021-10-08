@@ -1,85 +1,48 @@
 #include "QoS_organizer_client_header.h"
-#include <coap3/coap.h>
-
-
-// void handle_ACK(const coap_pdu_t *received, struct coap_pdu_t_node** pointer)
-// {
-//   printf("enter into organizer response\n");
-//   if(*pointer == NULL)
-//   {
-//       printf("before malloc size of head : %d\n", sizeof(*pointer));
-//       *pointer = (coap_pdu_t_node *)malloc(sizeof(coap_pdu_t_node));
-
-//   }
-//   printf("after malloc size of head : %d\n", sizeof(*pointer));
-//   printf("received->used_size : %d\n", received->used_size);
-//   printf("received->alloc_size : %d\n", received->alloc_size);
-//   printf("received->max_size : %d\n", received->max_size);
-//   printf("received->hdr_size : %d\n", received->hdr_size);
-//   printf("received->max_hdr_size : %d\n", received->max_hdr_size);
-//   printf("received->token_length : %d\n",received->token_length);
-//   coap_bin_const_t token = coap_pdu_get_token(received);
-//   coap_pdu_code_t code = coap_pdu_get_code(received);
-
-
-//   printf("code : %d\n", code);
-//   printf("token len : %d\n", token.length);
-//   size_t data_len;
-//   uint8_t *data;
-//   coap_get_data(received, &data_len, &data);
-//   printf("the ack data len : %d\n", data_len);
-
-//   (*pointer)->received = coap_new_pdu(COAP_MESSAGE_ACK, code, organizer_client_session);
-
-//   coap_add_token((*pointer)->received, token.length, token.s);
-//   (*pointer)->received->lg_xmit = received->lg_xmit;
-
-//   coap_opt_iterator_t opt_iter;
-//   coap_opt_t *option;
-//   coap_option_iterator_init(received, &opt_iter, COAP_OPT_ALL);
-  
-//   while ((option = coap_option_next(&opt_iter)))
-//   {
-//     printf("-----------------\n");
-//     // printf("option number is : %d\n", option->)
-//     coap_add_option((*pointer)->received, opt_iter.number,
-//       coap_opt_length(option), coap_opt_value(option));
-//   }
-//   if(data_len != 0)
-//   {
-//     coap_add_data((*pointer)->received, &data_len, &data);
-//   }
-
-//   len_organizer_received ++;
-
-// }
- 
+#include <coap3/coap.h> 
 coap_response_t
 message_handler(coap_session_t *session COAP_UNUSED,
                 const coap_pdu_t *sent,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED)
 {
-  // printf("enter into coap_response_t\n");
-
-  // pthread_mutex_lock(&organizer_mutex);
-  // struct coap_pdu_t_node *tem = organizer_client_head;
-  // if (tem == NULL)
-  // {
-  //   handle_ACK(received, &organizer_client_head);
-  // }
-  // else
-  // {
-  //   printf("two con message acks\n");
-  //   for(int i = 1; i < len_organizer_received; i++)
-  //   {
-  //     tem = tem->next;
-  //   }
-  //   handle_ACK(received, &(tem->next));
-  // }
-  // pthread_mutex_unlock(&organizer_mutex);
-  // printf("after unlock\n");
-  
+  coap_pdu_code_t code = coap_pdu_get_code(received);
+  switch (code)
+  {
+  case COAP_RESPONSE_CODE_CREATED: { // 注册事件的返回，因为基于TCP无法匹配对应的CON，所以需要通过CODE进行判断，sent为NULL
+    int i = 1; // option计数
+    int InternalID = 0; // 存储内部ID
+    coap_opt_iterator_t opt_iter;
+    coap_opt_t *option;
+    coap_option_iterator_init(received, &opt_iter, COAP_OPT_ALL);
+    while ((option = coap_option_next(&opt_iter)))
+    {
+      int Length = coap_opt_length(option);
+      uint8_t *GlobalID = coap_opt_value(option);
+      if(i == 1){
+        // 寻找InternalID
+        for(int i = 0; i < Length; i++){
+          InternalID *= 10;
+          InternalID += GlobalID[i] - '0';
+        }
+      } else { // 寻找Clientlist，保存GlobalID
+        lwm2m_client_t * targetP;
+        for (targetP = lwm2mH->clientList ; targetP != NULL ; targetP = targetP->next)
+        {
+            if(targetP->internalID == InternalID) {
+              targetP->GlobalID = GlobalID;
+              targetP->LengthOfGlobalID = Length;
+              break;
+            }
+        }
+      }
+      i++;
+    }
+    break;
+  }
+  default:
+    break;
+  }
   return COAP_RESPONSE_OK;
 }
  
@@ -87,29 +50,6 @@ message_handler(coap_session_t *session COAP_UNUSED,
   coap_free(app_ptr);
   return;
 }
-static coap_session_t *setup_client_session (struct in_addr ip_address) {
-  coap_session_t *session;
-  coap_address_t server;
-  /* See coap_context(3) */
-  coap_context_t *context = coap_new_context(NULL);
-
-  if (!context)
-    return NULL;
-
-  coap_address_init(&server);
-  server.addr.sa.sa_family = AF_INET;
-  server.addr.sin.sin_addr = ip_address;
-  server.addr.sin.sin_port = htons (analyzer_server_port);
-
-  session = coap_new_client_session(context, NULL, &server, COAP_PROTO_TCP);
-  if (!session) {
-    coap_free_context(context);
-    return NULL;
-  }
-  /* The context is in session->context */
-  return session;
-}
-
 static coap_session_t* 
 open_session(
   coap_context_t *ctx,
@@ -161,7 +101,6 @@ coap_session_t *get_session(
 ) {
   coap_session_t *session = NULL;
   if ( local_addr ) {
-    printf("enter into get session\n");
     int s;
     struct addrinfo hints;
     struct addrinfo *result = NULL, *rp;
