@@ -52,29 +52,114 @@ free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_pt
   return;
 }
 
+coap_context_t * setup_server_context() {
+  char node[NI_MAXHOST] = "::";
+  char port[NI_MAXSERV] = "5683";
+  coap_context_t *ctx = NULL;
+  int s;
+  struct addrinfo hints;
+  struct addrinfo *result, *rp;
 
-coap_context_t * setup_server_context (void) {
-  coap_endpoint_t *endpoint;
-  coap_address_t listen_addr;
-  coap_context_t *context = coap_new_context(NULL);
-  if (!context)
+  ctx = coap_new_context(NULL);
+  if (!ctx) {
     return NULL;
-  coap_address_init(&listen_addr);
-  listen_addr.addr.sa.sa_family = AF_INET;
-  listen_addr.addr.sin.sin_port = htons (analyzer_server_port);
-  // endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
-  endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_TCP);
-  coap_context_set_keepalive(context, 0);
-  if (!endpoint) {
-    printf("QoS_analyzer， failed to create server endpoint!\n");
-    coap_free_context(context);
-    return NULL;
-  } else {
   }
-  /* Initialize resources - See coap_resource(3) init_resources() example */
+  /* Need PKI/RPK/PSK set up before we set up (D)TLS endpoints */
+  // fill_keystore(ctx);
 
-  return context;
+  memset(&hints, 0, sizeof(struct addrinfo));
+  hints.ai_family = AF_UNSPEC;    /* Allow IPv4 or IPv6 */
+  hints.ai_socktype = SOCK_DGRAM; /* Coap uses UDP */
+  hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST;
+
+  s = getaddrinfo(node, port, &hints, &result);
+  if ( s != 0 ) {
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+    coap_free_context(ctx);
+    return NULL;
+  }
+
+  /* iterate through results until success */
+  for (rp = result; rp != NULL; rp = rp->ai_next) {
+    coap_address_t addr, addrs;
+    coap_endpoint_t *ep_udp = NULL, *ep_dtls = NULL;
+
+    if (rp->ai_addrlen <= (socklen_t)sizeof(addr.addr)) {
+      coap_address_init(&addr);
+      addr.size = (socklen_t)rp->ai_addrlen;
+      memcpy(&addr.addr, rp->ai_addr, rp->ai_addrlen);
+      addrs = addr;
+      if (addr.addr.sa.sa_family == AF_INET) {
+        uint16_t temp = ntohs(addr.addr.sin.sin_port) + 1;
+        addrs.addr.sin.sin_port = htons(temp);
+      } else if (addr.addr.sa.sa_family == AF_INET6) {
+        uint16_t temp = ntohs(addr.addr.sin6.sin6_port) + 1;
+        addrs.addr.sin6.sin6_port = htons(temp);
+      } else {
+        goto finish;
+      }
+
+      ep_udp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
+      // if (ep_udp) {
+      //   if (coap_dtls_is_supported() && (key_defined || cert_file)) {
+      //     ep_dtls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_DTLS);
+      //     if (!ep_dtls)
+      //       coap_log(LOG_CRIT, "cannot create DTLS endpoint\n");
+      //   }
+      // } else {
+      //   coap_log(LOG_CRIT, "cannot create UDP endpoint\n");
+      //   continue;
+      // }
+      // if (coap_tcp_is_supported()) {
+      //   coap_endpoint_t *ep_tcp;
+      //   ep_tcp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
+      //   if (ep_tcp) {
+      //     if (coap_tls_is_supported() && (key_defined || cert_file)) {
+      //       coap_endpoint_t *ep_tls;
+      //       ep_tls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_TLS);
+      //       if (!ep_tls)
+      //         coap_log(LOG_CRIT, "cannot create TLS endpoint\n");
+      //     }
+      //   } else {
+      //     coap_log(LOG_CRIT, "cannot create TCP endpoint\n");
+      //   }
+      // }
+      if (ep_udp)
+        goto finish;
+    }
+  }
+
+  fprintf(stderr, "no context available for interface '%s'\n", node);
+  coap_free_context(ctx);
+  ctx = NULL;
+
+finish:
+  freeaddrinfo(result);
+  return ctx;
 }
+
+// coap_context_t * setup_server_context (void) {
+//   coap_endpoint_t *endpoint;
+//   coap_address_t listen_addr;
+//   coap_context_t *context = coap_new_context(NULL);
+//   if (!context)
+//     return NULL;
+//   coap_address_init(&listen_addr);
+//   listen_addr.addr.sa.sa_family = AF_INET;
+//   listen_addr.addr.sin.sin_port = htons (analyzer_server_port);
+//   // endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
+//   endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_TCP);
+//   coap_context_set_keepalive(context, 0);
+//   if (!endpoint) {
+//     printf("QoS_analyzer， failed to create server endpoint!\n");
+//     coap_free_context(context);
+//     return NULL;
+//   } else {
+//   }
+//   /* Initialize resources - See coap_resource(3) init_resources() example */
+
+//   return context;
+// }
 void init_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
