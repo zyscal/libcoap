@@ -122,9 +122,22 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_prior
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c" -o CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s
 
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o: CMakeFiles/wakaama_server.dir/flags.make
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/ACK_queue.c"
+
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/ACK_queue.c" > CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.i
+
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/ACK_queue.c" -o CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.s
+
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/QoS/sender.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS/sender.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.s: cmake_for
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o: my_libcoap/core/liblwm2m.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/liblwm2m.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o: my_libcoap/core/uri.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/uri.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o: my_libcoap/core/utils.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/utils.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/utils.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o: my_libcoap/core/objects.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/objects.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/objects.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o: my_libcoap/core/tlv.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/tlv.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/tlv.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o: my_libcoap/core/data.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/data.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/data.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o: my_libcoap/core/list.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/list.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/list.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o: my_libcoap/core/packet.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/packet.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.i: cmake_force
@@ -241,7 +254,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/packet.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o: my_libcoap/core/transaction.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/transaction.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.i: cmake_force
@@ -254,7 +267,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/transaction.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o: my_libcoap/core/registration.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/registration.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.i: cmake_force
@@ -267,7 +280,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/registration.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o: my_libcoap/core/bootstrap.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/bootstrap.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.i: cmake_force
@@ -280,7 +293,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/bootstrap.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o: my_libcoap/core/management.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/management.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.i: cmake_force
@@ -293,7 +306,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/management.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o: my_libcoap/core/observe.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/observe.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.i: cmake_force
@@ -306,7 +319,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/observe.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o: my_libcoap/core/json.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/json.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.i: cmake_force
@@ -319,7 +332,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/json.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o: my_libcoap/core/senml_json.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/senml_json.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.i: cmake_force
@@ -332,7 +345,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/senml_json.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o: my_libcoap/core/json_common.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/json_common.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.i: cmake_force
@@ -345,7 +358,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/json_common.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o: my_libcoap/core/discover.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/discover.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.i: cmake_force
@@ -358,7 +371,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/discover.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o: my_libcoap/core/block1.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/block1.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.i: cmake_force
@@ -371,7 +384,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/block1.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o: my_libcoap/core/er-coap-13/er-coap-13.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/core/er-coap-13/er-coap-13.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.i: cmake_force
@@ -384,7 +397,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/core/er-coap-13/er-coap-13.c.s: cmake_f
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o: my_libcoap/shared/commandline.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/commandline.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.i: cmake_force
@@ -397,7 +410,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/shared/commandline.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o: my_libcoap/shared/platform.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/platform.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.i: cmake_force
@@ -410,7 +423,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/shared/platform.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o: my_libcoap/shared/memtrace.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/memtrace.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.i: cmake_force
@@ -423,7 +436,7 @@ CMakeFiles/wakaama_server.dir/my_libcoap/shared/memtrace.c.s: cmake_force
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o: CMakeFiles/wakaama_server.dir/flags.make
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o: my_libcoap/shared/connection.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/shared/connection.c"
 
 CMakeFiles/wakaama_server.dir/my_libcoap/shared/connection.c.i: cmake_force
@@ -441,6 +454,7 @@ wakaama_server_OBJECTS = \
 "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o" \
 "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o" \
 "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o" \
+"CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o" \
 "CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o" \
 "CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o" \
 "CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o" \
@@ -474,6 +488,7 @@ wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organ
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o
+wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/core/liblwm2m.c.o
 wakaama_server: CMakeFiles/wakaama_server.dir/my_libcoap/core/uri.c.o
@@ -503,7 +518,7 @@ wakaama_server: libcoap-3.a
 wakaama_server: /usr/lib/x86_64-linux-gnu/libssl.so
 wakaama_server: /usr/lib/x86_64-linux-gnu/libcrypto.so
 wakaama_server: CMakeFiles/wakaama_server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_30) "Linking C executable wakaama_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_31) "Linking C executable wakaama_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/wakaama_server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

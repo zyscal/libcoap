@@ -24,6 +24,7 @@ typedef unsigned char method_t;
 #define leshan_server_port 5683
 
 #define analyzer_server_port 5800
+#define analyzer_server_port_str "5800"
 
 #define analyzer_client_port 5900
 #define analyzer_client_port_str "5900"
@@ -33,6 +34,9 @@ typedef unsigned char method_t;
 #define organizer_client_port 5700
 #define organizer_client_port_str "5700"
   
+// #define WAN_PROTOCOL COAP_PROTO_TCP
+#define WAN_PROTOCOL COAP_PROTO_UDP
+
 
 extern coap_context_t *organizer_client_ctx;
 extern coap_context_t *organizer_server_ctx ;

@@ -2834,12 +2834,18 @@ handle_request(coap_context_t *context, coap_session_t *session, coap_pdu_t *pdu
        * Call the request handler with everything set up
        */
       h(resource, session, pdu, query, response);
+      int dropResponse = 0;
+      printf("after h\n");
+      if(coap_pdu_get_type(response) == 4) {
+        printf("response type is 4\n");
+        dropResponse = 1;
+      }
       /* Check if lg_xmit generated and update PDU code if so */
       coap_check_code_lg_xmit(session, response, resource, query);
 
 skip_handler:
       respond = no_response(pdu, response, session);
-      if (respond != RESPONSE_DROP) {
+      if (respond != RESPONSE_DROP && dropResponse == 0) {
         coap_mid_t mid = pdu->mid;
         if (COAP_RESPONSE_CLASS(response->code) != 2) {
           if (observe) {

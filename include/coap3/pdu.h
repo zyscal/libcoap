@@ -55,7 +55,8 @@ typedef enum coap_pdu_type_t {
   COAP_MESSAGE_CON,  /* 0 confirmable message (requires ACK/RST) */
   COAP_MESSAGE_NON,  /* 1 non-confirmable message (one-shot message) */
   COAP_MESSAGE_ACK,  /* 2 used to acknowledge confirmable messages */
-  COAP_MESSAGE_RST   /* 3 indicates error in received messages */
+  COAP_MESSAGE_RST,   /* 3 indicates error in received messages */
+  COAP_MESSAGE_NOT_SEND /* zyscal, 对于con消息不发送ACK*/
 } coap_pdu_type_t;
 
 /**

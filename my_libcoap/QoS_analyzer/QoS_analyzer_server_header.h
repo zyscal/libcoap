@@ -22,7 +22,7 @@
 
 
 coap_context_t * setup_server_context (void);
-void init_resources (coap_context_t *ctx);
+void init_analyzer_server_resources (coap_context_t *ctx);
 static void hnd_post_reg(coap_resource_t *resource,coap_session_t *session, coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response);
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response);

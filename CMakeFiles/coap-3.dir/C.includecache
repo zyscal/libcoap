@@ -6,53 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/src/net.c
+/home/zyscal/Documents/CoAP over TCP/libcoap/src/block.c
 coap3/coap_internal.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/src/coap3/coap_internal.h
-ctype.h
--
-stdio.h
--
-errno.h
--
-limits.h
--
-unistd.h
--
-sys/unistd.h
--
-sys/types.h
--
-sys/socket.h
--
-sys/ioctl.h
--
-netinet/in.h
--
-arpa/inet.h
--
-net/if.h
--
-sys/epoll.h
--
-sys/timerfd.h
--
-ws2tcpip.h
--
-netdb.h
--
-lwip/pbuf.h
--
-lwip/udp.h
--
-lwip/timeouts.h
--
-lwip/memp.h
--
-net/ip/uip-debug.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/src/net/ip/uip-debug.h
-stdio.h
--
 
 coap_config.h
 

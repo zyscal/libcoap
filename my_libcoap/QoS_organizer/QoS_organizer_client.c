@@ -1,5 +1,232 @@
 #include "QoS_organizer_client_header.h"
 #include <coap3/coap.h> 
+#include "liblwm2m.h"
+
+
+void
+free_xmit_data_organizer_client(coap_session_t *session COAP_UNUSED, void *app_ptr) {
+  coap_free(app_ptr);
+  return;
+}
+#define hexchar_to_dec(c) ((c) & 0x40 ? ((c) & 0x0F) + 9 : ((c) & 0x0F))
+
+int check_segment_Q_O_C(const uint8_t *s, size_t length) {
+  int n = 0;
+  while (length) {
+    if (*s == '%') {
+      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
+        return -1;
+      s += 2;
+      length -= 2;
+    }
+    ++s; ++n; --length;
+  }
+  return n;
+}
+void decode_segment_Q_O_C(const uint8_t *seg, size_t length, unsigned char *buf) {
+  while (length--) {
+    if (*seg == '%') {
+      *buf = (hexchar_to_dec(seg[1]) << 4) + hexchar_to_dec(seg[2]);
+
+      seg += 2; length -= 2;
+    } else {
+      *buf = *seg;
+    }
+    ++buf; ++seg;
+  }
+}
+
+int cmdline_input_Q_O_C(char *text, coap_string_t *buf) {
+  int len;
+  len = check_segment_Q_O_C((unsigned char *)text, strlen(text));
+  if (len < 0)
+    return 0;
+  buf->s = (unsigned char *)coap_malloc(len);
+  if (!buf->s)
+  {
+    return 0;
+  }
+  buf->length = len;
+  decode_segment_Q_O_C((unsigned char *)text, strlen(text), buf->s);
+  return 1;
+}
+
+void prv_result_callback(uint16_t clientID,lwm2m_uri_t * uriP,int status,
+  lwm2m_media_type_t format,  uint8_t * data,int dataLength,void * userData)
+{
+  printf("---------------------\n");
+  printf("clientID is : %d\n", clientID);
+  printf("objectId : %d\n", uriP->objectId);
+  printf("instanceId : %d\n", uriP->instanceId);
+  printf("resourceId : %d\n", uriP->resourceId);
+  printf("resourceInstanceId : %d\n", uriP->resourceInstanceId);
+  printf("status : %d\n", status);
+  printf("format : %d\n", format);
+  printf("COAP_RESPONSE_CODE_CONTENT is : %d\n", COAP_RESPONSE_CODE_CONTENT);
+  printf("data : %d\n", dataLength);
+  for(int i = 0; i < dataLength; i++) {
+    printf("%c", data[i]);
+  }
+  printf("\n");
+
+  printf("------------------\n");
+  // 组装ACK，将ACK加入到队列中
+  coap_pdu_t *ACK = (coap_pdu_t *)userData;
+  // code
+  coap_pdu_set_code(ACK, status);
+
+  if(format == 0) {
+    coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, 0, NULL);
+  }
+  else if(format <= 255) {
+    uint8_t content_type[1];
+    content_type[0] = format;
+    coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, 1, content_type);
+  } else {
+    uint8_t content_type[2];
+    uint16_t formatToInt = format;
+    content_type[0] = formatToInt >> 8;
+    content_type[1] = formatToInt << 8 >> 8;
+    coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, 2, content_type);
+  }
+  // 加入到队列中
+  pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
+  int num = InsertACKMsg(ACK, organizer_client_ctx, &Qorganizer_DLACKQueue, &organizer_DL_ACK_queue_mutex, data, dataLength);
+  pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
+  printf("after insert ,队列中数据数量为：%d, mid is :  %d\n\n", num, ACK->mid);
+}
+
+void handle_uri(int *uri, char a) {
+  if(*uri == 65535) {
+    *uri = 0;
+  }
+  *uri *= 10;
+  *uri += a - '0';
+}
+void hnd_read(coap_resource_t *resource,coap_session_t *session, 
+coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
+  uint8_t clientID = 0;
+  int queryID = 1;
+  int objectId = 65535;
+  int instanceId = 65535;
+  int resourceId = 65535;
+  int resourceInstanceId = 65535;
+  for(int i = 0; i < query->length; i++) {
+    char a = query->s[i];
+    if(queryID == 1 && a >= '0' && a <= '9') { // 首先开始寻找客户端ID
+      clientID *= 10;
+      clientID += a - '0';
+    } else if(a == '&') { // 开始处理下一个query
+      queryID++;
+    } else if(queryID == 2) { // objectId
+      handle_uri(&objectId, a);
+    } else if(queryID == 3) {
+      handle_uri(&instanceId, a);
+    } else if(queryID == 4) {
+      handle_uri(&resourceId, a);
+    } else if(queryID == 5) {
+      handle_uri(&resourceInstanceId, a);
+    }
+  }
+  lwm2m_uri_t uri;
+  uri.objectId = objectId;
+  uri.instanceId = instanceId;
+  uri.resourceId = resourceId;
+  uri.resourceInstanceId = resourceInstanceId;
+
+  // ACCEPT 类型，默认为text为0
+  coap_opt_iterator_t opt_iter;
+  coap_opt_t *option;
+  int sumdelta = 0;
+  coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
+  uint16_t type = 0;
+  while (option = coap_option_next(&opt_iter))
+  {
+    sumdelta += *option >> 4;
+    if(sumdelta == 17) {
+      uint8_t *value = coap_opt_value(option);
+      int length = coap_opt_length(option);
+      if (length == 0) {
+        // text 长度为0 不做修改
+      } else {
+        for(int i = 0 ; i < length; i++) {
+          type <<= 8;
+          type |= value[i];
+        }
+      }
+    }
+  }
+  printf("type 1is : %d\n", type);
+  // 配置accept参数
+  lwm2m_client_t * targetP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)lwm2mH->clientList, clientID);
+  targetP->format = type;
+  // 创建ACK
+  coap_pdu_t *ACK = coap_new_pdu(COAP_MESSAGE_ACK, 0, organizer_client_session);
+  // 组装token
+  coap_bin_const_t token = coap_pdu_get_token(request);
+  coap_add_token(ACK, token.length, token.s);
+  // mid
+  coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
+  printf("request mid is : %d\n", request->mid);
+
+  lwm2m_dm_read(lwm2mH, clientID, &uri, prv_result_callback, ACK);
+
+  uint8_t *payload;
+  uint8_t LengthOfPayload;
+  // 从队列中取出ACK
+  while(1) {
+    pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
+    coap_pdu_t *p = GetAndDelACKQueueFront(coap_pdu_get_mid(request), &Qorganizer_DLACKQueue, &organizer_DL_ACK_queue_mutex,
+    &payload, &LengthOfPayload);
+    pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
+    if(p == NULL) {
+      continue;
+    }
+    printf("find ACK !!!!!\n\n");
+    // code
+    coap_pdu_set_code(response, coap_pdu_get_code(p));
+    // token
+    coap_add_token(response, token.length, token.s);
+    // data
+    printf("type 3is : %d\n", targetP->format);
+    coap_add_data_large_response(resource, organizer_client_session, request,
+    response, query, targetP->format, -1, 0, LengthOfPayload, payload, NULL, NULL);
+
+    uint8_t* checkdata;
+    int lengthofcheckdata;
+    coap_get_data(response, &lengthofcheckdata, &checkdata);
+    printf("lengthofcheckdata is : %d\n", lengthofcheckdata);
+    printf("data is : \n");
+    for(int i = 0; i < lengthofcheckdata; i++){
+      printf("%c", checkdata[i]);
+    }
+    printf("\n");
+    // 此处应当释放ACK消息 和 payload
+    free(payload);
+    coap_delete_pdu(ACK);
+    break;
+  }
+}
+
+
+
+void init_organizer_client_resources (coap_context_t *ctx) {
+  coap_resource_t *r;
+  r = coap_resource_init(coap_make_str_const("read"), 0);
+  coap_register_handler(r, COAP_REQUEST_GET, hnd_read);
+  coap_add_resource(ctx, r);
+}
+
+
+
+
+
+
+
+
+
+
+
 coap_response_t
 message_handler(coap_session_t *session COAP_UNUSED,
                 const coap_pdu_t *sent,
@@ -45,11 +272,7 @@ message_handler(coap_session_t *session COAP_UNUSED,
   }
   return COAP_RESPONSE_OK;
 }
- 
- void free_xmit_data_organizer_client(coap_session_t *session COAP_UNUSED, void *app_ptr) {
-  coap_free(app_ptr);
-  return;
-}
+
 static coap_session_t* 
 open_session(
   coap_context_t *ctx,

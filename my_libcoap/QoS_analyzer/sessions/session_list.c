@@ -99,34 +99,33 @@ bool GlobalIDIsSame(uint8_t *GlobalID, int Length, anjay_node* anjay_client_node
             return false;
         }
     }
-    printf("match!!!\n");
     return true;
 }
-// OrganizerIsContain 判断当前的organizer中是否存在这个GlobalID
-coap_session_t *OrganizerIsContain(organizer_node* organizer, uint8_t *GlobalID, int Length) {
+// OrganizerIsContain 判断当前的organizer中是否存在这个GlobalID,如果存在返回InternalID
+int OrganizerIsContain(organizer_node* organizer, uint8_t *GlobalID, int Length, coap_session_t **ansSession) {
     anjay_node* p = organizer->anjay_client_node;
     while (p != NULL)
     {
         if(GlobalIDIsSame(GlobalID, Length, p)) {
-            coap_session_t *ans = organizer->session;
-            return ans;
+            *ansSession = organizer->session;
+            return p->InternalID;
         }
         p = p->next;
         /* code */
     }
-    return NULL;
+    return 0;
 }
 
-// findSessionByGlobalID 通过GlobalID找到对应的organizer session
-coap_session_t *findSessionByGlobalID(uint8_t *GlobalID, int Length) {
+// findSessionAndInternalIDByGlobalID 通过GlobalID找到对应的organizer session
+int findSessionAndInternalIDByGlobalID(uint8_t *GlobalID, int Length, coap_session_t **ansSession) {
     organizer_node *p = organizer_node_head.next;
     while (p != NULL)
     {
-        coap_session_t *session = OrganizerIsContain(p, GlobalID, Length);
-        if(session != NULL) {
-            return session;
+        int InternalID = OrganizerIsContain(p, GlobalID, Length, ansSession);
+        if(*ansSession != NULL) {
+            return InternalID;
         }
         p = p->next;
     }
-    return NULL;
+    return 0;
 }

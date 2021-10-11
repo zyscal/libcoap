@@ -13,6 +13,8 @@
 #include <netinet/in.h>
 #include <errno.h>
 #include "../QoS_organizer_analyzer_port.h"
+#include "sessions/session_list.h"
+#include "queue/QoS_analyzer_DL_queue.h"
 
 
 void init_analyzer_client_resources();

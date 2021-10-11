@@ -52,115 +52,117 @@ free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_pt
   return;
 }
 
-coap_context_t * setup_server_context() {
-  char node[NI_MAXHOST] = "::";
-  char port[NI_MAXSERV] = "5683";
-  coap_context_t *ctx = NULL;
-  int s;
-  struct addrinfo hints;
-  struct addrinfo *result, *rp;
+// coap_context_t * setup_server_context() {
+//   char node[NI_MAXHOST] = "0.0.0.0";
+//   char port[NI_MAXSERV] = analyzer_server_port_str;
+//   coap_context_t *ctx = NULL;
+//   int s;
+//   struct addrinfo hints;
+//   struct addrinfo *result, *rp;
 
-  ctx = coap_new_context(NULL);
-  if (!ctx) {
+//   ctx = coap_new_context(NULL);
+//   if (!ctx) {
+//     return NULL;
+//   }
+//   /* Need PKI/RPK/PSK set up before we set up (D)TLS endpoints */
+//   // fill_keystore(ctx);
+
+//   memset(&hints, 0, sizeof(struct addrinfo));
+//   hints.ai_family = AF_UNSPEC;    /* Allow IPv4 or IPv6 */
+//   hints.ai_socktype = SOCK_STREAM; // tcp SOCK_STREAM udp SOCK_DGRAM
+//   hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST;
+
+//   s = getaddrinfo(node, port, &hints, &result);
+//   if ( s != 0 ) {
+//     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+//     coap_free_context(ctx);
+//     return NULL;
+//   }
+
+//   /* iterate through results until success */
+//   for (rp = result; rp != NULL; rp = rp->ai_next) {
+//     coap_address_t addr, addrs;
+//     coap_endpoint_t *ep_udp = NULL, *ep_dtls = NULL;
+
+//     if (rp->ai_addrlen <= (socklen_t)sizeof(addr.addr)) {
+//       coap_address_init(&addr);
+//       addr.size = (socklen_t)rp->ai_addrlen;
+//       memcpy(&addr.addr, rp->ai_addr, rp->ai_addrlen);
+//       addrs = addr;
+//       if (addr.addr.sa.sa_family == AF_INET) {
+//         uint16_t temp = ntohs(addr.addr.sin.sin_port) + 1;
+//         addrs.addr.sin.sin_port = htons(temp);
+//       } else if (addr.addr.sa.sa_family == AF_INET6) {
+//         uint16_t temp = ntohs(addr.addr.sin6.sin6_port) + 1;
+//         addrs.addr.sin6.sin6_port = htons(temp);
+//       } else {
+//         goto finish;
+//       }
+
+//       ep_udp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
+//       // if (ep_udp) {
+//       //   if (coap_dtls_is_supported() && (key_defined || cert_file)) {
+//       //     ep_dtls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_DTLS);
+//       //     if (!ep_dtls)
+//       //       coap_log(LOG_CRIT, "cannot create DTLS endpoint\n");
+//       //   }
+//       // } else {
+//       //   coap_log(LOG_CRIT, "cannot create UDP endpoint\n");
+//       //   continue;
+//       // }
+//       // if (coap_tcp_is_supported()) {
+//       //   coap_endpoint_t *ep_tcp;
+//       //   ep_tcp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
+//       //   if (ep_tcp) {
+//       //     if (coap_tls_is_supported() && (key_defined || cert_file)) {
+//       //       coap_endpoint_t *ep_tls;
+//       //       ep_tls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_TLS);
+//       //       if (!ep_tls)
+//       //         coap_log(LOG_CRIT, "cannot create TLS endpoint\n");
+//       //     }
+//       //   } else {
+//       //     coap_log(LOG_CRIT, "cannot create TCP endpoint\n");
+//       //   }
+//       // }
+//       if (ep_udp)
+//         goto finish;
+//     }
+//   }
+
+//   fprintf(stderr, "no context available for interface '%s'\n", node);
+//   coap_free_context(ctx);
+//   ctx = NULL;
+
+// finish:
+//   freeaddrinfo(result);
+//   return ctx;
+// }
+
+coap_context_t * setup_server_context (void) {
+  coap_endpoint_t *endpoint;
+  coap_address_t listen_addr;
+  coap_context_t *context = coap_new_context(NULL);
+  if (!context)
     return NULL;
-  }
-  /* Need PKI/RPK/PSK set up before we set up (D)TLS endpoints */
-  // fill_keystore(ctx);
-
-  memset(&hints, 0, sizeof(struct addrinfo));
-  hints.ai_family = AF_UNSPEC;    /* Allow IPv4 or IPv6 */
-  hints.ai_socktype = SOCK_DGRAM; /* Coap uses UDP */
-  hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST;
-
-  s = getaddrinfo(node, port, &hints, &result);
-  if ( s != 0 ) {
-    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
-    coap_free_context(ctx);
+  coap_address_init(&listen_addr);
+  listen_addr.addr.sa.sa_family = AF_INET;
+  listen_addr.addr.sin.sin_port = htons (analyzer_server_port);
+  // endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
+  endpoint = coap_new_endpoint(context, &listen_addr, WAN_PROTOCOL);
+  coap_context_set_keepalive(context, 0);
+  if (!endpoint) {
+    printf("QoS_analyzer， failed to create server endpoint!\n");
+    coap_free_context(context);
     return NULL;
+  } else {
   }
 
-  /* iterate through results until success */
-  for (rp = result; rp != NULL; rp = rp->ai_next) {
-    coap_address_t addr, addrs;
-    coap_endpoint_t *ep_udp = NULL, *ep_dtls = NULL;
-
-    if (rp->ai_addrlen <= (socklen_t)sizeof(addr.addr)) {
-      coap_address_init(&addr);
-      addr.size = (socklen_t)rp->ai_addrlen;
-      memcpy(&addr.addr, rp->ai_addr, rp->ai_addrlen);
-      addrs = addr;
-      if (addr.addr.sa.sa_family == AF_INET) {
-        uint16_t temp = ntohs(addr.addr.sin.sin_port) + 1;
-        addrs.addr.sin.sin_port = htons(temp);
-      } else if (addr.addr.sa.sa_family == AF_INET6) {
-        uint16_t temp = ntohs(addr.addr.sin6.sin6_port) + 1;
-        addrs.addr.sin6.sin6_port = htons(temp);
-      } else {
-        goto finish;
-      }
-
-      ep_udp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
-      // if (ep_udp) {
-      //   if (coap_dtls_is_supported() && (key_defined || cert_file)) {
-      //     ep_dtls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_DTLS);
-      //     if (!ep_dtls)
-      //       coap_log(LOG_CRIT, "cannot create DTLS endpoint\n");
-      //   }
-      // } else {
-      //   coap_log(LOG_CRIT, "cannot create UDP endpoint\n");
-      //   continue;
-      // }
-      // if (coap_tcp_is_supported()) {
-      //   coap_endpoint_t *ep_tcp;
-      //   ep_tcp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
-      //   if (ep_tcp) {
-      //     if (coap_tls_is_supported() && (key_defined || cert_file)) {
-      //       coap_endpoint_t *ep_tls;
-      //       ep_tls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_TLS);
-      //       if (!ep_tls)
-      //         coap_log(LOG_CRIT, "cannot create TLS endpoint\n");
-      //     }
-      //   } else {
-      //     coap_log(LOG_CRIT, "cannot create TCP endpoint\n");
-      //   }
-      // }
-      if (ep_udp)
-        goto finish;
-    }
-  }
-
-  fprintf(stderr, "no context available for interface '%s'\n", node);
-  coap_free_context(ctx);
-  ctx = NULL;
-
-finish:
-  freeaddrinfo(result);
-  return ctx;
+  return context;
 }
 
-// coap_context_t * setup_server_context (void) {
-//   coap_endpoint_t *endpoint;
-//   coap_address_t listen_addr;
-//   coap_context_t *context = coap_new_context(NULL);
-//   if (!context)
-//     return NULL;
-//   coap_address_init(&listen_addr);
-//   listen_addr.addr.sa.sa_family = AF_INET;
-//   listen_addr.addr.sin.sin_port = htons (analyzer_server_port);
-//   // endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
-//   endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_TCP);
-//   coap_context_set_keepalive(context, 0);
-//   if (!endpoint) {
-//     printf("QoS_analyzer， failed to create server endpoint!\n");
-//     coap_free_context(context);
-//     return NULL;
-//   } else {
-//   }
-//   /* Initialize resources - See coap_resource(3) init_resources() example */
 
-//   return context;
-// }
-void init_resources (coap_context_t *ctx) {
+
+void init_analyzer_server_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_reg);
@@ -282,7 +284,7 @@ coap_pdu_t *response) {
   uint8_t uri_path[] = "rd";
   coap_optlist_t *analyzer_client_request_option = 
   coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
-  // uri_query
+  // uri_query, 以前的垃圾写法，不需要遍历字符串，用迭代器就可以了
   // 创建内部ID
   int InternalID = -1;
   int number_of_query = 0;
@@ -369,7 +371,7 @@ coap_pdu_t *response) {
   while (true)
   {
     // 获取ACK
-    coap_pdu_t* ack = GetAndDelACKQueueFront(mid_con, &ULACKQueue);    /* code */
+    coap_pdu_t* ack = GetAndDelACKQueueFront(mid_con, &ULACKQueue ,&analyzer_UL_ACK_queue_mutex);    /* code */
     if(ack == NULL) {
       continue;
     }
@@ -415,7 +417,7 @@ coap_pdu_t *response) {
       anjay = anjay->next;
     }
     numOfOrganizer++;
-    printf("|第%d个organizer 中 anjay数量为:%d\n", numOfOrganizer, numOfanjay);
+    printf("|第%d个organizer 中 anjay数量为:%d, something is session : %d\n", numOfOrganizer, numOfanjay, p->session->sock.fd);
     // 遍历输出全部anjay信息
     anjay = p->anjay_client_node;
     while (anjay != NULL)
@@ -435,21 +437,21 @@ coap_pdu_t *response) {
   printf("|当前QoS_organizer数量为 : %d\n",numOfOrganizer);
   printf("|---------------------------------------------|\n");
 
-  coap_endpoint_t *tem_endpoint = session->endpoint;
-  int i = 0;
-  while (tem_endpoint != NULL)
-  {
-    printf("第%d个endpoint地址为：%d, endpoint中ctx地址：%d，endpoint中session ： %d\n", i,
-    tem_endpoint, tem_endpoint->context, tem_endpoint->sessions);
-    i++;
-    tem_endpoint  = tem_endpoint->next;
-  }
-  printf("session addr is : %d\n", session);
-  printf("session 中 endpoint : %d\n", session->endpoint);
-  printf("session 中 endpoint 中 session ： %d\n", session->endpoint->sessions);
-  printf("session 中 endpoint 中 ctx ： %d\n", session->endpoint->context);
-  printf("session ctx : %d\n", session->context);
-  printf("session ctx 中 endpoint: %d\n", session->context->endpoint);
+  // coap_endpoint_t *tem_endpoint = session->endpoint;
+  // int i = 0;
+  // while (tem_endpoint != NULL)
+  // {
+  //   printf("第%d个endpoint地址为：%d, endpoint中ctx地址：%d，endpoint中session ： %d\n", i,
+  //   tem_endpoint, tem_endpoint->context, tem_endpoint->sessions);
+  //   i++;
+  //   tem_endpoint  = tem_endpoint->next;
+  // }
+  // printf("session addr is : %d\n", session);
+  // printf("session 中 endpoint : %d\n", session->endpoint);
+  // printf("session 中 endpoint 中 session ： %d\n", session->endpoint->sessions);
+  // printf("session 中 endpoint 中 ctx ： %d\n", session->endpoint->context);
+  // printf("session ctx : %d\n", session->context);
+  // printf("session ctx 中 endpoint: %d\n", session->context->endpoint);
 }
 
 

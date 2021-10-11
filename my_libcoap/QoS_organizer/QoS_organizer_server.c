@@ -75,13 +75,10 @@ coap_context_t * setup_server_context (void) {
     coap_free_context(context);
     return NULL;
   }
-
-  /* Initialize resources - See coap_resource(3) init_resources() example */
-
   return context;
 }
 
-void init_resources (coap_context_t *ctx) {
+void init_organizer_server_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_reg);

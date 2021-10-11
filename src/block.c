@@ -379,7 +379,7 @@ coap_add_data_large_internal(coap_session_t *session,
 
     assert(resource);
     option = COAP_OPTION_BLOCK2;
-
+    
     /* Check if resource+query is already in use for large bodies (unlikely) */
     LL_FOREACH_SAFE(session->lg_xmit, lg_xmit, q) {
       if (resource == lg_xmit->b.b2.resource &&

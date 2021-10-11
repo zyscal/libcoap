@@ -11,23 +11,13 @@
 #include <netinet/in.h>
 #include <errno.h>
 #include "../QoS_organizer_analyzer_port.h"
-
+#include "queue/ACK_queue.h"
 void handle_ACK(const coap_pdu_t *received, struct coap_pdu_t_node** pointer);
 coap_response_t message_handler(coap_session_t *session COAP_UNUSED,
                 const coap_pdu_t *sent,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED);
-void free_xmit_data_organizer_client(coap_session_t *session COAP_UNUSED, void *app_ptr);
-static coap_session_t* open_session(
-  coap_context_t *ctx,
-  coap_proto_t proto,
-  coap_address_t *bind_addr,
-  coap_address_t *dst,
-  const uint8_t *identity,
-  size_t identity_len,
-  const uint8_t *key,
-  size_t key_len
-);
+
 coap_session_t *get_session(
   coap_context_t *ctx,
   const char *local_addr,
@@ -40,13 +30,7 @@ coap_session_t *get_session(
   size_t key_len
 );
 int resolve_address(const coap_str_const_t *server, struct sockaddr *dst);
-static coap_pdu_t *coap_new_request_organizer_client(coap_context_t *ctx,
-                 coap_session_t *session,
-                 method_t m,
-                 coap_optlist_t **options,
-                 unsigned char *data,
-                 size_t length);
-
+void init_organizer_client_resources (coap_context_t *ctx);
 static coap_optlist_t *optlist = NULL;
 static coap_string_t payload = { 0, NULL };
 
@@ -56,3 +40,4 @@ static char *ca_file = NULL;   /* CA for cert_file - for cert checking in PEM,
                                   DER or PKCS11 URI */
 static char *cert_file = NULL; /* certificate and optional private key in PEM,
                                   or PKCS11 URI*/
+extern lwm2m_context_t * lwm2mH;

@@ -122,13 +122,41 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.s: c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.c" -o CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.s
 
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: CMakeFiles/QoS_analyzer.dir/flags.make
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c"
+
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c" > CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.i
+
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c" -o CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.s
+
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: CMakeFiles/QoS_analyzer.dir/flags.make
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: my_libcoap/QoS_analyzer/QoS/sender.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o   -c "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.c"
+
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.c" > CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.i
+
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.c" -o CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.s
+
 # Object files for target QoS_analyzer
 QoS_analyzer_OBJECTS = \
 "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer.c.o" \
 "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o" \
 "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o" \
 "CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/ACK_queue.c.o" \
-"CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.o"
+"CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.o" \
+"CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o" \
+"CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o"
 
 # External object files for target QoS_analyzer
 QoS_analyzer_EXTERNAL_OBJECTS =
@@ -138,12 +166,14 @@ QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_c
 QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o
 QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/ACK_queue.c.o
 QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/sessions/session_list.c.o
+QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o
+QoS_analyzer: CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o
 QoS_analyzer: CMakeFiles/QoS_analyzer.dir/build.make
 QoS_analyzer: libcoap-3.a
 QoS_analyzer: /usr/lib/x86_64-linux-gnu/libssl.so
 QoS_analyzer: /usr/lib/x86_64-linux-gnu/libcrypto.so
 QoS_analyzer: CMakeFiles/QoS_analyzer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable QoS_analyzer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/zyscal/Documents/CoAP over TCP/libcoap/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable QoS_analyzer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/QoS_analyzer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

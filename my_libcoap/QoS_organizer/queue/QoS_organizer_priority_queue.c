@@ -31,7 +31,6 @@ uint8_t InsertRegMsg(coap_pdu_t* NewPdu) {
     head->msg = NewPdu;
     head->next = NULL;
     pthread_mutex_unlock(&organizer_reg_queue_mutex); 
-
     return 1;
   }
   int count = 2;

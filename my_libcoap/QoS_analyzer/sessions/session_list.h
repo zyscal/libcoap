@@ -22,8 +22,7 @@ typedef struct organizer_node organizer_node;
 organizer_node organizer_node_head;
 organizer_node *handle_organizer(coap_session_t *session);
 organizer_node *insert_organizer(coap_session_t *session);
-anjay_node* handle_anjay_node(coap_session_t *session, 
-int InternalID, uint8_t *GlobalID, int LengthOfGlobalID);
+anjay_node* handle_anjay_node(coap_session_t *session, int InternalID, uint8_t *GlobalID, int LengthOfGlobalID);
 void update_GlobalID(anjay_node* client, char *GlobalID, int GlobalIDSize);
-coap_session_t *findSessionByGlobalID(uint8_t *GlobalID, int Length);
+int findSessionAndInternalIDByGlobalID(uint8_t *GlobalID, int Length, coap_session_t **ansSession);
 #endif

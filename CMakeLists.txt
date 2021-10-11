@@ -585,6 +585,7 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.h
 
   )
@@ -594,6 +595,7 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS_organizer_server.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.c
 
   )
@@ -611,6 +613,9 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/ACK_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/sessions/session_list.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS/sender.h
+
   )
 
   add_executable(QoS_analyzer 
@@ -619,7 +624,8 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS_analyzer_server.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/ACK_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/sessions/session_list.c
-
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_analyzer/QoS/sender.c
   )
 
 

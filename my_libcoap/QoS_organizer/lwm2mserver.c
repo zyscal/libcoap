@@ -312,8 +312,13 @@ static void prv_read_client(char * buffer,
 
     if (!check_end_of_args(end)) goto syntax_error;
 
+    printf("clientId : %d\n", clientId);
+    printf("objectId : %d\n", uri.objectId);
+    printf("instanceId : %d\n", uri.instanceId);
+    printf("resourceId : %d\n", uri.resourceId);
+    printf("resourceInastanceId : %d\n", uri.resourceInstanceId);
     result = lwm2m_dm_read(lwm2mH, clientId, &uri, prv_result_callback, NULL);
-
+    
     if (result == 0)
     {
         fprintf(stdout, "OK");
@@ -884,10 +889,11 @@ void* organizer_client(void* arg)
     coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
     organizer_client_session = get_session(
     organizer_client_ctx,
-    "192.168.3.24", localClientPort,
-    COAP_PROTO_TCP,
+    // "172.20.10.5",
+    "192.168.3.24", 
+    localClientPort,
+    WAN_PROTOCOL,
     // COAP_PROTO_UDP,
-
     &dst,
     NULL,
     0,
@@ -925,6 +931,7 @@ void* organizer_client(void* arg)
   // organizer_client_session, method, &organizer_client_request_option, 
   // payload_test.s, payload_test.length);
   // coap_send_large(organizer_client_session, pdu);
+  init_organizer_client_resources (organizer_client_ctx);
   uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
   while (1)
   {

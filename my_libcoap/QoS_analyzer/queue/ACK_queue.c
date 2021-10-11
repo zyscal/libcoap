@@ -1,7 +1,8 @@
 #include "ACK_queue.h"
 
-coap_pdu_t* InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** analyzerACKQueueHead){
-    pthread_mutex_lock(&analyzer_UL_ACK_queue_mutex);
+coap_pdu_t* InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** analyzerACKQueueHead, pthread_mutex_t *mutex)
+{
+    pthread_mutex_lock(mutex);
     coap_pdu_t *new_pdu = coap_pdu_duplicate(pdu, session, pdu->token_length,
     pdu->token, NULL);
     new_pdu->mid = coap_pdu_get_mid(pdu);
@@ -22,7 +23,7 @@ coap_pdu_t* InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** an
         p->next->data = new_pdu;
         p->next->next = NULL;
     }
-    pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+    pthread_mutex_unlock(mutex);
     return new_pdu;
 }
 
@@ -32,18 +33,19 @@ bool same(coap_mid_t send_mid, coap_pdu_t *receive){
 }
 
 // 从ACK队列中找打匹配send的ACK，从队列中删除节点并返回。
-coap_pdu_t* GetAndDelACKQueueFront(coap_mid_t send_mid, ACKQueue** analyzerACKQueueHead){
-    pthread_mutex_lock(&analyzer_UL_ACK_queue_mutex);
+coap_pdu_t* GetAndDelACKQueueFront(coap_mid_t send_mid, ACKQueue** analyzerACKQueueHead, pthread_mutex_t *mutex)
+{
+    pthread_mutex_lock(mutex);
     if(*analyzerACKQueueHead == NULL) {
         // ACK队列为空
-        pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+        pthread_mutex_unlock(mutex);
         return NULL;
     }
     if(same(send_mid, (*analyzerACKQueueHead)->data)) {
         // ACK队列头部匹配
         coap_pdu_t* p = (*analyzerACKQueueHead)->data;
         *analyzerACKQueueHead = (*analyzerACKQueueHead)->next;
-        pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+        pthread_mutex_unlock(mutex);
         return p;
     }
     // 从头节点的下一个开始匹配
@@ -55,12 +57,12 @@ coap_pdu_t* GetAndDelACKQueueFront(coap_mid_t send_mid, ACKQueue** analyzerACKQu
             front->next = back->next;
             coap_pdu_t* ack = back->data;
             free(back);
-            pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+            pthread_mutex_unlock(mutex);
             return ack;
         }
         back = back->next;
         front = front->next;
     }
-    pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+    pthread_mutex_unlock(mutex);
     return NULL;
 }

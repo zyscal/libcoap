@@ -116,6 +116,8 @@ uint8_t object_readData(lwm2m_context_t * contextP,
                         int * sizeP,
                         lwm2m_data_t ** dataP)
 {
+        printf("enter into object_readData\n");
+
     uint8_t result;
     lwm2m_object_t * targetP;
 
@@ -191,6 +193,7 @@ uint8_t object_read(lwm2m_context_t * contextP,
                     uint8_t ** bufferP,
                     size_t * lengthP)
 {
+    printf("enter into object_read2\n");
     uint8_t result;
     lwm2m_data_t * dataP = NULL;
     int size = 0;

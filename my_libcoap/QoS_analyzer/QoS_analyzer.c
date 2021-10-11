@@ -13,11 +13,20 @@
 #include<netdb.h>
 #include <netinet/in.h>
 #include <errno.h>
+#include "queue/QoS_analyzer_DL_queue.h"
 coap_context_t *analyzer_client_ctx;
 coap_context_t *analyzer_server_ctx;
 coap_session_t *analyzer_client_session;
 int len_analyer_received;
 extern pthread_mutex_t analyzer_UL_ACK_queue_mutex;
+extern pthread_mutex_t analyzer_DL_ACK_queue_mutex;
+extern pthread_mutex_t analyzer_DL_queue_mutex;
+void* analyzer_server_sender(void* arg) {
+    printf("enter into analyzer_server_sender\n");
+    analyzer_DL_simple_sender();
+}
+
+
 void* analyzer_client(void* arg)
 {
     analyzer_client_ctx = coap_new_context( NULL );
@@ -49,8 +58,17 @@ void* analyzer_client(void* arg)
   coap_register_response_handler(analyzer_client_ctx, message_handler);
   // 为客户端创建资源
   init_analyzer_client_resources();
-
   uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
+
+  // 创建发送线程
+    // 开启轮轮询发送线程
+  pthread_t thread;
+  int result = pthread_create(&thread, NULL, analyzer_server_sender, NULL);
+  if(result == 0) {
+  } else {
+      printf("failed to create analyzer DL sender thread\n");
+  }
+
   while (1)
   {
 
@@ -71,6 +89,8 @@ void* analyzer_client(void* arg)
 int main()
 {
     pthread_mutex_init(&analyzer_UL_ACK_queue_mutex,NULL);
+    pthread_mutex_init(&analyzer_DL_ACK_queue_mutex,NULL);
+    pthread_mutex_init(&analyzer_DL_queue_mutex,NULL);
     pthread_t tids[0];
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)
@@ -82,7 +102,7 @@ int main()
 
 
     analyzer_server_ctx = setup_server_context();
-    init_resources(analyzer_server_ctx);
+    init_analyzer_server_resources(analyzer_server_ctx);
 
     uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
     while (1) 
