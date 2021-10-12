@@ -104,6 +104,7 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_client.c.o: my_
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_analyzer/QoS_analyzer_server.c
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_analyzer/queue/ACK_queue.h
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_analyzer/sessions/session_list.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: my_libcoap/QoS_organizer_analyzer_port.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o: include/coap3/address.h

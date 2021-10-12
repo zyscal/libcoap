@@ -105,6 +105,7 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS_analyzer_server.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/ACK_queue.h
+ /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
  include/coap3/address.h

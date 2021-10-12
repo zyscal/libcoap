@@ -43,3 +43,91 @@ coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointe
     pthread_mutex_unlock(mutex); 
     return front_pdu;
 }
+
+bool tokenSame(uint8_t* token1, int length1, uint8_t *token2, int length2) {
+    if (length1 != length2)
+    {
+        return false;
+        /* code */
+    }
+    for(int i = 0 ; i < length1; i++) {
+        if(token1[i] != token2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool InsertMid(coap_mid_t mid, coap_bin_const_t token) {
+    if(midListHead == NULL) {
+        // 队列头部为空
+        midListHead = (midList *) malloc(sizeof(midList));
+        midListHead->next = NULL;
+        midListHead->mid = mid;
+        midListHead->tokenLength = token.length;
+        midListHead->token = (uint8_t *)malloc(sizeof(uint8_t) * token.length);
+        for(int i = 0 ; i < token.length; i++) {
+            (midListHead->token)[i] = (token.s)[i];
+        }
+        return true;
+    } else {
+        midList *p = midListHead;
+        while (p != NULL)
+        {
+            // mid已经存在
+            if(p->mid == mid) {
+                if(tokenSame(p->token, p->tokenLength, token.s, token.length)) {
+                    return false;
+                } else { // 更新旧token
+                    p->tokenLength = token.length;
+                    for(int i = 0 ; i < token.length; i++) {
+                        (p->token)[i] = (token.s)[i];
+                    }
+                }
+            } else {
+                p = p->next;
+            }
+        }
+        // mid不存在，在头部insert一个就好了
+        midList *newMidList = (midList *)malloc(sizeof(midList));
+        newMidList->mid = mid;
+        newMidList->tokenLength = token.length;
+        newMidList->token = (uint8_t *) malloc(sizeof(uint8_t) * token.length);
+        for(int i = 0 ; i < token.length; i++) {
+            (newMidList->token)[i] = (token.s)[i];
+        }
+        newMidList->next = midListHead->next;
+        midListHead = newMidList;
+        return true;
+    }
+
+}
+
+coap_mid_t findMidByToken(coap_bin_const_t token) {
+    if(midListHead == NULL) {
+        return -1;
+    }
+    if(tokenSame(midListHead->token, midListHead->tokenLength, token.s, token.length)){
+        // 头结点匹配
+        midList *p = midListHead;
+        midListHead = midListHead->next;
+        int mid = p->mid;
+        free(p->token);
+        free(p);
+        return mid;
+    }
+    midList *pBack = midListHead->next;
+    midList *pFront = midListHead;
+    while (pBack != NULL)
+    {
+        if(tokenSame(pBack->token, pBack->tokenLength, token.s, token.length)) {
+            int mid = pBack->mid;
+            pFront->next = pBack->next;
+            free(pBack->token);
+            free(pBack);
+            return mid;
+        }
+        /* code */
+    }
+    return -1;
+}

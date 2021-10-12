@@ -21,6 +21,8 @@ int len_analyer_received;
 extern pthread_mutex_t analyzer_UL_ACK_queue_mutex;
 extern pthread_mutex_t analyzer_DL_ACK_queue_mutex;
 extern pthread_mutex_t analyzer_DL_queue_mutex;
+extern pthread_mutex_t analyzer_midList_mutex;
+
 void* analyzer_server_sender(void* arg) {
     printf("enter into analyzer_server_sender\n");
     analyzer_DL_simple_sender();
@@ -71,7 +73,6 @@ void* analyzer_client(void* arg)
 
   while (1)
   {
-
     int result = coap_io_process(analyzer_client_ctx, wait_ms);
     if (result < 0)
     {
@@ -91,6 +92,7 @@ int main()
     pthread_mutex_init(&analyzer_UL_ACK_queue_mutex,NULL);
     pthread_mutex_init(&analyzer_DL_ACK_queue_mutex,NULL);
     pthread_mutex_init(&analyzer_DL_queue_mutex,NULL);
+    pthread_mutex_init(&analyzer_midList_mutex, NULL);
     pthread_t tids[0];
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)
@@ -99,8 +101,6 @@ int main()
     else{
         printf("thread analyzer_client failed!\n");
     }
-
-
     analyzer_server_ctx = setup_server_context();
     init_analyzer_server_resources(analyzer_server_ctx);
 

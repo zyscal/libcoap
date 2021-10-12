@@ -156,7 +156,6 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
       }
     }
   }
-  printf("type 1is : %d\n", type);
   // 配置accept参数
   lwm2m_client_t * targetP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)lwm2mH->clientList, clientID);
   targetP->format = type;
@@ -169,6 +168,7 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
   coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
   printf("request mid is : %d\n", request->mid);
 
+  // wakaama的read方法， 将ACK信息进行传递
   lwm2m_dm_read(lwm2mH, clientID, &uri, prv_result_callback, ACK);
 
   uint8_t *payload;
@@ -182,25 +182,19 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
     if(p == NULL) {
       continue;
     }
-    printf("find ACK !!!!!\n\n");
-    // code
+    // code 需要从ACK队列中获取
     coap_pdu_set_code(response, coap_pdu_get_code(p));
-    // token
+    // token 保证和来包token一致性
     coap_add_token(response, token.length, token.s);
-    // data
-    printf("type 3is : %d\n", targetP->format);
+    // 此处需要讲URI_QUERY中携带InternalID
+    uint8_t InternalIDTochar[10];
+    sprintf(InternalIDTochar, "%d", clientID);
+    coap_insert_option(response, COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
+    
+    // data 
     coap_add_data_large_response(resource, organizer_client_session, request,
     response, query, targetP->format, -1, 0, LengthOfPayload, payload, NULL, NULL);
 
-    uint8_t* checkdata;
-    int lengthofcheckdata;
-    coap_get_data(response, &lengthofcheckdata, &checkdata);
-    printf("lengthofcheckdata is : %d\n", lengthofcheckdata);
-    printf("data is : \n");
-    for(int i = 0; i < lengthofcheckdata; i++){
-      printf("%c", checkdata[i]);
-    }
-    printf("\n");
     // 此处应当释放ACK消息 和 payload
     free(payload);
     coap_delete_pdu(ACK);

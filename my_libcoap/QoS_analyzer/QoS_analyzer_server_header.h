@@ -21,7 +21,8 @@
 #define hexchar_to_dec(c) ((c) & 0x40 ? ((c) & 0x0F) + 9 : ((c) & 0x0F))
 
 
-coap_context_t * setup_server_context (void);
+coap_context_t * setup_server_context();
+
 void init_analyzer_server_resources (coap_context_t *ctx);
 static void hnd_post_reg(coap_resource_t *resource,coap_session_t *session, coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response);
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,

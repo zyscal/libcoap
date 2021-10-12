@@ -209,6 +209,8 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   // 获取code，type, mid
   coap_pdu_code_t code = coap_pdu_get_code(request);
   coap_pdu_type_t type = coap_pdu_get_type(request);
+  coap_mid_t mid = coap_pdu_get_mid(request);
+
   // 便利opt，从中拿到GlobalID
   coap_opt_iterator_t opt_iter;
   coap_opt_t *option;
@@ -249,8 +251,16 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   if(pdu == NULL) {
     printf("failed to create pdu\n");
   }
-  // 获取请求中tocken
-  coap_bin_const_t token =   coap_pdu_get_token(request);
+  // 添加mid
+  coap_pdu_set_mid(pdu, mid);
+  // 获取请求中tocken，并将token与mid映射关系加入表中
+  coap_bin_const_t token = coap_pdu_get_token(request);
+  pthread_mutex_lock(&analyzer_midList_mutex);
+  if(InsertMid(mid, token)) {} else {
+    printf ("token mid 表插入失败\n");
+  }
+  pthread_mutex_unlock(&analyzer_midList_mutex);
+
   // 添加tocken
   coap_add_token(pdu, token.length, token.s);
   // 准备optlist参数信息

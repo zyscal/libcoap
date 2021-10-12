@@ -3,9 +3,12 @@
 #include "coap3/coap_net_internal.h"
 #include "sessions/session_list.h"
 #include "queue/ACK_queue.h"
+#include "queue/QoS_analyzer_DL_queue.h"
 static void hnd_post_unknown(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response){
   printf("enter into hnd_post_unknow\n");
+
+
 }
 
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
@@ -52,93 +55,99 @@ free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_pt
   return;
 }
 
-// coap_context_t * setup_server_context() {
-//   char node[NI_MAXHOST] = "0.0.0.0";
-//   char port[NI_MAXSERV] = analyzer_server_port_str;
-//   coap_context_t *ctx = NULL;
-//   int s;
-//   struct addrinfo hints;
-//   struct addrinfo *result, *rp;
+coap_context_t * setup_server_context() {
+  char node[NI_MAXHOST] = "::";
+  char port[NI_MAXSERV] = "5800";
+  coap_context_t *ctx = NULL;
+  int s;
+  struct addrinfo hints;
+  struct addrinfo *result, *rp;
 
-//   ctx = coap_new_context(NULL);
-//   if (!ctx) {
-//     return NULL;
-//   }
-//   /* Need PKI/RPK/PSK set up before we set up (D)TLS endpoints */
-//   // fill_keystore(ctx);
+  ctx = coap_new_context(NULL);
+  if (!ctx) {
+    return NULL;
+  }
+  /* Need PKI/RPK/PSK set up before we set up (D)TLS endpoints */
+  // fill_keystore(ctx);
 
-//   memset(&hints, 0, sizeof(struct addrinfo));
-//   hints.ai_family = AF_UNSPEC;    /* Allow IPv4 or IPv6 */
-//   hints.ai_socktype = SOCK_STREAM; // tcp SOCK_STREAM udp SOCK_DGRAM
-//   hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST;
+  memset(&hints, 0, sizeof(struct addrinfo));
+  hints.ai_family = AF_UNSPEC;    /* Allow IPv4 or IPv6 */
 
-//   s = getaddrinfo(node, port, &hints, &result);
-//   if ( s != 0 ) {
-//     fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
-//     coap_free_context(ctx);
-//     return NULL;
-//   }
+  if(WAN_PROTOCOL == COAP_PROTO_TCP) {
+      hints.ai_socktype = SOCK_STREAM;
+  } else if(WAN_PROTOCOL == COAP_PROTO_UDP) {
+    hints.ai_socktype = SOCK_DGRAM;
+  }
 
-//   /* iterate through results until success */
-//   for (rp = result; rp != NULL; rp = rp->ai_next) {
-//     coap_address_t addr, addrs;
-//     coap_endpoint_t *ep_udp = NULL, *ep_dtls = NULL;
+  hints.ai_flags = AI_PASSIVE | AI_NUMERICHOST;
 
-//     if (rp->ai_addrlen <= (socklen_t)sizeof(addr.addr)) {
-//       coap_address_init(&addr);
-//       addr.size = (socklen_t)rp->ai_addrlen;
-//       memcpy(&addr.addr, rp->ai_addr, rp->ai_addrlen);
-//       addrs = addr;
-//       if (addr.addr.sa.sa_family == AF_INET) {
-//         uint16_t temp = ntohs(addr.addr.sin.sin_port) + 1;
-//         addrs.addr.sin.sin_port = htons(temp);
-//       } else if (addr.addr.sa.sa_family == AF_INET6) {
-//         uint16_t temp = ntohs(addr.addr.sin6.sin6_port) + 1;
-//         addrs.addr.sin6.sin6_port = htons(temp);
-//       } else {
-//         goto finish;
-//       }
+  s = getaddrinfo(node, port, &hints, &result);
+  if ( s != 0 ) {
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+    coap_free_context(ctx);
+    return NULL;
+  }
 
-//       ep_udp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
-//       // if (ep_udp) {
-//       //   if (coap_dtls_is_supported() && (key_defined || cert_file)) {
-//       //     ep_dtls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_DTLS);
-//       //     if (!ep_dtls)
-//       //       coap_log(LOG_CRIT, "cannot create DTLS endpoint\n");
-//       //   }
-//       // } else {
-//       //   coap_log(LOG_CRIT, "cannot create UDP endpoint\n");
-//       //   continue;
-//       // }
-//       // if (coap_tcp_is_supported()) {
-//       //   coap_endpoint_t *ep_tcp;
-//       //   ep_tcp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
-//       //   if (ep_tcp) {
-//       //     if (coap_tls_is_supported() && (key_defined || cert_file)) {
-//       //       coap_endpoint_t *ep_tls;
-//       //       ep_tls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_TLS);
-//       //       if (!ep_tls)
-//       //         coap_log(LOG_CRIT, "cannot create TLS endpoint\n");
-//       //     }
-//       //   } else {
-//       //     coap_log(LOG_CRIT, "cannot create TCP endpoint\n");
-//       //   }
-//       // }
-//       if (ep_udp)
-//         goto finish;
-//     }
-//   }
+  /* iterate through results until success */
+  for (rp = result; rp != NULL; rp = rp->ai_next) {
+    coap_address_t addr, addrs;
+    coap_endpoint_t *ep_udp = NULL, *ep_dtls = NULL;
 
-//   fprintf(stderr, "no context available for interface '%s'\n", node);
-//   coap_free_context(ctx);
-//   ctx = NULL;
+    if (rp->ai_addrlen <= (socklen_t)sizeof(addr.addr)) {
+      coap_address_init(&addr);
+      addr.size = (socklen_t)rp->ai_addrlen;
+      memcpy(&addr.addr, rp->ai_addr, rp->ai_addrlen);
+      addrs = addr;
+      if (addr.addr.sa.sa_family == AF_INET) {
+        uint16_t temp = ntohs(addr.addr.sin.sin_port) + 1;
+        addrs.addr.sin.sin_port = htons(temp);
+      } else if (addr.addr.sa.sa_family == AF_INET6) {
+        uint16_t temp = ntohs(addr.addr.sin6.sin6_port) + 1;
+        addrs.addr.sin6.sin6_port = htons(temp);
+      } else {
+        goto finish;
+      }
 
-// finish:
-//   freeaddrinfo(result);
-//   return ctx;
-// }
+      ep_udp = coap_new_endpoint(ctx, &addr, WAN_PROTOCOL);
+      // if (ep_udp) {
+      //   if (coap_dtls_is_supported() && (key_defined || cert_file)) {
+      //     ep_dtls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_DTLS);
+      //     if (!ep_dtls)
+      //       coap_log(LOG_CRIT, "cannot create DTLS endpoint\n");
+      //   }
+      // } else {
+      //   coap_log(LOG_CRIT, "cannot create UDP endpoint\n");
+      //   continue;
+      // }
+      // if (coap_tcp_is_supported()) {
+      //   coap_endpoint_t *ep_tcp;
+      //   ep_tcp = coap_new_endpoint(ctx, &addr, COAP_PROTO_TCP);
+      //   if (ep_tcp) {
+      //     if (coap_tls_is_supported() && (key_defined || cert_file)) {
+      //       coap_endpoint_t *ep_tls;
+      //       ep_tls = coap_new_endpoint(ctx, &addrs, COAP_PROTO_TLS);
+      //       if (!ep_tls)
+      //         coap_log(LOG_CRIT, "cannot create TLS endpoint\n");
+      //     }
+      //   } else {
+      //     coap_log(LOG_CRIT, "cannot create TCP endpoint\n");
+      //   }
+      // }
+      if (ep_udp)
+        goto finish;
+    }
+  }
 
-coap_context_t * setup_server_context (void) {
+  fprintf(stderr, "no context available for interface '%s'\n", node);
+  coap_free_context(ctx);
+  ctx = NULL;
+
+finish:
+  freeaddrinfo(result);
+  return ctx;
+}
+
+coap_context_t * setup_server_context_UDP (void) {
   coap_endpoint_t *endpoint;
   coap_address_t listen_addr;
   coap_context_t *context = coap_new_context(NULL);
@@ -160,6 +169,52 @@ coap_context_t * setup_server_context (void) {
   return context;
 }
 
+coap_response_t
+analyzer_server_message_handler(coap_session_t *session,const coap_pdu_t *sent,
+const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
+{
+
+  printf("enter into analyzer_server_message_handler\n\n");
+  // 来的都是ACK，并将结果转发到leshan
+  coap_pdu_t *ACK = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
+  
+  // 获取token，通过token找到mid，因为基于tcp传输不携带mid
+  coap_bin_const_t token =   coap_pdu_get_token(received);
+  pthread_mutex_lock(&analyzer_midList_mutex);
+  coap_mid_t mid = findMidByToken(token);
+  pthread_mutex_unlock(&analyzer_midList_mutex);
+
+  // 设置回包中的mid
+  coap_pdu_set_mid(ACK, mid);
+
+  // 设置回包中的token
+  coap_add_token(ACK, token.length, token.s);
+
+  // 设置文本类型
+  coap_opt_iterator_t opt_iter;
+  coap_opt_t *option;
+  coap_option_iterator_init(received, &opt_iter, COAP_OPT_ALL);
+  int sumDelta = 0;
+  while ((option = coap_option_next(&opt_iter))) {
+    sumDelta += *option >> 4;
+    if(sumDelta == 12) { // content-format
+      coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, coap_opt_length(option), coap_opt_value(option));
+    }
+  }
+
+  
+
+  // 获取data
+  int LengthOfData;
+  uint8_t *Data;
+  coap_get_data(received, &LengthOfData, &Data);
+  // 设置回包中payload
+  coap_add_data(ACK, LengthOfData, Data);
+  // 发送
+  coap_send_large(analyzer_client_session, ACK);
+  coap_response_t ans;
+  return ans;
+}
 
 
 void init_analyzer_server_resources (coap_context_t *ctx) {
@@ -168,16 +223,12 @@ void init_analyzer_server_resources (coap_context_t *ctx) {
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_reg);
   coap_add_resource(ctx, r);
 
-// r = coap_resource_init(coap_make_str_const("time"), COAP_RESOURCE_FLAGS_NOTIFY_CON);
-// coap_register_handler(r, COAP_REQUEST_GET, hnd_get_time);
-// coap_add_resource(ctx, r);
-
-  // coap_resource_t *test;
-  // test = coap_resource_unknown_init(hnd_unknown_put);
-  // coap_register_handler(test, COAP_REQUEST_POST, hnd_post_unknown);
-  // coap_add_resource(ctx, test);
-
+  // 注册回调方法，用于下行数据ACK接收
+  coap_register_response_handler(ctx, analyzer_server_message_handler);
 }
+
+
+
 int check_segment_Q_A_S(const uint8_t *s, size_t length) {
   int n = 0;
   while (length) {
@@ -191,6 +242,8 @@ int check_segment_Q_A_S(const uint8_t *s, size_t length) {
   }
   return n;
 }
+
+
 void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
   while (length--) {
     if (*seg == '%') {
