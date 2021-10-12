@@ -18,17 +18,27 @@
 >* **文件目录** my_libcoap/QoS_analyzer
 >* **运行指令** ./QoS_analyzer
 
+<br/><br/>
 
-### **2021.10.5进度**
+# 表结构
+> ### anjay_node 表 
+> * **coap_session_t*** 存储边缘测会话，通过该字段可以将数据推送到QoS_organizer
+> * **anjay_node***     边缘下客户端链表头，存储虚拟的anjay节点，存储InternalID、GlobalID等
+> * **next***           指向下一边缘会话
+> 
+<br/><br/>
+# 进度
+
+## **2021.10.5进度**
 >* 完成注册相关工作
 **注册流程待完善**
 
-### **2021.10.7进度**
+## **2021.10.7进度**
 >* QoS_analyzer 云端部署，通过WAN_PROTOCOL字段配置网通讯协议
 
 
-### **2021.10.12进度**
->* 完成服务端的读取事件, 具体流程如下：
+## **2021.10.12进度**
+>* 完成服务端的 **读取事件** , 具体流程如下：
 >   * 扩展leshan LwM2M接口实现代码（ **CoapRequestSetter** ），支持read方法携带GlobalID，例如 : /uri_path/GlobalID/ACCEPT_TYPE
 >   * QoS_analyzer_client中使用 **hnd_get_unknown()** 方法接收下行读取请求：
 >       * 判断为observe：
