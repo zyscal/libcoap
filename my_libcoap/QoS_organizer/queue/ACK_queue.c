@@ -1,9 +1,7 @@
 #include "ACK_queue.h"
 
-int InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** organizerACKQueueHead, pthread_mutex_t *mutex,
-uint8_t *payload, int Length)
+int InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** organizerACKQueueHead, uint8_t *payload, int Length)
 {
-    // pthread_mutex_lock(mutex);
     coap_pdu_t *new_pdu = coap_pdu_duplicate(pdu, session, pdu->token_length,
     pdu->token, NULL);
     new_pdu->mid = coap_pdu_get_mid(pdu);
@@ -13,12 +11,12 @@ uint8_t *payload, int Length)
         *organizerACKQueueHead = (ACKQueue *) malloc(sizeof(ACKQueue));
         (*organizerACKQueueHead)->data = new_pdu;
         (*organizerACKQueueHead)->next = NULL;
-        (*organizerACKQueueHead)->payload = (uint8_t *) malloc(sizeof(uint8_t) * (Length + 1));
+        (*organizerACKQueueHead)->payload = (uint8_t *) malloc(sizeof(uint8_t) * (Length));
         (*organizerACKQueueHead)->Length = Length;
         for(int i = 0; i < Length; i++) {
-            (*organizerACKQueueHead)->payload[i] = payload[i];
+            ((*organizerACKQueueHead)->payload)[i] = payload[i];
         }
-
+        return 1;
     } else {
         // ACK队列中已经存在多个数据，应当插入在队列尾端，取消息从队列头取
         ACKQueue* p = *organizerACKQueueHead;
@@ -30,37 +28,51 @@ uint8_t *payload, int Length)
         }
         p->next = (ACKQueue *) malloc(sizeof(ACKQueue));
         p->next->data = new_pdu;
-        p->next->payload = (uint8_t *)malloc(sizeof(uint8_t) * (Length + 1));
+        p->next->payload = (uint8_t *)malloc(sizeof(uint8_t) * (Length));
         p->next->Length = Length;
         for(int i = 0; i < Length; i++){
-            p->next->payload[i] = payload[i];
+            (p->next->payload)[i] = payload[i];
         }
         p->next->next = NULL;
     }
-    // pthread_mutex_unlock(mutex);
-    return count;
+    return count + 1;
 }
 
-// same 比较两个pdu中的mid是否匹配
-bool same(coap_mid_t send_mid, coap_pdu_t *receive){
+
+
+// sameToken 比较两个token是否相同
+bool sameToken(coap_bin_const_t token1, coap_bin_const_t token2) {
+    if(token1.length != token2.length) {
+        return false;
+    }
+    for(int i = 0; i < token1.length; i++) {
+        if((token1.s)[i] != (token2.s)[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool cmpTokenByPdu(coap_bin_const_t token, coap_pdu_t *pdu) {
+    return sameToken(token, coap_pdu_get_token(pdu));
+}
+
+// sameMID 比较两个pdu中的mid是否匹配
+bool sameMID(coap_mid_t send_mid, coap_pdu_t *receive){
     return send_mid == coap_pdu_get_mid(receive);
 }
 
 // 从ACK队列中找打匹配send的ACK，从队列中删除节点并返回。
-coap_pdu_t* GetAndDelACKQueueFront(coap_mid_t send_mid, ACKQueue** organizerACKQueueHead, pthread_mutex_t *mutex, 
-uint8_t **payload, int *Length)
+coap_pdu_t* GetAndDelACKQueueFront(coap_bin_const_t token, ACKQueue** organizerACKQueueHead, uint8_t **payload, int *Length)
 {
-    // pthread_mutex_lock(mutex);
     if(*organizerACKQueueHead == NULL) {
         // ACK队列为空
-        // pthread_mutex_unlock(mutex);
         return NULL;
     }
-    if(same(send_mid, (*organizerACKQueueHead)->data)) {
-
+    if(cmpTokenByPdu(token, (*organizerACKQueueHead)->data)) {
         // ACK队列头部匹配
         coap_pdu_t* p = (*organizerACKQueueHead)->data;
-        *payload = (uint8_t *)malloc(sizeof(uint8_t) * ((*organizerACKQueueHead)->Length + 1));
+        *payload = (uint8_t *)malloc(sizeof(uint8_t) * ((*organizerACKQueueHead)->Length));
         for(int i = 0 ; i < (*organizerACKQueueHead)->Length; i++) {
             (*payload)[i] = (*organizerACKQueueHead)->payload[i];
         }
@@ -70,31 +82,26 @@ uint8_t **payload, int *Length)
         ACKQueue *head = *organizerACKQueueHead;
         *organizerACKQueueHead = (*organizerACKQueueHead)->next;
         free(head);
-        // pthread_mutex_unlock(mutex);
         return p;
-        // coap_pdu_t *p = (coap_pdu_t *)malloc(sizeof(coap_pdu_t));
-        // return p;
     }
     // 从头节点的下一个开始匹配
     ACKQueue* back = (*organizerACKQueueHead)->next;
     ACKQueue* front = *organizerACKQueueHead;
     while (back != NULL)
     {
-        if(same(send_mid, back->data)) { // 匹配到第一个则返回
+        if(cmpTokenByPdu(token, back->data)) { // 匹配到第一个则返回
             front->next = back->next;
             coap_pdu_t* ack = back->data;
-            *payload = (uint8_t *)malloc(sizeof(uint8_t) * (back->Length + 1));
+            *payload = (uint8_t *)malloc(sizeof(uint8_t) * (back->Length));
             for(int i = 0 ; i < back->Length; i++) {
                 *payload[i] = back->payload[i];
             }
             *Length = back->Length;
             free(back);
-            // pthread_mutex_unlock(mutex);
             return ack;
         }
         back = back->next;
         front = front->next;
     }
-    // pthread_mutex_unlock(mutex);
     return NULL;
 }

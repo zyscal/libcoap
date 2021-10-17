@@ -16,11 +16,9 @@ typedef struct ACKQueue ACKQueue;
 ACKQueue *Qorganizer_DLACKQueue;
 
 // 用于向某个ACK队列中插入消息
-int InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** organizerACKQueueHead, pthread_mutex_t *mutex,
-uint8_t *payload, int Length);
+int InsertACKMsg(coap_pdu_t *pdu, coap_session_t *session, ACKQueue** organizerACKQueueHead, uint8_t *payload, int Length);
 // 用于通过mid从某个队列中取消息，并将队列中节点删除
-coap_pdu_t* GetAndDelACKQueueFront(coap_mid_t send_mid, ACKQueue** organizerACKQueueHead, pthread_mutex_t *mutex, 
-uint8_t **payload, int *Length);
+coap_pdu_t* GetAndDelACKQueueFront(coap_bin_const_t token, ACKQueue** organizerACKQueueHead, uint8_t **payload, int *Length);
 
 // 下行数据的ACK排他锁
 pthread_mutex_t organizer_DL_ACK_queue_mutex;

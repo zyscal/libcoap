@@ -88,7 +88,7 @@ struct regQueue *head = NULL;
 int len_organizer_received;
 pthread_mutex_t organizer_mutex;
 pthread_mutex_t organizer_reg_queue_mutex;
-
+pthread_mutex_t observe_mutex;
 
 // localClientPort 在多边缘模型中，用于区分本机的organizer中client外部端口
 char * localClientPort = NULL;
@@ -282,6 +282,7 @@ static void prv_notify_callback(uint16_t clientID,
                                 int dataLength,
                                 void * userData)
 {
+    printf("enter into prv_notify_callback\n");
     fprintf(stdout, "\r\nNotify from client #%d ", clientID);
     prv_printUri(uriP);
     fprintf(stdout, " number %d\r\n", count);
@@ -871,6 +872,7 @@ void print_usage(void)
 }
 void* organizer_client_sender(void* arg) {
     simple_sender();
+    return NULL;
 }
 
 
@@ -913,24 +915,6 @@ void* organizer_client(void* arg)
           printf("failed to create organizer sender thread\n");
       }
   }
-  
-  
-  // coap_register_option(organizer_client_ctx, COAP_OPTION_URI_PATH);
-  // coap_pdu_t  *pdu;
-  // method_t method = COAP_REQUEST_POST;
-  // coap_string_t payload_test;
-  // char *test_payload_char = "testtes111111111111111111111111";
-  // cmdline_input(test_payload_char, &payload_test);
-  // printf("payload_test size : %d\n", payload_test.length);
-  // unsigned char uri_path[] = "rd";
-  // coap_optlist_t *organizer_client_request_option = 
-  // coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path) - 1, uri_path);
-  // printf("end of optlist\n"); 
-  // printf("opt num : %d\n", organizer_client_request_option->number);
-  // pdu = coap_new_request_organizer_server(organizer_client_ctx, 
-  // organizer_client_session, method, &organizer_client_request_option, 
-  // payload_test.s, payload_test.length);
-  // coap_send_large(organizer_client_session, pdu);
   init_organizer_client_resources (organizer_client_ctx);
   uint32_t wait_ms = COAP_RESOURCE_CHECK_TIME * 1000;
   while (1)
@@ -944,6 +928,7 @@ void* organizer_client(void* arg)
     {
     }
   }
+  return NULL;
 }
 
 
@@ -960,7 +945,7 @@ int main(int argc, char *argv[])
     int i;
     connection_t * connList = NULL;
     int addressFamily = AF_INET6;
-    int opt;
+
     const char * localPort = LWM2M_STANDARD_PORT_STR;
 
     command_desc_t commands[] =
@@ -1022,8 +1007,13 @@ int main(int argc, char *argv[])
 
             COMMAND_END_LIST
     };
+    if(argc < 5) {
+        printf("参数数量错误\n");
+        return 0;
+    }
     localPort = argv[2];
     localClientPort = argv[4];
+    // int opt;
     // opt = 1;
     // while (opt < argc)
     // {
@@ -1090,8 +1080,13 @@ int main(int argc, char *argv[])
 
     pthread_mutex_init(&organizer_mutex,NULL);
     pthread_mutex_init(&organizer_reg_queue_mutex,NULL);
-    pthread_t tids[0];
-    int create_result = pthread_create(&tids[0], NULL, organizer_client, NULL);
+    pthread_mutex_init(&observe_mutex, NULL);
+    pthread_mutex_init(&observeMutex, NULL);
+    pthread_mutex_init(&nonMessageMutex, NULL);
+
+    
+    pthread_t tids;
+    int create_result = pthread_create(&tids, NULL, organizer_client, NULL);
     if(create_result == 0)
     {
     }

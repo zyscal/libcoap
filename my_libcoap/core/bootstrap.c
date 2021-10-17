@@ -36,7 +36,7 @@ static void prv_handleResponse(lwm2m_server_t * bootstrapServer,
     {
         LOG("Received ACK/2.04, Bootstrap pending, waiting for DEL/PUT from BS server...");
         bootstrapServer->status = STATE_BS_PENDING;
-        bootstrapServer->registration = lwm2m_gettime() + COAP_EXCHANGE_LIFETIME;
+        bootstrapServer->registration = lwm2m_gettime() + COAP_EXCHANGE_LIFETIME_WAKAAMA;
     }
     else
     {
@@ -317,7 +317,7 @@ static uint8_t prv_checkServerStatus(lwm2m_server_t * serverP)
     case STATE_DEREGISTERED:
         // server initiated bootstrap
     case STATE_BS_PENDING:
-        serverP->registration = lwm2m_gettime() + COAP_EXCHANGE_LIFETIME;
+        serverP->registration = lwm2m_gettime() + COAP_EXCHANGE_LIFETIME_WAKAAMA;
         break;
 
     case STATE_BS_FINISHED:

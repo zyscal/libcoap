@@ -263,16 +263,24 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
 
   // 添加tocken
   coap_add_token(pdu, token.length, token.s);
-  // 准备optlist参数信息
+  // 便利请求中的optlist
   coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
-  uint8_t uri_path[] = "read";
-  coap_optlist_t *analyzer_server_request_option = 
-  coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+
+  // 为下行数据添加uri_path
+  coap_optlist_t *analyzer_server_request_option;
+  if(checkObserve) { // 观测事件需要发送到/observe
+    uint8_t uri_path[] = "read";
+    analyzer_server_request_option = coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+  } else { // 读取事件发送到/read
+    uint8_t uri_path[] = "read";
+    analyzer_server_request_option = coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+  }
+
   // 首先将InternalID添加在首段
     // 添加前将int 的InterID 转为 uint8_t
   uint8_t InternalIDTochar[10];
   sprintf(InternalIDTochar, "%d", InternalID);
-   // 添加
+   // 将InternalID优先添加
   coap_optlist_t *InternalIDopt = coap_new_optlist(COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
   coap_insert_optlist(&analyzer_server_request_option, InternalIDopt);
   // 遍历request消息
@@ -292,6 +300,8 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
       tem_opt = coap_new_optlist(COAP_OPTION_URI_QUERY, Length, opt);
     } else if (sumDelta == 17){ // ACCEPT类型
       tem_opt = coap_new_optlist(COAP_OPTION_ACCEPT, Length, opt);
+    } else if(sumDelta == 6) { // observe
+      tem_opt = coap_new_optlist(COAP_OPTION_OBSERVE, 0, NULL);
     }
     coap_insert_optlist(&analyzer_server_request_option, tem_opt);
   }
@@ -299,15 +309,6 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   coap_add_optlist_pdu(pdu, &analyzer_server_request_option);
   // 将处理好的pdu加入到下行消息队列中
   int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead, &analyzer_DL_queue_mutex);
-
-  // 接收
-  // while (true)
-  // {
-  //   coap_pdu_t* ACK = GetAndDelACKQueueFront(mid_con, &DLACKQueue ,&analyzer_DL_ACK_queue_mutex);
-  //   if(ACK == NULL) {
-  //     continue;
-  //   }
-  // }
   
   response->type = COAP_MESSAGE_NOT_SEND;
 

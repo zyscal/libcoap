@@ -1774,6 +1774,7 @@ uint8_t registration_handleRequest(lwm2m_context_t * contextP,
                     objP = (lwm2m_client_object_t *)lwm2m_list_find((lwm2m_list_t *)objects, observationP->uri.objectId);
                     if (objP == NULL)
                     {
+                        printf("before 1777 observationP->callback\n");
                         observationP->callback(clientP->internalID,
                                                &observationP->uri,
                                                COAP_202_DELETED,
@@ -1787,6 +1788,8 @@ uint8_t registration_handleRequest(lwm2m_context_t * contextP,
                         {
                             if (lwm2m_list_find((lwm2m_list_t *)objP->instanceList, observationP->uri.instanceId) == NULL)
                             {
+                                                        printf("before 1791 observationP->callback\n");
+
                                 observationP->callback(clientP->internalID,
                                                        &observationP->uri,
                                                        COAP_202_DELETED,
@@ -1826,6 +1829,7 @@ uint8_t registration_handleRequest(lwm2m_context_t * contextP,
         if (clientP == NULL) return COAP_400_BAD_REQUEST;
         if (contextP->monitorCallback != NULL)
         {
+            printf("before 1832 monitorcallback\n");
             contextP->monitorCallback(clientP->internalID, NULL, COAP_202_DELETED, LWM2M_CONTENT_TEXT, NULL, 0, contextP->monitorUserData);
         }
         registration_freeClient(clientP);
@@ -1886,9 +1890,9 @@ void registration_step(lwm2m_context_t * contextP,
             time_t interval;
 
             nextUpdate = targetP->lifetime;
-            if (COAP_MAX_TRANSMIT_WAIT < nextUpdate)
+            if (COAP_MAX_TRANSMIT_WAIT_WAKAAMA < nextUpdate)
             {
-                nextUpdate -= COAP_MAX_TRANSMIT_WAIT;
+                nextUpdate -= COAP_MAX_TRANSMIT_WAIT_WAKAAMA;
             }
             else
             {
@@ -1946,6 +1950,7 @@ void registration_step(lwm2m_context_t * contextP,
             contextP->clientList = (lwm2m_client_t *)LWM2M_LIST_RM(contextP->clientList, clientP->internalID, NULL);
             if (contextP->monitorCallback != NULL)
             {
+                printf("before 1953 callback\n");
                 contextP->monitorCallback(clientP->internalID, NULL, COAP_202_DELETED, LWM2M_CONTENT_TEXT, NULL, 0, contextP->monitorUserData);
             }
             registration_freeClient(clientP);

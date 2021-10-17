@@ -422,34 +422,34 @@ size_t coap_serialize_get_size(void *packet)
 
     length = COAP_HEADER_LEN + coap_pkt->payload_len + coap_pkt->token_len;
 
-    if (IS_OPTION(coap_pkt, COAP_OPTION_IF_MATCH))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_IF_MATCH_WAKAAMA))
     {
         length += COAP_MAX_OPTION_HEADER_LEN + coap_pkt->if_match_len;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_HOST))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_HOST_WAKAAMA))
     {
         length += COAP_MAX_OPTION_HEADER_LEN + coap_pkt->uri_host_len;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_ETAG))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_ETAG_WAKAAMA))
     {
         length += COAP_MAX_OPTION_HEADER_LEN + coap_pkt->etag_len;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_IF_NONE_MATCH))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_IF_NONE_MATCH_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_OBSERVE))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_OBSERVE_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_PORT))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_PORT_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH_WAKAAMA))
     {
         multi_option_t * optP;
 
@@ -458,7 +458,7 @@ size_t coap_serialize_get_size(void *packet)
             length += COAP_MAX_OPTION_HEADER_LEN + optP->len;
         }
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_PATH))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_PATH_WAKAAMA))
     {
         multi_option_t * optP;
 
@@ -467,17 +467,17 @@ size_t coap_serialize_get_size(void *packet)
             length += COAP_MAX_OPTION_HEADER_LEN + optP->len;
         }
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_MAX_AGE))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_MAX_AGE_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA))
     {
         multi_option_t * optP;
 
@@ -486,30 +486,30 @@ size_t coap_serialize_get_size(void *packet)
             length += COAP_MAX_OPTION_HEADER_LEN + optP->len;
         }
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_ACCEPT))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_ACCEPT_WAKAAMA))
     {
         length += coap_pkt->accept_num * COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY_WAKAAMA))
     {
         length += COAP_MAX_OPTION_HEADER_LEN + coap_pkt->location_query_len;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_BLOCK2))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_BLOCK2_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_BLOCK1))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_BLOCK1_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_SIZE))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_SIZE_WAKAAMA))
     {
         // can be stored in extended fields
         length += COAP_MAX_OPTION_HEADER_LEN;
     }
-    if (IS_OPTION(coap_pkt, COAP_OPTION_PROXY_URI))
+    if (IS_OPTION(coap_pkt, COAP_OPTION_PROXY_URI_WAKAAMA))
     {
         length += COAP_MAX_OPTION_HEADER_LEN + coap_pkt->proxy_uri_len;
     }
@@ -563,23 +563,23 @@ coap_serialize_message(void *packet, uint8_t *buffer)
   PRINTF("-Serializing options at %p-\n", option);
 
   /* The options must be serialized in the order of their number */
-  COAP_SERIALIZE_BYTE_OPTION(   COAP_OPTION_IF_MATCH,       if_match, "If-Match")
-  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_URI_HOST,       uri_host, '\0', "Uri-Host")
-  COAP_SERIALIZE_BYTE_OPTION(   COAP_OPTION_ETAG,           etag, "ETag")
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_IF_NONE_MATCH,  content_type-coap_pkt->content_type, "If-None-Match") /* hack to get a zero field */
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_OBSERVE,        observe, "Observe")
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_URI_PORT,       uri_port, "Uri-Port")
-  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_LOCATION_PATH,  location_path, "Location-Path")
-  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_URI_PATH,       uri_path, "Uri-Path")
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_CONTENT_TYPE,   content_type, "Content-Format")
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_MAX_AGE,        max_age, "Max-Age")
-  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_URI_QUERY,      uri_query, "Uri-Query")
-  COAP_SERIALIZE_ACCEPT_OPTION( COAP_OPTION_ACCEPT,         accept, "Accept")
-  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_LOCATION_QUERY, location_query, '&', "Location-Query")
-  COAP_SERIALIZE_BLOCK_OPTION(  COAP_OPTION_BLOCK2,         block2, "Block2")
-  COAP_SERIALIZE_BLOCK_OPTION(  COAP_OPTION_BLOCK1,         block1, "Block1")
-  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_SIZE,           size, "Size")
-  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_PROXY_URI,      proxy_uri, '\0', "Proxy-Uri")
+  COAP_SERIALIZE_BYTE_OPTION(   COAP_OPTION_IF_MATCH_WAKAAMA,       if_match, "If-Match")
+  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_URI_HOST_WAKAAMA,       uri_host, '\0', "Uri-Host")
+  COAP_SERIALIZE_BYTE_OPTION(   COAP_OPTION_ETAG_WAKAAMA,           etag, "ETag")
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_IF_NONE_MATCH_WAKAAMA,  content_type-coap_pkt->content_type, "If-None-Match") /* hack to get a zero field */
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_OBSERVE_WAKAAMA,        observe, "Observe")
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_URI_PORT_WAKAAMA,       uri_port, "Uri-Port")
+  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_LOCATION_PATH_WAKAAMA,  location_path, "Location-Path")
+  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_URI_PATH_WAKAAMA,       uri_path, "Uri-Path")
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_CONTENT_TYPE_WAKAAMA,   content_type, "Content-Format")
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_MAX_AGE_WAKAAMA,        max_age, "Max-Age")
+  COAP_SERIALIZE_MULTI_OPTION(  COAP_OPTION_URI_QUERY_WAKAAMA,      uri_query, "Uri-Query")
+  COAP_SERIALIZE_ACCEPT_OPTION( COAP_OPTION_ACCEPT_WAKAAMA,         accept, "Accept")
+  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_LOCATION_QUERY_WAKAAMA, location_query, '&', "Location-Query")
+  COAP_SERIALIZE_BLOCK_OPTION(  COAP_OPTION_BLOCK2_WAKAAMA,         block2, "Block2")
+  COAP_SERIALIZE_BLOCK_OPTION(  COAP_OPTION_BLOCK1_WAKAAMA,         block1, "Block1")
+  COAP_SERIALIZE_INT_OPTION(    COAP_OPTION_SIZE_WAKAAMA,           size, "Size")
+  COAP_SERIALIZE_STRING_OPTION( COAP_OPTION_PROXY_URI_WAKAAMA,      proxy_uri, '\0', "Proxy-Uri")
 
   PRINTF("-Done serializing at %p----\n", option);
 
@@ -715,15 +715,15 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
 
     switch (option_number)
     {
-      case COAP_OPTION_CONTENT_TYPE:
+      case COAP_OPTION_CONTENT_TYPE_WAKAAMA:
         coap_pkt->content_type = coap_parse_int_option(current_option, option_length);
         PRINTF("Content-Format [%u]\n", coap_pkt->content_type);
         break;
-      case COAP_OPTION_MAX_AGE:
+      case COAP_OPTION_MAX_AGE_WAKAAMA:
         coap_pkt->max_age = coap_parse_int_option(current_option, option_length);
         PRINTF("Max-Age [%lu]\n", coap_pkt->max_age);
         break;
-      case COAP_OPTION_ETAG:
+      case COAP_OPTION_ETAG_WAKAAMA:
         coap_pkt->etag_len = (uint8_t)(MIN(COAP_ETAG_LEN, option_length));
         memcpy(coap_pkt->etag, current_option, coap_pkt->etag_len);
         PRINTF("ETag %u [0x%02X%02X%02X%02X%02X%02X%02X%02X]\n", coap_pkt->etag_len,
@@ -737,7 +737,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
           coap_pkt->etag[7]
         ); /*FIXME always prints 8 bytes */
         break;
-      case COAP_OPTION_ACCEPT:
+      case COAP_OPTION_ACCEPT_WAKAAMA:
         if (coap_pkt->accept_num < COAP_MAX_ACCEPT_NUM)
         {
           coap_pkt->accept[coap_pkt->accept_num] = coap_parse_int_option(current_option, option_length);
@@ -745,7 +745,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
           PRINTF("Accept [%u]\n", coap_pkt->content_type);
         }
         break;
-      case COAP_OPTION_IF_MATCH:
+      case COAP_OPTION_IF_MATCH_WAKAAMA:
         /*FIXME support multiple ETags */
         coap_pkt->if_match_len = (uint8_t)(MIN(COAP_ETAG_LEN, option_length));
         memcpy(coap_pkt->if_match, current_option, coap_pkt->if_match_len);
@@ -760,43 +760,43 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
           coap_pkt->if_match[7]
         ); /*FIXME always prints 8 bytes */
         break;
-      case COAP_OPTION_IF_NONE_MATCH:
+      case COAP_OPTION_IF_NONE_MATCH_WAKAAMA:
         coap_pkt->if_none_match = 1;
         PRINTF("If-None-Match\n");
         break;
 
-      case COAP_OPTION_URI_HOST:
+      case COAP_OPTION_URI_HOST_WAKAAMA:
         coap_pkt->uri_host = current_option;
         coap_pkt->uri_host_len = option_length;
         PRINTF("Uri-Host [%.*s]\n", coap_pkt->uri_host_len, coap_pkt->uri_host);
         break;
-      case COAP_OPTION_URI_PORT:
+      case COAP_OPTION_URI_PORT_WAKAAMA:
         coap_pkt->uri_port = coap_parse_int_option(current_option, option_length);
         PRINTF("Uri-Port [%u]\n", coap_pkt->uri_port);
         break;
-      case COAP_OPTION_URI_PATH:
+      case COAP_OPTION_URI_PATH_WAKAAMA:
         /* coap_merge_multi_option() operates in-place on the IPBUF, but final packet field should be const string -> cast to string */
         // coap_merge_multi_option( (char **) &(coap_pkt->uri_path), &(coap_pkt->uri_path_len), current_option, option_length, 0);
         coap_add_multi_option( &(coap_pkt->uri_path), current_option, option_length, 1);
         PRINTF("Uri-Path [%.*s]\n", option_length, current_option);
         break;
-      case COAP_OPTION_URI_QUERY:
+      case COAP_OPTION_URI_QUERY_WAKAAMA:
         /* coap_merge_multi_option() operates in-place on the IPBUF, but final packet field should be const string -> cast to string */
         // coap_merge_multi_option( (char **) &(coap_pkt->uri_query), &(coap_pkt->uri_query_len), current_option, option_length, '&');
         coap_add_multi_option( &(coap_pkt->uri_query), current_option, option_length, 1);
         PRINTF("Uri-Query [%.*s]\n", option_length, current_option);
         break;
 
-      case COAP_OPTION_LOCATION_PATH:
+      case COAP_OPTION_LOCATION_PATH_WAKAAMA:
         coap_add_multi_option( &(coap_pkt->location_path), current_option, option_length, 1);
         break;
-      case COAP_OPTION_LOCATION_QUERY:
+      case COAP_OPTION_LOCATION_QUERY_WAKAAMA:
         /* coap_merge_multi_option() operates in-place on the IPBUF, but final packet field should be const string -> cast to string */
         coap_merge_multi_option( &(coap_pkt->location_query), &(coap_pkt->location_query_len), current_option, option_length, '&');
         PRINTF("Location-Query [%.*s]\n", option_length, current_option);
         break;
 
-      case COAP_OPTION_PROXY_URI:
+      case COAP_OPTION_PROXY_URI_WAKAAMA:
         /*FIXME check for own end-point */
         coap_pkt->proxy_uri = current_option;
         coap_pkt->proxy_uri_len = option_length;
@@ -806,11 +806,11 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
         return PROXYING_NOT_SUPPORTED_5_05;
         break;
 
-      case COAP_OPTION_OBSERVE:
+      case COAP_OPTION_OBSERVE_WAKAAMA:
         coap_pkt->observe = coap_parse_int_option(current_option, option_length);
         PRINTF("Observe [%lu]\n", coap_pkt->observe);
         break;
-      case COAP_OPTION_BLOCK2:
+      case COAP_OPTION_BLOCK2_WAKAAMA:
         coap_pkt->block2_num = coap_parse_int_option(current_option, option_length);
         coap_pkt->block2_more = (coap_pkt->block2_num & 0x08)>>3;
         coap_pkt->block2_size = 16 << (coap_pkt->block2_num & 0x07);
@@ -818,7 +818,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
         coap_pkt->block2_num >>= 4;
         PRINTF("Block2 [%lu%s (%u B/blk)]\n", coap_pkt->block2_num, coap_pkt->block2_more ? "+" : "", coap_pkt->block2_size);
         break;
-      case COAP_OPTION_BLOCK1:
+      case COAP_OPTION_BLOCK1_WAKAAMA:
         coap_pkt->block1_num = coap_parse_int_option(current_option, option_length);
         coap_pkt->block1_more = (coap_pkt->block1_num & 0x08)>>3;
         coap_pkt->block1_size = 16 << (coap_pkt->block1_num & 0x07);
@@ -826,7 +826,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
         coap_pkt->block1_num >>= 4;
         PRINTF("Block1 [%lu%s (%u B/blk)]\n", coap_pkt->block1_num, coap_pkt->block1_more ? "+" : "", coap_pkt->block1_size);
         break;
-      case COAP_OPTION_SIZE:
+      case COAP_OPTION_SIZE_WAKAAMA:
         coap_pkt->size = coap_parse_int_option(current_option, option_length);
         PRINTF("Size [%lu]\n", coap_pkt->size);
         break;
@@ -862,7 +862,7 @@ coap_get_query_variable(void *packet, const char *name, const char **output)
 /*
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY)) {
+  if (IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA)) {
     return coap_get_variable(coap_pkt->uri_query, coap_pkt->uri_query_len, name, output);
   }
 */
@@ -901,7 +901,7 @@ coap_get_header_content_type(void *packet)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE)) return -1;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE_WAKAAMA)) return -1;
 
   return coap_pkt->content_type;
 }
@@ -912,7 +912,7 @@ coap_set_header_content_type(void *packet, unsigned int content_type)
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
   coap_pkt->content_type = (coap_content_type_t) content_type;
-  SET_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE);
+  SET_OPTION(coap_pkt, COAP_OPTION_CONTENT_TYPE_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -921,7 +921,7 @@ coap_get_header_accept(void *packet, const uint16_t **accept)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_ACCEPT)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_ACCEPT_WAKAAMA)) return 0;
 
   *accept = coap_pkt->accept;
   return coap_pkt->accept_num;
@@ -937,7 +937,7 @@ coap_set_header_accept(void *packet, uint16_t accept)
     coap_pkt->accept[coap_pkt->accept_num] = accept;
     coap_pkt->accept_num += 1;
 
-    SET_OPTION(coap_pkt, COAP_OPTION_ACCEPT);
+    SET_OPTION(coap_pkt, COAP_OPTION_ACCEPT_WAKAAMA);
   }
   return coap_pkt->accept_num;
 }
@@ -947,7 +947,7 @@ coap_get_header_max_age(void *packet, uint32_t *age)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_MAX_AGE)) {
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_MAX_AGE_WAKAAMA)) {
     *age = COAP_DEFAULT_MAX_AGE;
   } else {
     *age = coap_pkt->max_age;
@@ -961,7 +961,7 @@ coap_set_header_max_age(void *packet, uint32_t age)
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
   coap_pkt->max_age = age;
-  SET_OPTION(coap_pkt, COAP_OPTION_MAX_AGE);
+  SET_OPTION(coap_pkt, COAP_OPTION_MAX_AGE_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -970,7 +970,7 @@ coap_get_header_etag(void *packet, const uint8_t **etag)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_ETAG)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_ETAG_WAKAAMA)) return 0;
 
   *etag = coap_pkt->etag;
   return coap_pkt->etag_len;
@@ -984,7 +984,7 @@ coap_set_header_etag(void *packet, const uint8_t *etag, size_t etag_len)
   coap_pkt->etag_len = (uint8_t)(MIN(COAP_ETAG_LEN, etag_len));
   memcpy(coap_pkt->etag, etag, coap_pkt->etag_len);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_ETAG);
+  SET_OPTION(coap_pkt, COAP_OPTION_ETAG_WAKAAMA);
   return coap_pkt->etag_len;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -994,7 +994,7 @@ coap_get_header_if_match(void *packet, const uint8_t **etag)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_IF_MATCH)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_IF_MATCH_WAKAAMA)) return 0;
 
   *etag = coap_pkt->if_match;
   return coap_pkt->if_match_len;
@@ -1008,20 +1008,20 @@ coap_set_header_if_match(void *packet, const uint8_t *etag, size_t etag_len)
   coap_pkt->if_match_len = (uint8_t)(MIN(COAP_ETAG_LEN, etag_len));
   memcpy(coap_pkt->if_match, etag, coap_pkt->if_match_len);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_IF_MATCH);
+  SET_OPTION(coap_pkt, COAP_OPTION_IF_MATCH_WAKAAMA);
   return coap_pkt->if_match_len;
 }
 /*-----------------------------------------------------------------------------------*/
 int
 coap_get_header_if_none_match(void *packet)
 {
-  return IS_OPTION((coap_packet_t_wakaama *)packet, COAP_OPTION_IF_NONE_MATCH) ? 1 : 0;
+  return IS_OPTION((coap_packet_t_wakaama *)packet, COAP_OPTION_IF_NONE_MATCH_WAKAAMA) ? 1 : 0;
 }
 
 int
 coap_set_header_if_none_match(void *packet)
 {
-  SET_OPTION((coap_packet_t_wakaama *)packet, COAP_OPTION_IF_NONE_MATCH);
+  SET_OPTION((coap_packet_t_wakaama *)packet, COAP_OPTION_IF_NONE_MATCH_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1053,7 +1053,7 @@ coap_get_header_proxy_uri(void *packet, const char **uri)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_PROXY_URI)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_PROXY_URI_WAKAAMA)) return 0;
 
   *uri = (const char *)coap_pkt->proxy_uri;
   return coap_pkt->proxy_uri_len;
@@ -1067,7 +1067,7 @@ coap_set_header_proxy_uri(void *packet, const char *uri)
   coap_pkt->proxy_uri = (uint8_t *)uri;
   coap_pkt->proxy_uri_len = strlen(uri);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_PROXY_URI);
+  SET_OPTION(coap_pkt, COAP_OPTION_PROXY_URI_WAKAAMA);
   return coap_pkt->proxy_uri_len;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1076,7 +1076,7 @@ coap_get_header_uri_host(void *packet, const char **host)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_HOST)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_HOST_WAKAAMA)) return 0;
 
   *host = (char *)coap_pkt->uri_host;
   return coap_pkt->uri_host_len;
@@ -1090,7 +1090,7 @@ coap_set_header_uri_host(void *packet, const char *host)
   coap_pkt->uri_host = (uint8_t *)host;
   coap_pkt->uri_host_len = strlen(host);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_URI_HOST);
+  SET_OPTION(coap_pkt, COAP_OPTION_URI_HOST_WAKAAMA);
   return coap_pkt->uri_host_len;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1099,7 +1099,7 @@ coap_get_header_uri_path(void *packet, const char **path)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_PATH)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_PATH_WAKAAMA)) return 0;
 
   *path = NULL; //coap_pkt->uri_path;
   return 0; //coap_pkt->uri_path_len;
@@ -1128,7 +1128,7 @@ coap_set_header_uri_path(void *packet, const char *path)
       length += i;
   } while (path[0] != 0);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_URI_PATH);
+  SET_OPTION(coap_pkt, COAP_OPTION_URI_PATH_WAKAAMA);
   return length;
 }
 
@@ -1149,7 +1149,7 @@ coap_set_header_uri_path_segment(void *packet, const char *segment)
       coap_add_multi_option(&(coap_pkt->uri_path), (uint8_t *)segment, length, 0);
   }
 
-  SET_OPTION(coap_pkt, COAP_OPTION_URI_PATH);
+  SET_OPTION(coap_pkt, COAP_OPTION_URI_PATH_WAKAAMA);
   return length;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1158,7 +1158,7 @@ coap_get_header_uri_query(void *packet, const char **query)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA)) return 0;
 
   *query = NULL; //coap_pkt->uri_query;
   return 0; //coap_pkt->uri_query_len;
@@ -1187,7 +1187,7 @@ coap_set_header_uri_query(void *packet, const char *query)
         length += i;
     } while (query[0] != 0);
 
-    SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+    SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     return length;
  }
 /*-----------------------------------------------------------------------------------*/
@@ -1196,7 +1196,7 @@ coap_get_header_location_path(void *packet, const char **path)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH_WAKAAMA)) return 0;
 
   *path = NULL; //coap_pkt->location_path;
   return 0; //coap_pkt->location_path_len;
@@ -1225,7 +1225,7 @@ coap_set_header_location_path(void *packet, const char *path)
         length += i;
     } while (path[0] != 0);
 
-    SET_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH);
+    SET_OPTION(coap_pkt, COAP_OPTION_LOCATION_PATH_WAKAAMA);
     return length;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1234,7 +1234,7 @@ coap_get_header_location_query(void *packet, const char **query)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY_WAKAAMA)) return 0;
 
   *query = (const char*)coap_pkt->location_query;
   return coap_pkt->location_query_len;
@@ -1250,7 +1250,7 @@ coap_set_header_location_query(void *packet, char *query)
   coap_pkt->location_query = (uint8_t *)query;
   coap_pkt->location_query_len = strlen(query);
 
-  SET_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY);
+  SET_OPTION(coap_pkt, COAP_OPTION_LOCATION_QUERY_WAKAAMA);
   return coap_pkt->location_query_len;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1259,7 +1259,7 @@ coap_get_header_observe(void *packet, uint32_t *observe)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_OBSERVE)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_OBSERVE_WAKAAMA)) return 0;
 
   *observe = coap_pkt->observe;
   return 1;
@@ -1271,7 +1271,7 @@ coap_set_header_observe(void *packet, uint32_t observe)
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
   coap_pkt->observe = 0x00FFFFFF & observe;
-  SET_OPTION(coap_pkt, COAP_OPTION_OBSERVE);
+  SET_OPTION(coap_pkt, COAP_OPTION_OBSERVE_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1280,7 +1280,7 @@ coap_get_header_block2(void *packet, uint32_t *num, uint8_t *more, uint16_t *siz
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_BLOCK2)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_BLOCK2_WAKAAMA)) return 0;
 
   /* pointers may be NULL to get only specific block parameters */
   if (num!=NULL) *num = coap_pkt->block2_num;
@@ -1304,7 +1304,7 @@ coap_set_header_block2(void *packet, uint32_t num, uint8_t more, uint16_t size)
   coap_pkt->block2_more = more ? 1 : 0;
   coap_pkt->block2_size = size;
 
-  SET_OPTION(coap_pkt, COAP_OPTION_BLOCK2);
+  SET_OPTION(coap_pkt, COAP_OPTION_BLOCK2_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1313,7 +1313,7 @@ coap_get_header_block1(void *packet, uint32_t *num, uint8_t *more, uint16_t *siz
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_BLOCK1)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_BLOCK1_WAKAAMA)) return 0;
 
   /* pointers may be NULL to get only specific block parameters */
   if (num!=NULL) *num = coap_pkt->block1_num;
@@ -1337,7 +1337,7 @@ coap_set_header_block1(void *packet, uint32_t num, uint8_t more, uint16_t size)
   coap_pkt->block1_more = more;
   coap_pkt->block1_size = size;
 
-  SET_OPTION(coap_pkt, COAP_OPTION_BLOCK1);
+  SET_OPTION(coap_pkt, COAP_OPTION_BLOCK1_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/
@@ -1346,7 +1346,7 @@ coap_get_header_size(void *packet, uint32_t *size)
 {
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
-  if (!IS_OPTION(coap_pkt, COAP_OPTION_SIZE)) return 0;
+  if (!IS_OPTION(coap_pkt, COAP_OPTION_SIZE_WAKAAMA)) return 0;
   
   *size = coap_pkt->size;
   return 1;
@@ -1358,7 +1358,7 @@ coap_set_header_size(void *packet, uint32_t size)
   coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
 
   coap_pkt->size = size;
-  SET_OPTION(coap_pkt, COAP_OPTION_SIZE);
+  SET_OPTION(coap_pkt, COAP_OPTION_SIZE_WAKAAMA);
   return 1;
 }
 /*-----------------------------------------------------------------------------------*/

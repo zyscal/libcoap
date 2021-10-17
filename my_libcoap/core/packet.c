@@ -237,23 +237,17 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
         printf("Parsed: ver %u, type %u, tkl %u, code %u.%.2u, mid %u, Content type: %d\n",
                 message->version, message->type, message->token_len, message->code >> 5, message->code & 0x1F, message->mid, message->content_type);
         
-        printf("len : %d, proxy_uri : ", message->proxy_uri_len);
         for (int i = 0; i < message->proxy_uri_len; i++){
             printf("%c", message->proxy_uri[i]);
         }
         printf("\n");
-
-        printf("len : %d, uri_host : ", message->uri_host_len);
         for (int i = 0; i < message->uri_host_len; i++){
             printf("%c", message->uri_host[i]);
         }
         printf("\n");
 
         char * uri_query = coap_get_multi_option_as_string(message->uri_query);
-        printf("len of uri_query : %d\n", sizeof(uri_query));
-        printf("uri_query as string : %s\n", uri_query);
         char * uri_path = coap_get_multi_option_as_string(message->uri_path);
-        printf("uri_path as string : %s\n", uri_path);
 
 
         printf("Payload: %.*s\n", message->payload_len, message->payload);
@@ -294,7 +288,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
             }
 
             /* handle block1 option */
-            if (IS_OPTION(message, COAP_OPTION_BLOCK1))
+            if (IS_OPTION(message, COAP_OPTION_BLOCK1_WAKAAMA))
             {
                 printf("enter into handle block1 option\n");
 #ifdef LWM2M_CLIENT_MODE
@@ -350,7 +344,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
             {
                 /* Save original payload pointer for later freeing. Payload in response may be updated. */
                 uint8_t *payload = response->payload;
-                if ( IS_OPTION(message, COAP_OPTION_BLOCK2) )
+                if ( IS_OPTION(message, COAP_OPTION_BLOCK2_WAKAAMA) )
                 {
                     /* unchanged new_offset indicates that resource is unaware of blockwise transfer */
                     if (new_offset==block_offset)
@@ -410,7 +404,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
                     bool done = transaction_handleResponse(contextP, fromSessionH, message, response);
 
 #ifdef LWM2M_SERVER_MODE
-                    if (!done && IS_OPTION(message, COAP_OPTION_OBSERVE) &&
+                    if (!done && IS_OPTION(message, COAP_OPTION_OBSERVE_WAKAAMA) &&
                         ((message->code == COAP_204_CHANGED) || (message->code == COAP_205_CONTENT)))
                     {
                         done = observe_handleNotify(contextP, fromSessionH, message, response);

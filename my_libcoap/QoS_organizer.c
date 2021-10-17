@@ -46,7 +46,7 @@
 //     printf("cannot create client organizer_client_session\n");
 //   }
 //   coap_register_response_handler(organizer_client_ctx, message_handler);
-//   // coap_register_option(organizer_client_ctx, COAP_OPTION_URI_PATH);
+//   // coap_register_option(organizer_client_ctx, COAP_OPTION_URI_PATH_WAKAAMA);
 //   // coap_pdu_t  *pdu;
 //   // method_t method = COAP_REQUEST_POST;
 //   // coap_string_t payload_test;
@@ -55,7 +55,7 @@
 //   // printf("payload_test size : %d\n", payload_test.length);
 //   // unsigned char uri_path[] = "rd";
 //   // coap_optlist_t *organizer_client_request_option = 
-//   // coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path) - 1, uri_path);
+//   // coap_new_optlist(COAP_OPTION_URI_PATH_WAKAAMA, sizeof(uri_path) - 1, uri_path);
 //   // printf("end of optlist\n"); 
 //   // printf("opt num : %d\n", organizer_client_request_option->number);
 //   // pdu = coap_new_request_organizer_server(organizer_client_ctx, 

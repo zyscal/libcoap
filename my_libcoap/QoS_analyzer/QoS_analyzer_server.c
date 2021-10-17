@@ -4,12 +4,7 @@
 #include "sessions/session_list.h"
 #include "queue/ACK_queue.h"
 #include "queue/QoS_analyzer_DL_queue.h"
-static void hnd_post_unknown(coap_resource_t *resource, coap_session_t *session,
-const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response){
-  printf("enter into hnd_post_unknow\n");
 
-
-}
 
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
@@ -173,7 +168,6 @@ coap_response_t
 analyzer_server_message_handler(coap_session_t *session,const coap_pdu_t *sent,
 const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
 {
-
   printf("enter into analyzer_server_message_handler\n\n");
   // 来的都是ACK，并将结果转发到leshan
   coap_pdu_t *ACK = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
@@ -197,12 +191,12 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
   int sumDelta = 0;
   while ((option = coap_option_next(&opt_iter))) {
     sumDelta += *option >> 4;
-    if(sumDelta == 12) { // content-format
+    if(sumDelta == COAP_OPTION_CONTENT_FORMAT) { // content-format
       coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, coap_opt_length(option), coap_opt_value(option));
+    } else if (sumDelta == COAP_OPTION_OBSERVE) {
+      coap_add_option(ACK, COAP_OPTION_OBSERVE, 0, NULL);
     }
   }
-
-  
 
   // 获取data
   int LengthOfData;
@@ -212,8 +206,7 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
   coap_add_data(ACK, LengthOfData, Data);
   // 发送
   coap_send_large(analyzer_client_session, ACK);
-  coap_response_t ans;
-  return ans;
+  return COAP_RESPONSE_NULL;
 }
 
 
@@ -228,62 +221,6 @@ void init_analyzer_server_resources (coap_context_t *ctx) {
 }
 
 
-
-int check_segment_Q_A_S(const uint8_t *s, size_t length) {
-  int n = 0;
-  while (length) {
-    if (*s == '%') {
-      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
-        return -1;
-      s += 2;
-      length -= 2;
-    }
-    ++s; ++n; --length;
-  }
-  return n;
-}
-
-
-void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf) {
-  while (length--) {
-    if (*seg == '%') {
-      *buf = (hexchar_to_dec(seg[1]) << 4) + hexchar_to_dec(seg[2]);
-
-      seg += 2; length -= 2;
-    } else {
-      *buf = *seg;
-    }
-    ++buf; ++seg;
-  }
-}
-
-int cmdline_input_Q_A_S(char *text, coap_string_t *buf) {
-  int len;
-  len = check_segment_Q_A_S((unsigned char *)text, strlen(text));
-  if (len < 0)
-    return 0;
-  buf->s = (unsigned char *)coap_malloc(len);
-  if (!buf->s)
-  {
-    return 0;
-  }
-  buf->length = len;
-  decode_segment((unsigned char *)text, strlen(text), buf->s);
-  return 1;
-}
-
-// // 用于判断option中是否存在rd，存在rd则将其替换为InternalID
-// bool match(uint8_t* a, int lengtha, uint8_t* b, lengthb) {
-//   if(lengtha != lengthb) {
-//     return false;
-//   }
-//   for(int i = 0; i < lengtha; i++){
-//     if(a[i] != b[i]) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
 
 static void
 hnd_post_reg(
@@ -412,10 +349,10 @@ coap_pdu_t *response) {
   int payload_len = request->used_size - (request->data - request->token);
   // printf("payload size : %d\n", payload_len);
 
-  coap_string_t payload;
-  cmdline_input_Q_A_S(request->data, &payload);
-  coap_add_data_large_request(analyzer_client_session, pdu, payload.length, payload.s,
-  free_xmit_data_analyzer_server,  payload.s);
+  int dataLength = 0;
+  uint8_t *requestData;
+  coap_get_data(request, &dataLength, &requestData);
+  coap_add_data(pdu, dataLength, requestData);
   coap_mid_t mid_con = coap_send_large(analyzer_client_session, pdu);
 
   // 拿ack中globalID消息

@@ -171,7 +171,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
     LOG_ARG("Code: %02X, server status: %s", message->code, STR_STATUS(serverP->status));
     LOG_URI(uriP);
 
-    if (IS_OPTION(message, COAP_OPTION_CONTENT_TYPE))
+    if (IS_OPTION(message, COAP_OPTION_CONTENT_TYPE_WAKAAMA))
     {
         format = utils_convertMediaType(message->content_type);
     }
@@ -203,7 +203,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
             size_t length = 0;
             int res;
 
-            if (IS_OPTION(message, COAP_OPTION_OBSERVE))
+            if (IS_OPTION(message, COAP_OPTION_OBSERVE_WAKAAMA))
             {
                 lwm2m_data_t * dataP = NULL;
                 int size = 0;
@@ -214,7 +214,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
                     result = observe_handleRequest(contextP, uriP, serverP, size, dataP, message, response);
                     if (COAP_205_CONTENT == result)
                     {
-                        if (IS_OPTION(message, COAP_OPTION_ACCEPT))
+                        if (IS_OPTION(message, COAP_OPTION_ACCEPT_WAKAAMA))
                         {
                             format = utils_convertMediaType(message->accept[0]);
                         }
@@ -237,7 +237,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
                     lwm2m_data_free(size, dataP);
                 }
             }
-            else if (IS_OPTION(message, COAP_OPTION_ACCEPT)
+            else if (IS_OPTION(message, COAP_OPTION_ACCEPT_WAKAAMA)
                   && message->accept_num == 1
                   && message->accept[0] == APPLICATION_LINK_FORMAT)
             {
@@ -246,7 +246,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
             }
             else
             {
-                if (IS_OPTION(message, COAP_OPTION_ACCEPT))
+                if (IS_OPTION(message, COAP_OPTION_ACCEPT_WAKAAMA))
                 {
                     format = utils_convertMediaType(message->accept[0]);
                 }
@@ -305,7 +305,7 @@ uint8_t dm_handleRequest(lwm2m_context_t * contextP,
 
     case COAP_PUT:
         {
-            if (IS_OPTION(message, COAP_OPTION_URI_QUERY))
+            if (IS_OPTION(message, COAP_OPTION_URI_QUERY_WAKAAMA))
             {
                 lwm2m_attributes_t attr;
 
@@ -364,6 +364,7 @@ static void prv_resultCallback(lwm2m_context_t * contextP,
                                lwm2m_transaction_t * transacP,
                                void * message)
 {
+    printf("enter into prv_resultCallback\n");
     dm_data_t * dataP = (dm_data_t *)transacP->userData;
 
     (void)contextP; /* unused */
@@ -416,7 +417,7 @@ static void prv_resultCallback(lwm2m_context_t * contextP,
 
             lwm2m_free(locationString);
         }
-
+        printf("before dataP->callback\n");
         dataP->callback(dataP->clientID,
                         &dataP->uri,
                         packet->code,
@@ -661,7 +662,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
         coap_add_multi_option(&(coap_pkt->uri_query), buffer, ATTR_MIN_PERIOD_LEN + length, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toSet & LWM2M_ATTR_FLAG_MAX_PERIOD)
     {
@@ -673,7 +674,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
         coap_add_multi_option(&(coap_pkt->uri_query), buffer, ATTR_MAX_PERIOD_LEN + length, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toSet & LWM2M_ATTR_FLAG_GREATER_THAN)
     {
@@ -685,7 +686,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
         coap_add_multi_option(&(coap_pkt->uri_query), buffer, ATTR_GREATER_THAN_LEN + length, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toSet & LWM2M_ATTR_FLAG_LESS_THAN)
     {
@@ -697,7 +698,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
         coap_add_multi_option(&(coap_pkt->uri_query), buffer, ATTR_LESS_THAN_LEN + length, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toSet & LWM2M_ATTR_FLAG_STEP)
     {
@@ -709,32 +710,32 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
         coap_add_multi_option(&(coap_pkt->uri_query), buffer, ATTR_STEP_LEN + length, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toClear & LWM2M_ATTR_FLAG_MIN_PERIOD)
     {
         coap_add_multi_option(&(coap_pkt->uri_query), (uint8_t*)ATTR_MIN_PERIOD_STR, ATTR_MIN_PERIOD_LEN -1, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toClear & LWM2M_ATTR_FLAG_MAX_PERIOD)
     {
         coap_add_multi_option(&(coap_pkt->uri_query), (uint8_t*)ATTR_MAX_PERIOD_STR, ATTR_MAX_PERIOD_LEN - 1, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toClear & LWM2M_ATTR_FLAG_GREATER_THAN)
     {
         coap_add_multi_option(&(coap_pkt->uri_query), (uint8_t*)ATTR_GREATER_THAN_STR, ATTR_GREATER_THAN_LEN - 1, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toClear & LWM2M_ATTR_FLAG_LESS_THAN)
     {
         coap_add_multi_option(&(coap_pkt->uri_query), (uint8_t*)ATTR_LESS_THAN_STR, ATTR_LESS_THAN_LEN - 1, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
     if (attrP->toClear & LWM2M_ATTR_FLAG_STEP)
     {
         coap_add_multi_option(&(coap_pkt->uri_query), (uint8_t*)ATTR_STEP_STR, ATTR_STEP_LEN - 1, 0);
-        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY);
+        SET_OPTION(coap_pkt, COAP_OPTION_URI_QUERY_WAKAAMA);
     }
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);

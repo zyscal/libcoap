@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client.c
-QoS_organizer_client_header.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
-coap3/coap.h
--
-liblwm2m.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/liblwm2m.h
-
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
 coap3/coap.h
 -
@@ -41,8 +33,100 @@ errno.h
 -
 ../QoS_organizer_analyzer_port.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
+observe/observe.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/observe/observe.h
 queue/ACK_queue.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/ACK_queue.h
+queue/non_queue.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/non_queue.h
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
+coap3/coap.h
+-
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+stdio.h
+-
+ctype.h
+-
+signal.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+netdb.h
+-
+netinet/in.h
+-
+errno.h
+-
+../QoS_organizer_analyzer_port.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/lwm2mserver.c
+liblwm2m.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/liblwm2m.h
+unistd.h
+-
+stdio.h
+-
+ctype.h
+-
+sys/select.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+netdb.h
+-
+sys/stat.h
+-
+errno.h
+-
+signal.h
+-
+inttypes.h
+-
+QoS_organizer_server_header.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_server_header.h
+QoS_organizer_client_header.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/QoS_organizer_client_header.h
+coap3/coap.h
+-
+string.h
+-
+stdlib.h
+-
+pthread.h
+-
+commandline.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/commandline.h
+connection.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/connection.h
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/observe/observe.h
+stdio.h
+-
+coap3/coap.h
+-
+pthread.h
+-
+stdbool.h
+-
+internals.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/observe/internals.h
+pthread.h
+-
 
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/ACK_queue.h
 coap3/coap.h
@@ -51,6 +135,14 @@ coap3/coap.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
 stdbool.h
 -
+
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer/queue/non_queue.h
+coap3/coap.h
+-
+pthread.h
+-
+../../QoS_organizer_analyzer_port.h
+/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
 
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_organizer_analyzer_port.h
 coap3/coap.h
@@ -330,6 +422,32 @@ stdint.h
 stdio.h
 -
 
+my_libcoap/core/er-coap-13/er-coap-13.h
+stdint.h
+-
+stddef.h
+-
+
+my_libcoap/core/internals.h
+liblwm2m.h
+my_libcoap/core/liblwm2m.h
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+stdint.h
+-
+stddef.h
+-
+stdbool.h
+-
+er-coap-13/er-coap-13.h
+my_libcoap/core/er-coap-13/er-coap-13.h
+inttypes.h
+-
+
 my_libcoap/core/liblwm2m.h
 stdint.h
 -
@@ -338,5 +456,27 @@ stddef.h
 stdbool.h
 -
 time.h
+-
+
+my_libcoap/shared/commandline.h
+stdio.h
+-
+
+my_libcoap/shared/connection.h
+stdio.h
+-
+unistd.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+netdb.h
+-
+sys/socket.h
+-
+sys/stat.h
+-
+liblwm2m.h
 -
 

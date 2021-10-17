@@ -3,7 +3,9 @@
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/QoS/sender.c
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/QoS/sender.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer/queue/non_queue.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoap/QoS_organizer_analyzer_port.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: include/coap3/address.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: include/coap3/async.h
@@ -37,7 +39,9 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS/sender.c.o: my_libcoa
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer/QoS_organizer_client.c
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer/QoS_organizer_client_header.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer/observe/observe.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer/queue/non_queue.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/QoS_organizer_analyzer_port.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: include/coap3/address.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: include/coap3/async.h
@@ -67,6 +71,8 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o:
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: include/coap3/subscribe.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: include/coap3/uri.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: include/coap3/uthash.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/core/er-coap-13/er-coap-13.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/core/internals.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_client.c.o: my_libcoap/core/liblwm2m.h
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o: my_libcoap/QoS_organizer/QoS_organizer_server.c
@@ -105,7 +111,9 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/QoS_organizer_server.c.o:
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/QoS_organizer_client_header.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/QoS_organizer_server_header.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/lwm2mserver.c
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/observe/observe.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer/queue/non_queue.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/QoS_organizer_analyzer_port.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/coap3/address.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/coap3/async.h
@@ -135,9 +143,41 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/coap3/subscribe.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/coap3/uri.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: include/coap3/uthash.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/core/er-coap-13/er-coap-13.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/core/internals.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/core/liblwm2m.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/shared/commandline.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.o: my_libcoap/shared/connection.h
+
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: my_libcoap/QoS_organizer/observe/observe.c
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: my_libcoap/QoS_organizer/observe/observe.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/address.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/async.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/bits.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/block.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_cache.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_debug.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_dtls.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_event.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_forward_decls.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_io.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_prng.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_session.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/coap_time.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/encode.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/libcoap.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/mem.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/net.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/option.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/pdu.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/resource.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/str.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/subscribe.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: include/coap3/uri.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: my_libcoap/core/er-coap-13/er-coap-13.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: my_libcoap/core/internals.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o: my_libcoap/core/liblwm2m.h
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.c
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/ACK_queue.c.o: my_libcoap/QoS_organizer/queue/ACK_queue.h
@@ -204,6 +244,39 @@ CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_prior
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o: include/coap3/uri.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o: include/coap3/uthash.h
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.o: my_libcoap/core/liblwm2m.h
+
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: my_libcoap/QoS_organizer/queue/non_queue.c
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: my_libcoap/QoS_organizer/queue/non_queue.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: my_libcoap/QoS_organizer_analyzer_port.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/address.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/async.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/bits.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/block.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_cache.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_debug.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_dtls.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_event.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_forward_decls.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_io.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_io_internal.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_pdu_internal.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_prng.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_session.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_session_internal.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/coap_time.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/encode.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/libcoap.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/mem.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/net.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/option.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/pdu.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/resource.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/str.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/subscribe.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/uri.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: include/coap3/uthash.h
+CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o: my_libcoap/core/liblwm2m.h
 
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
 CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h

@@ -27,9 +27,6 @@ void init_analyzer_server_resources (coap_context_t *ctx);
 static void hnd_post_reg(coap_resource_t *resource,coap_session_t *session, coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response);
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response);
-void decode_segment(const uint8_t *seg, size_t length, unsigned char *buf);
-void
-free_xmit_data_analyzer_server(coap_session_t *session COAP_UNUSED, void *app_ptr);
 
 
 static coap_pdu_t *

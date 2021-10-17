@@ -705,6 +705,33 @@ my_libcoap/QoS_organizer/lwm2mserver.c.s:
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/lwm2mserver.c.s
 .PHONY : my_libcoap/QoS_organizer/lwm2mserver.c.s
 
+my_libcoap/QoS_organizer/observe/observe.o: my_libcoap/QoS_organizer/observe/observe.c.o
+
+.PHONY : my_libcoap/QoS_organizer/observe/observe.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/observe/observe.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.o
+.PHONY : my_libcoap/QoS_organizer/observe/observe.c.o
+
+my_libcoap/QoS_organizer/observe/observe.i: my_libcoap/QoS_organizer/observe/observe.c.i
+
+.PHONY : my_libcoap/QoS_organizer/observe/observe.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/observe/observe.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.i
+.PHONY : my_libcoap/QoS_organizer/observe/observe.c.i
+
+my_libcoap/QoS_organizer/observe/observe.s: my_libcoap/QoS_organizer/observe/observe.c.s
+
+.PHONY : my_libcoap/QoS_organizer/observe/observe.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/observe/observe.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/observe/observe.c.s
+.PHONY : my_libcoap/QoS_organizer/observe/observe.c.s
+
 my_libcoap/QoS_organizer/queue/ACK_queue.o: my_libcoap/QoS_organizer/queue/ACK_queue.c.o
 
 .PHONY : my_libcoap/QoS_organizer/queue/ACK_queue.o
@@ -758,6 +785,33 @@ my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.s: my_libcoap/QoS_or
 my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s:
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s
 .PHONY : my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s
+
+my_libcoap/QoS_organizer/queue/non_queue.o: my_libcoap/QoS_organizer/queue/non_queue.c.o
+
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/queue/non_queue.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.o
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.c.o
+
+my_libcoap/QoS_organizer/queue/non_queue.i: my_libcoap/QoS_organizer/queue/non_queue.c.i
+
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/queue/non_queue.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.i
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.c.i
+
+my_libcoap/QoS_organizer/queue/non_queue.s: my_libcoap/QoS_organizer/queue/non_queue.c.s
+
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/queue/non_queue.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/non_queue.c.s
+.PHONY : my_libcoap/QoS_organizer/queue/non_queue.c.s
 
 my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.o: my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c.o
 
@@ -2124,12 +2178,18 @@ help:
 	@echo "... my_libcoap/QoS_organizer/lwm2mserver.o"
 	@echo "... my_libcoap/QoS_organizer/lwm2mserver.i"
 	@echo "... my_libcoap/QoS_organizer/lwm2mserver.s"
+	@echo "... my_libcoap/QoS_organizer/observe/observe.o"
+	@echo "... my_libcoap/QoS_organizer/observe/observe.i"
+	@echo "... my_libcoap/QoS_organizer/observe/observe.s"
 	@echo "... my_libcoap/QoS_organizer/queue/ACK_queue.o"
 	@echo "... my_libcoap/QoS_organizer/queue/ACK_queue.i"
 	@echo "... my_libcoap/QoS_organizer/queue/ACK_queue.s"
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.o"
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.i"
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.s"
+	@echo "... my_libcoap/QoS_organizer/queue/non_queue.o"
+	@echo "... my_libcoap/QoS_organizer/queue/non_queue.i"
+	@echo "... my_libcoap/QoS_organizer/queue/non_queue.s"
 	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.o"
 	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.i"
 	@echo "... my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.s"

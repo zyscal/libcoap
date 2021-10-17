@@ -35,7 +35,8 @@
 
 typedef enum coap_response_t {
   COAP_RESPONSE_FAIL, /**< Response not liked - send CoAP RST packet */
-  COAP_RESPONSE_OK    /**< Response is fine */
+  COAP_RESPONSE_OK,    /**< Response is fine */
+  COAP_RESPONSE_NULL // 不做任何返回
 } coap_response_t;
 
 /**

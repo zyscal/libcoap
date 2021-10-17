@@ -1,36 +1,4 @@
 #include "wakcoapToLibcoap.h"
-void free_xmit_data_organizer_server_tem(coap_session_t *session COAP_UNUSED, void *app_ptr) {
-  coap_free(app_ptr);
-  return;
-}
-
-int check_segment_wakcoapToLibcap(const uint8_t *s, size_t length) {
-  int n = 0;
-  while (length) {
-    if (*s == '%') {
-      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
-        return -1;
-      s += 2;
-      length -= 2;
-    }
-    ++s; ++n; --length;
-  }
-  return n;
-}
-int cmdline_input_wakcoapToLibcoap(char *text, coap_string_t *buf) {
-  int len;
-  len = check_segment_wakcoapToLibcap((unsigned char *)text, strlen(text));
-  if (len < 0)
-    return 0;
-  buf->s = (unsigned char *)coap_malloc(len);
-  if (!buf->s)
-  {
-    return 0;
-  }
-  buf->length = len;
-  decode_segment((unsigned char *)text, strlen(text), buf->s);
-  return 1;
-}
 
 void wakaamaCoapToLibcoapReg(coap_packet_t_wakaama *message, int InternalID, coap_pdu_t **pdu) {
     // type
@@ -75,8 +43,5 @@ void wakaamaCoapToLibcoapReg(coap_packet_t_wakaama *message, int InternalID, coa
     }
     coap_add_optlist_pdu(*pdu, &organizer_client_request_option);
     // payload
-    coap_string_t payload;
-    cmdline_input_wakcoapToLibcoap(message->payload, &payload);
-    coap_add_data_large_request(organizer_client_session, *pdu, payload.length, payload.s,
-    free_xmit_data_organizer_server_tem, payload.s);
+    coap_add_data(*pdu, message->payload_len, message->payload);
 }

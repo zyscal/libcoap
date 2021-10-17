@@ -190,7 +190,7 @@ uint8_t observe_handleRequest(lwm2m_context_t * contextP,
         watcherP->active = true;
         watcherP->lastTime = lwm2m_gettime();
         watcherP->lastMid = response->mid;
-        if (IS_OPTION(message, COAP_OPTION_ACCEPT))
+        if (IS_OPTION(message, COAP_OPTION_ACCEPT_WAKAAMA))
         {
             watcherP->format = utils_convertMediaType(message->accept[0]);
         }
@@ -919,7 +919,7 @@ static void prv_obsRequestCallback(lwm2m_context_t * contextP,
         code = COAP_503_SERVICE_UNAVAILABLE;
     }
     else if (packet->code == COAP_205_CONTENT
-            && !IS_OPTION(packet, COAP_OPTION_OBSERVE))
+            && !IS_OPTION(packet, COAP_OPTION_OBSERVE_WAKAAMA))
     {
         code = COAP_405_METHOD_NOT_ALLOWED;
     }
@@ -950,6 +950,7 @@ static void prv_obsRequestCallback(lwm2m_context_t * contextP,
 
             // give the user chance to free previous observation userData
             // indicator: COAP_202_DELETED and (Length ==0)
+            printf("before 953 observationP->callback\n");
             observationP->callback(observationP->clientP->internalID,
                     &observationP->uri,
                     COAP_202_DELETED,
@@ -1100,8 +1101,9 @@ int lwm2m_observe(lwm2m_context_t * contextP,
 
     // update the user latest intention
     if(observationP) observationP->status = STATE_REG_PENDING;
-
+    printf("before transaction_send\n");
     int ret = transaction_send(contextP, transactionP);
+    printf("after transaction_send\n");
     if (ret != 0)
     {
         LOG("transaction_send failed!");

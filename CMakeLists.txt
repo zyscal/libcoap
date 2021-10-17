@@ -586,8 +586,9 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/non_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.h
-
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/observe/observe.h
   )
   SET(SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/lwm2mserver.c
@@ -596,7 +597,9 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/wakcoapToLibcoap/wakcoapToLibcoap.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/non_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/observe/observe.c
 
   )
   add_executable(wakaama_server ${SOURCES} ${WAKAAMA_SOURCES} ${SHARED_SOURCES})

@@ -9,7 +9,6 @@ struct DLQueue
     coap_pdu_t *data;
     coap_session_t *session;
     uint8_t level;
-    /* data */
 };
 // midList 基于tcp的coap会丢失mid信息，需要通过token寻找对应的mid值
 struct midList
@@ -18,7 +17,6 @@ struct midList
     uint8_t *token;
     int tokenLength;
     struct midList *next;
-    /* data */
 };
 
 typedef struct DLQueue DLQueue;

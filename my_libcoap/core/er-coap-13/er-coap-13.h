@@ -58,11 +58,11 @@
 #define COAP_MAX_RETRANSMIT                  4
 #define COAP_ACK_RANDOM_FACTOR               1.5
 #define COAP_MAX_LATENCY                     100
-#define COAP_PROCESSING_DELAY                COAP_RESPONSE_TIMEOUT
+#define COAP_PROCESSING_DELAY_WAKAAMA                COAP_RESPONSE_TIMEOUT
 
-#define COAP_MAX_TRANSMIT_WAIT               ((COAP_RESPONSE_TIMEOUT * ( (1 << (COAP_MAX_RETRANSMIT + 1) ) - 1) * COAP_ACK_RANDOM_FACTOR))
-#define COAP_MAX_TRANSMIT_SPAN               ((COAP_RESPONSE_TIMEOUT * ( (1 << COAP_MAX_RETRANSMIT) - 1) * COAP_ACK_RANDOM_FACTOR))
-#define COAP_EXCHANGE_LIFETIME               (COAP_MAX_TRANSMIT_SPAN + (2 * COAP_MAX_LATENCY) + COAP_PROCESSING_DELAY)
+#define COAP_MAX_TRANSMIT_WAIT_WAKAAMA               ((COAP_RESPONSE_TIMEOUT * ( (1 << (COAP_MAX_RETRANSMIT + 1) ) - 1) * COAP_ACK_RANDOM_FACTOR))
+#define COAP_MAX_TRANSMIT_SPAN_WAKAAMA               ((COAP_RESPONSE_TIMEOUT * ( (1 << COAP_MAX_RETRANSMIT) - 1) * COAP_ACK_RANDOM_FACTOR))
+#define COAP_EXCHANGE_LIFETIME_WAKAAMA               (COAP_MAX_TRANSMIT_SPAN_WAKAAMA + (2 * COAP_MAX_LATENCY) + COAP_PROCESSING_DELAY_WAKAAMA)
 
 #define COAP_HEADER_LEN                      4 /* | version:0x03 type:0x0C tkl:0xF0 | code | mid:0x00FF | mid:0xFF00 | */
 #define COAP_ETAG_LEN                        8 /* The maximum number of bytes for the ETag */
@@ -160,25 +160,25 @@ typedef enum {
 
 /* CoAP header options */
 typedef enum {
-  COAP_OPTION_IF_MATCH = 1,       /* 0-8 B */
-  COAP_OPTION_URI_HOST = 3,       /* 1-255 B */
-  COAP_OPTION_ETAG = 4,           /* 1-8 B */
-  COAP_OPTION_IF_NONE_MATCH = 5,  /* 0 B */
-  COAP_OPTION_OBSERVE = 6,        /* 0-3 B */
-  COAP_OPTION_URI_PORT = 7,       /* 0-2 B */
-  COAP_OPTION_LOCATION_PATH = 8,  /* 0-255 B */
-  COAP_OPTION_URI_PATH = 11,      /* 0-255 B */
-  COAP_OPTION_CONTENT_TYPE = 12,  /* 0-2 B */
-  COAP_OPTION_MAX_AGE = 14,       /* 0-4 B */
-  COAP_OPTION_URI_QUERY = 15,     /* 0-270 B */
-  COAP_OPTION_ACCEPT = 17,        /* 0-2 B */
+  COAP_OPTION_IF_MATCH_WAKAAMA = 1,       /* 0-8 B */
+  COAP_OPTION_URI_HOST_WAKAAMA = 3,       /* 1-255 B */
+  COAP_OPTION_ETAG_WAKAAMA = 4,           /* 1-8 B */
+  COAP_OPTION_IF_NONE_MATCH_WAKAAMA = 5,  /* 0 B */
+  COAP_OPTION_OBSERVE_WAKAAMA = 6,        /* 0-3 B */
+  COAP_OPTION_URI_PORT_WAKAAMA = 7,       /* 0-2 B */
+  COAP_OPTION_LOCATION_PATH_WAKAAMA = 8,  /* 0-255 B */
+  COAP_OPTION_URI_PATH_WAKAAMA = 11,      /* 0-255 B */
+  COAP_OPTION_CONTENT_TYPE_WAKAAMA = 12,  /* 0-2 B */
+  COAP_OPTION_MAX_AGE_WAKAAMA = 14,       /* 0-4 B */
+  COAP_OPTION_URI_QUERY_WAKAAMA = 15,     /* 0-270 B */
+  COAP_OPTION_ACCEPT_WAKAAMA = 17,        /* 0-2 B */
   coap_option_t_wakaamaOKEN = 19,         /* 1-8 B */
-  COAP_OPTION_LOCATION_QUERY = 20, /* 1-270 B */
-  COAP_OPTION_BLOCK2 = 23,        /* 1-3 B */
-  COAP_OPTION_BLOCK1 = 27,        /* 1-3 B */
-  COAP_OPTION_SIZE = 28,          /* 0-4 B */
-  COAP_OPTION_PROXY_URI = 35,     /* 1-270 B */
-  OPTION_MAX_VALUE = 0xFFFF
+  COAP_OPTION_LOCATION_QUERY_WAKAAMA = 20, /* 1-270 B */
+  COAP_OPTION_BLOCK2_WAKAAMA = 23,        /* 1-3 B */
+  COAP_OPTION_BLOCK1_WAKAAMA = 27,        /* 1-3 B */
+  COAP_OPTION_SIZE_WAKAAMA = 28,          /* 0-4 B */
+  COAP_OPTION_PROXY_URI_WAKAAMA = 35,     /* 1-270 B */
+  OPTION_MAX_VALUE_WAKAAMA = 0xFFFF
 } coap_option_t_wakaama;
 
 /* CoAP Content-Types */
@@ -224,7 +224,7 @@ typedef struct {
   uint8_t code;
   uint16_t mid;
 
-  uint8_t options[COAP_OPTION_PROXY_URI / OPTION_MAP_SIZE + 1]; /* Bitmap to check if option is set */
+  uint8_t options[COAP_OPTION_PROXY_URI_WAKAAMA / OPTION_MAP_SIZE + 1]; /* Bitmap to check if option is set */
 
   coap_content_type_t content_type; /* Parse options once and store; allows setting options in random order  */
   uint32_t max_age;
