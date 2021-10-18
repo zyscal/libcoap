@@ -103,7 +103,26 @@ bool InsertMid(coap_mid_t mid, coap_bin_const_t token) {
 
 }
 
-coap_mid_t findMidByToken(coap_bin_const_t token) {
+coap_mid_t findMidByTokenNotDel(coap_bin_const_t token) {
+    if(midListHead == NULL) {
+        return -1;
+    }
+    midList *p = midListHead;
+    while (p != NULL)
+    {
+        if(tokenSame(p->token, p->tokenLength, token.s, token.length)) {
+            p->mid;
+            return p->mid;
+        }
+        p = p->next;
+    }
+    // 没有找到
+    return -1;
+    
+}
+
+
+coap_mid_t findMidByTokenAndDel(coap_bin_const_t token) {
     if(midListHead == NULL) {
         return -1;
     }
@@ -128,6 +147,53 @@ coap_mid_t findMidByToken(coap_bin_const_t token) {
             return mid;
         }
         /* code */
+    }
+    return -1;
+}
+
+void InsertObserveList(coap_bin_const_t token, uint8_t *GlobalID, int LengthOfGlobalID) {
+    observeList *p = (observeList *) malloc (sizeof(observeList));
+    p->tokenLength = token.length;
+    p->token = (uint8_t *) malloc (sizeof(uint8_t) * token.length);
+    p->next = NULL;
+    for(int i = 0; i < token.length; i++) {
+        (p->token)[i] = (token.s)[i];
+    }
+    anjay_node *anjay = findAnjayByGlobalID(LengthOfGlobalID, GlobalID);
+    if(anjay != NULL) {
+        p->anjay = anjay;
+    } else {
+        printf("failed to find anjay by globalID\n");
+    }
+
+    if (observeListHead == NULL)
+    {
+        observeListHead = p;
+        return;
+    }
+    observeList *q = observeListHead;
+    while (q->next != NULL)
+    {
+        // 判断当前token
+        q = q->next;
+    }
+    q->next = p;
+}
+
+coap_mid_t findAndUpdateMidByToken (coap_bin_const_t token) {
+    if (observeListHead == NULL)
+    {
+        return -1;
+    }
+    observeList *p = observeListHead;
+    while (p != NULL)
+    {
+        if(tokenSame(token.s, token.length, p->token, p->tokenLength)) {
+            // 匹配后从anjay中拿下一个mid并更新
+            p->anjay->MID++;
+            return p->anjay->MID;
+        }
+        p = p->next;
     }
     return -1;
 }

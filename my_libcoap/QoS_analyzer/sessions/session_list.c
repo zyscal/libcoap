@@ -1,7 +1,7 @@
 #include "session_list.h"
 
 anjay_node* insert_anjay_node(organizer_node* Gateway, 
-int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
+int InternalID, uint8_t* GlobalID, int LengthOfGlobalID, int mid) {
     // organizer 下anjay节点列表为空，则添加在头部
     if(Gateway->anjay_client_node == NULL) {
         // printf("当前organizer为空\n");
@@ -12,6 +12,7 @@ int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
         for(int i = 0; i < LengthOfGlobalID; i++){
             Gateway->anjay_client_node->GlobalID[i] = GlobalID[i];
         }
+        Gateway->anjay_client_node->MID = mid;
         Gateway->anjay_client_node->next = NULL;
         return Gateway->anjay_client_node;
     }
@@ -41,6 +42,7 @@ int InternalID, uint8_t* GlobalID, int LengthOfGlobalID) {
         for(int i = 0 ; i < LengthOfGlobalID; i++){
             new_anjay_node->GlobalID[i] = GlobalID[i];
         }
+        new_anjay_node->MID = mid;
         new_anjay_node->next = p;
         Gateway->anjay_client_node = new_anjay_node;
         return new_anjay_node;
@@ -75,12 +77,12 @@ organizer_node *handle_organizer(coap_session_t *session){
 }
 
 anjay_node* handle_anjay_node(coap_session_t *session, 
-int InternalID, uint8_t *GlobalID, int LengthOfGlobalID){
+int InternalID, uint8_t *GlobalID, int LengthOfGlobalID, int mid){
     // 表中找到对应的organizer
     organizer_node *p = handle_organizer(session);
 
     // 将anjay加入到对应的organzier_node下
-    return insert_anjay_node(p, InternalID, GlobalID, LengthOfGlobalID);
+    return insert_anjay_node(p, InternalID, GlobalID, LengthOfGlobalID, mid);
 }
 void update_GlobalID(anjay_node* client, char *GlobalID, int GlobalIDSize){
     client->GlobalID = (char*) malloc(sizeof(char) * GlobalIDSize);
@@ -128,4 +130,21 @@ int findSessionAndInternalIDByGlobalID(uint8_t *GlobalID, int Length, coap_sessi
         p = p->next;
     }
     return 0;
+}
+
+anjay_node * findAnjayByGlobalID(int LengthOFGlobalID, uint8_t *GlobalID) {
+    organizer_node *p = organizer_node_head.next;
+    while (p != NULL)
+    {
+        anjay_node *q = p->anjay_client_node;
+        while (q != NULL)
+        {
+            if(GlobalIDIsSame(GlobalID, LengthOFGlobalID, q)) {
+                return q;
+            }
+            q = q->next;
+        }
+        p = p->next;
+    }
+    return NULL;
 }

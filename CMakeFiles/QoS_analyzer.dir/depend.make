@@ -4,6 +4,7 @@
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: my_libcoap/QoS_analyzer/QoS/sender.c
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: my_libcoap/QoS_analyzer/QoS/sender.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: my_libcoap/QoS_analyzer/sessions/session_list.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: include/coap3/address.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: include/coap3/async.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o: include/coap3/bits.h
@@ -173,6 +174,7 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/ACK_queue.c.o: my_libc
 
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
+CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: my_libcoap/QoS_analyzer/sessions/session_list.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: include/coap3/address.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: include/coap3/async.h
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o: include/coap3/bits.h

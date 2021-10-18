@@ -62,46 +62,66 @@ bool sameMID(coap_mid_t send_mid, coap_pdu_t *receive){
     return send_mid == coap_pdu_get_mid(receive);
 }
 
-// 从ACK队列中找打匹配send的ACK，从队列中删除节点并返回。
-coap_pdu_t* GetAndDelACKQueueFront(coap_bin_const_t token, ACKQueue** organizerACKQueueHead, uint8_t **payload, int *Length)
-{
+
+coap_pdu_t* GetAndDelACKQueueFront(ACKQueue** organizerACKQueueHead, 
+uint8_t **payload, int *dataLength) {
     if(*organizerACKQueueHead == NULL) {
-        // ACK队列为空
         return NULL;
     }
-    if(cmpTokenByPdu(token, (*organizerACKQueueHead)->data)) {
-        // ACK队列头部匹配
-        coap_pdu_t* p = (*organizerACKQueueHead)->data;
-        *payload = (uint8_t *)malloc(sizeof(uint8_t) * ((*organizerACKQueueHead)->Length));
-        for(int i = 0 ; i < (*organizerACKQueueHead)->Length; i++) {
-            (*payload)[i] = (*organizerACKQueueHead)->payload[i];
-        }
-
-        *Length = (*organizerACKQueueHead)->Length;
-        free((*organizerACKQueueHead)->payload);
-        ACKQueue *head = *organizerACKQueueHead;
-        *organizerACKQueueHead = (*organizerACKQueueHead)->next;
-        free(head);
-        return p;
+    printf("there is something in ACK queue\n");
+    ACKQueue *p = *organizerACKQueueHead;
+    *organizerACKQueueHead = (*organizerACKQueueHead)->next;
+    *dataLength = p->Length;
+    *payload = (uint8_t *) malloc (sizeof(uint8_t) * p->Length);
+    for(int i = 0 ; i < p->Length; i++) {
+        (*payload)[i] = (p->payload)[i];
     }
-    // 从头节点的下一个开始匹配
-    ACKQueue* back = (*organizerACKQueueHead)->next;
-    ACKQueue* front = *organizerACKQueueHead;
-    while (back != NULL)
-    {
-        if(cmpTokenByPdu(token, back->data)) { // 匹配到第一个则返回
-            front->next = back->next;
-            coap_pdu_t* ack = back->data;
-            *payload = (uint8_t *)malloc(sizeof(uint8_t) * (back->Length));
-            for(int i = 0 ; i < back->Length; i++) {
-                *payload[i] = back->payload[i];
-            }
-            *Length = back->Length;
-            free(back);
-            return ack;
-        }
-        back = back->next;
-        front = front->next;
-    }
-    return NULL;
+    free(p->payload);
+    coap_pdu_t *pdu = p->data;
+    free(p);
+    return pdu;
 }
+
+// // 从ACK队列中找打匹配send的ACK，从队列中删除节点并返回。
+// coap_pdu_t* GetAndDelACKQueueFront(coap_bin_const_t token, ACKQueue** organizerACKQueueHead, uint8_t **payload, int *Length)
+// {
+//     if(*organizerACKQueueHead == NULL) {
+//         // ACK队列为空
+//         return NULL;
+//     }
+//     if(cmpTokenByPdu(token, (*organizerACKQueueHead)->data)) {
+//         // ACK队列头部匹配
+//         coap_pdu_t* p = (*organizerACKQueueHead)->data;
+//         *payload = (uint8_t *)malloc(sizeof(uint8_t) * ((*organizerACKQueueHead)->Length));
+//         for(int i = 0 ; i < (*organizerACKQueueHead)->Length; i++) {
+//             (*payload)[i] = (*organizerACKQueueHead)->payload[i];
+//         }
+
+//         *Length = (*organizerACKQueueHead)->Length;
+//         free((*organizerACKQueueHead)->payload);
+//         ACKQueue *head = *organizerACKQueueHead;
+//         *organizerACKQueueHead = (*organizerACKQueueHead)->next;
+//         free(head);
+//         return p;
+//     }
+//     // 从头节点的下一个开始匹配
+//     ACKQueue* back = (*organizerACKQueueHead)->next;
+//     ACKQueue* front = *organizerACKQueueHead;
+//     while (back != NULL)
+//     {
+//         if(cmpTokenByPdu(token, back->data)) { // 匹配到第一个则返回
+//             front->next = back->next;
+//             coap_pdu_t* ack = back->data;
+//             *payload = (uint8_t *)malloc(sizeof(uint8_t) * (back->Length));
+//             for(int i = 0 ; i < back->Length; i++) {
+//                 *payload[i] = back->payload[i];
+//             }
+//             *Length = back->Length;
+//             free(back);
+//             return ack;
+//         }
+//         back = back->next;
+//         front = front->next;
+//     }
+//     return NULL;
+// }

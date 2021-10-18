@@ -199,12 +199,15 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
 {
   //---------------------------
   // 拿GlobalID, 找对应的session
-  bool checkObserve = false;
+  // checkObserve 为0表示非观测事件，为1表示观测，2表示取消观测
+  int checkObserve = 0;
   int length = request->used_size - request->token_length - request->body_length;
   uint8_t *queryBegin = request->token + request->token_length;
   if (queryBegin[0] == 96) {
     printf("this is observe\n");
-    checkObserve = true;
+    checkObserve = 1;
+  } else if (queryBegin[0] == 97) {
+    checkObserve = 2;
   }
   // 获取code，type, mid
   coap_pdu_code_t code = coap_pdu_get_code(request);
@@ -215,7 +218,7 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   coap_opt_iterator_t opt_iter;
   coap_opt_t *option;
   coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
-  if(checkObserve) { // 如果是observe事件，则第一个opt值为96,跳过该opt
+  if(checkObserve == 1) { // 如果是observe事件，则第一个opt值为96,跳过该opt
     coap_option_next(&opt_iter);
   }
   // GlobalID用于定位，lengthofglobal用于查找长度
@@ -230,13 +233,8 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
     uint8_t *opt = coap_opt_value(option);
     char firstChar = opt[0];
     if(Length >= 6){
-      // printf("是GlobalID\n");
       GlobalID = opt;
       LengthOfGlobalID = Length;
-      // for(int i = 0; i < Length; i++) {
-      //   printf("%c", opt[i]);
-      // }
-      // printf("\n");
       InternalID = findSessionAndInternalIDByGlobalID(GlobalID, Length, &organizerSession);
       break;
     }
@@ -268,12 +266,16 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
 
   // 为下行数据添加uri_path
   coap_optlist_t *analyzer_server_request_option;
-  if(checkObserve) { // 观测事件需要发送到/observe
-    uint8_t uri_path[] = "read";
-    analyzer_server_request_option = coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
-  } else { // 读取事件发送到/read
-    uint8_t uri_path[] = "read";
-    analyzer_server_request_option = coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+  uint8_t uri_path[] = "read";
+  analyzer_server_request_option = coap_new_optlist(COAP_OPTION_URI_PATH, sizeof(uri_path)-1, uri_path);
+
+  if(checkObserve == 1) { 
+    // 同时需要完善observelist
+    printf("before insert observe list\n");
+    pthread_mutex_lock(&analyzer_observeList_mutex);
+    InsertObserveList(token, GlobalID, LengthOfGlobalID);
+    pthread_mutex_unlock(&analyzer_observeList_mutex);
+    printf("after insert observe list\n");
   }
 
   // 首先将InternalID添加在首段
@@ -286,6 +288,7 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   // 遍历request消息
   // 根据rfc7252 delta具有累加性，用于表示opt类型，类型值参考COAP_OPTION_URI_QUERY
   int sumDelta = 0;
+  // 判断 observe 属性，0为观测，1为取消观测
   while ((option = coap_option_next(&opt_iter))) {
     uint8_t findDelta = *option >> 4;
     sumDelta += findDelta;
@@ -302,16 +305,18 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
       tem_opt = coap_new_optlist(COAP_OPTION_ACCEPT, Length, opt);
     } else if(sumDelta == 6) { // observe
       tem_opt = coap_new_optlist(COAP_OPTION_OBSERVE, 0, NULL);
+
     }
     coap_insert_optlist(&analyzer_server_request_option, tem_opt);
   }
+  // 如果是observe消息需要更新observe
+
+
   // 添加optlist
   coap_add_optlist_pdu(pdu, &analyzer_server_request_option);
   // 将处理好的pdu加入到下行消息队列中
   int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead, &analyzer_DL_queue_mutex);
-  
   response->type = COAP_MESSAGE_NOT_SEND;
-
 }
 
 

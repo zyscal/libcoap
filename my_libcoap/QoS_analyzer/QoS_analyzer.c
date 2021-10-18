@@ -93,6 +93,10 @@ int main()
     pthread_mutex_init(&analyzer_DL_ACK_queue_mutex,NULL);
     pthread_mutex_init(&analyzer_DL_queue_mutex,NULL);
     pthread_mutex_init(&analyzer_midList_mutex, NULL);
+    pthread_mutex_init(&organizerNodeMutex, NULL);
+    pthread_mutex_init(&analyzer_observeList_mutex, NULL);
+
+    
     pthread_t tids[0];
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)

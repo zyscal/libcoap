@@ -57,8 +57,10 @@ void prv_observe_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int statu
   // 如果是non消息,需要拿token信息，token用于绑定observe事件
   uint8_t *nonToken;
   int nonTokenLength;
-  // 创建回报，可能是ACK，可能是non消息
-  coap_pdu_t *ACKorNON = (coap_pdu_t *)userData;
+  // 创建回报，可能是ACK，可能是non消息,需要重新组装ACK，避免重复释放
+  coap_pdu_t *ACKfromUserData = (coap_pdu_t *)userData;
+  coap_pdu_t *ACKorNON = coap_pdu_duplicate(ACKfromUserData, organizer_client_ctx, ACKToken.length, ACKToken.s, NULL);
+  coap_pdu_set_mid(ACKorNON, coap_pdu_get_mid(ACKfromUserData));
 
   if(dataLength != 0){ // 当数据段不为空时，status描述了observe计数器信息
     pthread_mutex_lock(&observeMutex);
@@ -69,6 +71,7 @@ void prv_observe_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int statu
     } else {
       // non消息会触发该回调函数，需要将token赋值给ack
       printf("观测内容已经存在，本条callback是non信息上报，需要转发\n");
+      ACKorNON = coap_new_pdu(COAP_MESSAGE_NON, COAP_RESPONSE_CODE_CONTENT, organizer_client_session);
       coap_add_token(ACKorNON, nonTokenLength, nonToken);
       checkNon = true;
     }
@@ -83,21 +86,43 @@ void prv_observe_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int statu
   printf("------------------\n");
 
   // code
-  if(dataLength != 0) {
+  if(dataLength != 0) { // 数据长度不为0时候，为content，若是non消息这个其实重复赋值了
     coap_pdu_set_code(ACKorNON, COAP_RESPONSE_CODE_CONTENT);
-  } else
-  {
-    printf("some thing wrong about code\n");
+  } else { // 一般不会进入到这里
     coap_pdu_set_code(ACKorNON, status);
   }
-  coap_insert_option(ACKorNON, COAP_OPTION_OBSERVE, 0, NULL);
+  // 需要将文本类型进行添加
+  if(format == 0) {
+    coap_insert_option(ACKorNON, COAP_OPTION_CONTENT_FORMAT, 0, NULL);
+  } else if(format <= 255) {
+    uint8_t NonFormat = format;
+    coap_insert_option(ACKorNON, COAP_OPTION_CONTENT_FORMAT, 1, &NonFormat);
+  } else {
+    uint8_t NonFormat[2];
+    NonFormat[0] = (uint16_t)format >> 8;
+    NonFormat[1] = (uint16_t)format & 0xff;
+    coap_insert_option(ACKorNON, COAP_OPTION_CONTENT_FORMAT, 2, NonFormat);
+  }
+  // 插入队列中
   if(checkNon) {
     // 如果是non消息则插入到non队列中
+    // 将observe计数器添加
+    if(status <= 255) { // 计数器一个字节可以放下
+      uint8_t count = status;
+      coap_insert_option(ACKorNON, COAP_OPTION_OBSERVE, 1, &count); 
+    } else if(status <= 65535) {
+      uint8_t count[2];
+      count[0] = status >> 8;
+      count[1] = status & 0xff;
+      coap_insert_option(ACKorNON, COAP_OPTION_OBSERVE, 2, count); 
+    }
     pthread_mutex_lock(&nonMessageMutex);
-    InsertNONMsg(ACKorNON, organizer_client_session);
+    InsertNONMsg(ACKorNON, organizer_client_ctx, data, dataLength);
     pthread_mutex_unlock(&nonMessageMutex);
-  } else {
-    // 如果是observe的ACK则插入到ack队列中
+  } else {// 如果是observe的ACK则插入到ack队列中
+   
+    // 将observe选项添加， observe的值为0
+    coap_insert_option(ACKorNON, COAP_OPTION_OBSERVE, 0, NULL); 
     pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
     int num = InsertACKMsg(ACKorNON, organizer_client_ctx, &Qorganizer_DLACKQueue, data, dataLength);
     pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
@@ -122,10 +147,25 @@ void prv_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int status,
   printf("\n");
 
   printf("------------------\n");
-  // 组装ACK，将ACK加入到队列中
-  coap_pdu_t *ACK = (coap_pdu_t *)userData;
+  // 组装ACK，将ACK加入到队列中,这里的userdata会被释放所以需要进行一次拷贝操作
+  coap_pdu_t *ACKfromUserData = (coap_pdu_t *)userData;
+  coap_bin_const_t token = coap_pdu_get_token(ACKfromUserData);
+  coap_pdu_t *ACK = coap_pdu_duplicate(ACKfromUserData, organizer_client_ctx, token.length, token.s, NULL);
+  coap_pdu_set_mid(ACK, coap_pdu_get_mid(ACKfromUserData));
   // code
   coap_pdu_set_code(ACK, status);
+    // 需要将文本类型进行添加
+  if(format == 0) {
+    coap_insert_option(ACK, COAP_OPTION_CONTENT_FORMAT, 0, NULL);
+  } else if(format <= 255) {
+    uint8_t NonFormat = format;
+    coap_insert_option(ACK, COAP_OPTION_CONTENT_FORMAT, 1, &NonFormat);
+  } else {
+    uint8_t NonFormat[2];
+    NonFormat[0] = (uint16_t)format >> 8;
+    NonFormat[1] = (uint16_t)format & 0xff;
+    coap_insert_option(ACK, COAP_OPTION_CONTENT_FORMAT, 2, NonFormat);
+  }
   pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
   int num = InsertACKMsg(ACK, organizer_client_ctx, &Qorganizer_DLACKQueue, data, dataLength);
   pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
@@ -138,15 +178,6 @@ void handle_uri(int *uri, char a) {
   }
   *uri *= 10;
   *uri += a - '0';
-}
-
-void hnd_observe(coap_resource_t *resource,coap_session_t *session, 
-coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response){
-  printf("observe 中的query ： ");
-  for(int i = 0; i < query->length; i++) {
-    printf("%c", (query->s)[i]);
-  }
-  printf("\n");
 }
 
 
@@ -218,59 +249,64 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
   coap_bin_const_t token = coap_pdu_get_token(request);
   coap_add_token(ACK, token.length, token.s);
   // mid
-  coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
+  if(WAN_PROTOCOL == COAP_PROTO_TCP) {
+    coap_pdu_set_mid(ACK, 0);
+    printf("after set mid is : %d\n", coap_pdu_get_mid(ACK));
+  } else if(WAN_PROTOCOL == COAP_PROTO_UDP) {
+    coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
+  }
   printf("request mid is : %d\n", request->mid);
 
   if(checkObserve) {
     // wakaama observe
-    printf("before wakaama observe\n");
+    printf("before wakaama observe, ACK mid is : %d\n", coap_pdu_get_mid(ACK));
     lwm2m_observe(lwm2mH, clientID, &uri,prv_observe_result_callback, ACK);
   } else {
     printf("before wakaama read\n");
     // wakaama的read方法， 将ACK信息进行传递
     lwm2m_dm_read(lwm2mH, clientID, &uri, prv_result_callback, ACK);
   }
+  response->type = COAP_MESSAGE_NOT_SEND;
 
+  // uint8_t *payload;
+  // uint8_t LengthOfPayload = 0;
+  // // 从队列中取出ACK
+  // while(1) {
+  //   pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
+  //   coap_pdu_t *p = GetAndDelACKQueueFront(coap_pdu_get_token(request), &Qorganizer_DLACKQueue, &payload, &LengthOfPayload);
+  //   pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
+  //   if(p == NULL) {
+  //     continue;
+  //   }
+  //   printf("find ACK!\n");
+  //   // code 需要从ACK队列中获取
+  //   coap_pdu_set_code(response, coap_pdu_get_code(p));
+  //   // observe 选项
+  //   coap_opt_iterator_t opt_iter;
+  //   coap_opt_t *option;
+  //   coap_option_iterator_init(p, &opt_iter, COAP_OPT_ALL);
+  //   int sumDelta = 0;
+  //   while ((option = coap_option_next(&opt_iter))) {
+  //     sumDelta += *option >> 4;
+  //     if(sumDelta == COAP_OPTION_OBSERVE) {
+  //       coap_insert_option(response, COAP_OPTION_OBSERVE, 0, NULL);
+  //     }
+  //   }
 
-  uint8_t *payload;
-  uint8_t LengthOfPayload = 0;
-  // 从队列中取出ACK
-  while(1) {
-    pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
-    coap_pdu_t *p = GetAndDelACKQueueFront(coap_pdu_get_token(request), &Qorganizer_DLACKQueue, &payload, &LengthOfPayload);
-    pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
-    if(p == NULL) {
-      continue;
-    }
-    printf("find ACK!\n");
-    // code 需要从ACK队列中获取
-    coap_pdu_set_code(response, coap_pdu_get_code(p));
-    // observe 选项
-    coap_opt_iterator_t opt_iter;
-    coap_opt_t *option;
-    coap_option_iterator_init(p, &opt_iter, COAP_OPT_ALL);
-    int sumDelta = 0;
-    while ((option = coap_option_next(&opt_iter))) {
-      sumDelta += *option >> 4;
-      if(sumDelta == COAP_OPTION_OBSERVE) {
-        coap_insert_option(response, COAP_OPTION_OBSERVE, 0, NULL);
-      }
-    }
+  //   // 此处需要讲URI_QUERY中携带InternalID, 可以不必，因为通过token，mid做匹配
+  //   uint8_t InternalIDTochar[10];
+  //   sprintf(InternalIDTochar, "%d", clientID);
+  //   coap_insert_option(response, COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
 
-    // 此处需要讲URI_QUERY中携带InternalID, 可以不必，因为通过token，mid做匹配
-    uint8_t InternalIDTochar[10];
-    sprintf(InternalIDTochar, "%d", clientID);
-    coap_insert_option(response, COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
+  //   // data 
+  //   coap_add_data_large_response(resource, organizer_client_session, request,
+  //   response, query, targetP->format, -1, 0, LengthOfPayload, payload, NULL, NULL);
 
-    // data 
-    coap_add_data_large_response(resource, organizer_client_session, request,
-    response, query, targetP->format, -1, 0, LengthOfPayload, payload, NULL, NULL);
-
-    // 此处应当释放ACK消息 和 payload
-    free(payload);
-    coap_delete_pdu(ACK);
-    break;
-  }
+  //   // 此处应当释放ACK消息 和 payload
+  //   free(payload);
+  //   coap_delete_pdu(ACK);
+  //   break;
+  // }
 }
 
 void init_organizer_client_resources (coap_context_t *ctx) {
@@ -279,9 +315,7 @@ void init_organizer_client_resources (coap_context_t *ctx) {
   coap_register_handler(r, COAP_REQUEST_GET, hnd_read);
   coap_add_resource(ctx, r);
 
-  r = coap_resource_init(coap_make_str_const("observe"), 0);
-  coap_register_handler(r, COAP_REQUEST_GET, hnd_observe);
-  coap_add_resource(ctx, r);
+
 }
 
 coap_response_t

@@ -4,7 +4,7 @@
 #include "sessions/session_list.h"
 #include "queue/ACK_queue.h"
 #include "queue/QoS_analyzer_DL_queue.h"
-
+int GlobalMid = 0;
 
 static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
@@ -169,43 +169,70 @@ analyzer_server_message_handler(coap_session_t *session,const coap_pdu_t *sent,
 const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
 {
   printf("enter into analyzer_server_message_handler\n\n");
-  // 来的都是ACK，并将结果转发到leshan
-  coap_pdu_t *ACK = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
-  
-  // 获取token，通过token找到mid，因为基于tcp传输不携带mid
+  // 获取token
   coap_bin_const_t token =   coap_pdu_get_token(received);
-  pthread_mutex_lock(&analyzer_midList_mutex);
-  coap_mid_t mid = findMidByToken(token);
-  pthread_mutex_unlock(&analyzer_midList_mutex);
-
-  // 设置回包中的mid
-  coap_pdu_set_mid(ACK, mid);
-
-  // 设置回包中的token
-  coap_add_token(ACK, token.length, token.s);
-
-  // 设置文本类型
+  // 来的是ACK或者NON消息
+  coap_pdu_t *ACKorNON = NULL;
   coap_opt_iterator_t opt_iter;
   coap_opt_t *option;
   coap_option_iterator_init(received, &opt_iter, COAP_OPT_ALL);
   int sumDelta = 0;
   while ((option = coap_option_next(&opt_iter))) {
     sumDelta += *option >> 4;
-    if(sumDelta == COAP_OPTION_CONTENT_FORMAT) { // content-format
-      coap_add_option(ACK, COAP_OPTION_CONTENT_FORMAT, coap_opt_length(option), coap_opt_value(option));
-    } else if (sumDelta == COAP_OPTION_OBSERVE) {
-      coap_add_option(ACK, COAP_OPTION_OBSERVE, 0, NULL);
+    if(sumDelta == COAP_OPTION_OBSERVE) { // 是Non消息或者是observe的ack
+      int length = coap_opt_length(option);
+      uint8_t *value = coap_opt_value(option);
+      if(length == 0) { // observe 的ack ，observe选项中的值为0
+        ACKorNON = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
+        // 以不删除mid-token项的方式寻找mid
+        pthread_mutex_lock(&analyzer_midList_mutex);
+        coap_mid_t mid = findMidByTokenNotDel(token);
+        pthread_mutex_unlock(&analyzer_midList_mutex);
+        // 设置回包中的mid
+        coap_pdu_set_mid(ACKorNON, mid);
+        // 设置回包中的token
+        coap_add_token(ACKorNON, token.length, token.s);
+        // 添加选项
+        coap_add_option(ACKorNON, COAP_OPTION_OBSERVE, 0, NULL);
+      } else { // non消息
+        printf("这是non消息\n");
+        ACKorNON = coap_new_pdu(COAP_MESSAGE_NON, coap_pdu_get_code(received), analyzer_client_session);
+        // 从观测列表中寻找mid
+        // 由于记录mid的表是anjay表，所以需要加organizerNodeMutex锁
+        pthread_mutex_lock(&organizerNodeMutex);
+        int mid = findAndUpdateMidByToken(token);
+        pthread_mutex_unlock(&organizerNodeMutex);
+        printf("non mid is : %d\n", mid);
+        // 设置回包中的mid
+        coap_pdu_set_mid(ACKorNON, mid);
+        // 设置回包中的token
+        coap_add_token(ACKorNON, token.length, token.s);
+        // 将observe计数器添加
+        coap_insert_option(ACKorNON, COAP_OPTION_OBSERVE, length, value);
+      }
+    } else if(sumDelta == COAP_OPTION_CONTENT_FORMAT) { // content-format
+      if(ACKorNON == NULL) { // 如果是普通的ACK应该是尚未进行初始化的，例如read方法
+        ACKorNON = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
+        // 以删除mid-token项的方式寻找mid
+        pthread_mutex_lock(&analyzer_midList_mutex);
+        coap_mid_t mid = findMidByTokenAndDel(token);
+        pthread_mutex_unlock(&analyzer_midList_mutex);
+        // 设置回包中的mid
+        coap_pdu_set_mid(ACKorNON, mid);
+        // 设置回包中的token
+        coap_add_token(ACKorNON, token.length, token.s);
+      }
+      coap_add_option(ACKorNON, COAP_OPTION_CONTENT_FORMAT, coap_opt_length(option), coap_opt_value(option));
     }
   }
-
   // 获取data
   int LengthOfData;
   uint8_t *Data;
   coap_get_data(received, &LengthOfData, &Data);
   // 设置回包中payload
-  coap_add_data(ACK, LengthOfData, Data);
+  coap_add_data(ACKorNON, LengthOfData, Data);
   // 发送
-  coap_send_large(analyzer_client_session, ACK);
+  coap_send_large(analyzer_client_session, ACKorNON);
   return COAP_RESPONSE_NULL;
 }
 
@@ -393,7 +420,10 @@ coap_pdu_t *response) {
   printf("|---------------------------------------------|\n");
 
   // 以上完成了注册信息的转发，下面讲对“session—InternalID—GlobalID”建立映射关系
-  anjay_node* anjay_node_p = handle_anjay_node(session, InternalID, GlobalID, Length);
+  pthread_mutex_lock(&organizerNodeMutex);
+  // 注册时回携带初始mid，当基于tcp传输时为0
+  anjay_node* anjay_node_p = handle_anjay_node(session, InternalID, GlobalID, Length, coap_pdu_get_mid(request));
+  pthread_mutex_unlock(&organizerNodeMutex);
   printf("after anjay_node_p insert\n");
   organizer_node *p = organizer_node_head.next;
   int numOfOrganizer = 0;

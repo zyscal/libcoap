@@ -5,6 +5,7 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/QoS/sender.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.h
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
+ /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
  include/coap3/address.h
  include/coap3/async.h
  include/coap3/bits.h
@@ -174,6 +175,7 @@ CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/ACK_queue.c.o
 CMakeFiles/QoS_analyzer.dir/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c.o
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c
  /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
+ /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
  include/coap3/address.h
  include/coap3/async.h
  include/coap3/bits.h

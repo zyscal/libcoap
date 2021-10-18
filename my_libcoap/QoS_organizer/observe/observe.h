@@ -26,7 +26,9 @@ typedef struct observeList observeList;
 
 observeList *observeListHead;
 pthread_mutex_t observeMutex;
+// InsertObserve 为observe表添加一条observe事件
 bool InsertObserve (uint16_t clientID, lwm2m_uri_t URI, coap_bin_const_t token, uint8_t **nonToken, int *nonTokenLength);
+// DeleteObserve 删除一条observe事件
 bool DeleteObserve (uint16_t clientID, lwm2m_uri_t URI, coap_bin_const_t token);
 
 #endif
