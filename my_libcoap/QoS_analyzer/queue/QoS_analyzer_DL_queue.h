@@ -17,13 +17,15 @@ struct midList
     coap_mid_t mid;
     uint8_t *token;
     int tokenLength;
+    // 如果是重传包需要在这个自加1
+    int count;
     struct midList *next;
 };
 
 struct observeList
 {
     uint8_t *token;
-    int tokenLength;
+    uint8_t tokenLength;
     anjay_node* anjay;
     struct observeList *next;
 };
@@ -42,7 +44,7 @@ observeList *observeListHead;
 
 // InsertMid 如果当前mid不存在则建立映射关系，返回true；如果存在token不同则表示，之前的数据丢失，重新建立映射关系，返回true
 // 否则返回false，表示该数据是重传包
-bool InsertMid(coap_mid_t mid, coap_bin_const_t token);
+int InsertMid(coap_mid_t mid, coap_bin_const_t token);
 
 // findMidByTokenAndDel 通过token值找到对应的mid值
 coap_mid_t findMidByTokenAndDel(coap_bin_const_t token);
@@ -57,10 +59,10 @@ coap_mid_t findAndUpdateMidByToken (coap_bin_const_t token);
 coap_mid_t findMidByTokenNotDel(coap_bin_const_t token);
 
 // InsertDLMsg 向某个队列中插入某个下行pdu, 返回当前队列中数量
-int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head, pthread_mutex_t *mutex);
+int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head);
 
 // GetAndDelDLQueueFront 从某个队列中取出头部pdu和session
-coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointer, pthread_mutex_t *mutex);
+coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointer);
 
 // 下行队列排他锁
 pthread_mutex_t analyzer_DL_queue_mutex;

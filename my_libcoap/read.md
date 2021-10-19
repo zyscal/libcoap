@@ -20,12 +20,112 @@
 
 <br/><br/>
 
-# 表结构
-> ### anjay_node 表 
-> * **coap_session_t*** 存储边缘测会话，通过该字段可以将数据推送到QoS_organizer
-> * **anjay_node***     边缘下客户端链表头，存储虚拟的anjay节点，存储InternalID、GlobalID等
-> * **next***           指向下一边缘会话
-> 
+# QoS_analyzer表结构
+
+### anjay_node 表 
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| int | InternalID | 内部ID |
+>| int | GlobalIDSize | 全局ID长度 |
+>| char* | GlobalID | 全局ID |
+>| int | MID | 虚拟的mid |
+>| anjay_node* | next | 属于同一个QoS_organizer的下个anjay设备 |
+
+<br>
+
+### organizer_node 表 
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_session_t* | session | 存储边缘测会话，通过该字段可以将数据推送到QoS_organizer |
+>| anjay_node* | anjay_client_node | QoS_organizer下终端设备表头 |
+>| organizer_node* | next | 指向下一个QoS_organizer |
+
+<br>
+
+### DLQueue表:下行数据优先队列
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_pdu_t* | data | 下行的数据包 |
+>| coap_session_t* | session | 目标边缘会话 |
+>| uint8_t | level | 数据包等级 |
+>| DLQueue* | next | 指向下一个数据包 |
+
+<br>
+
+### midList表:mid与token的映射关系表
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_mid_t | mid | 一个下行请求的mid |
+>| uint8_t* | token | 该请求对应的token |
+>| int | tokenLength | token长度 |
+>| int | count | 重传次数 |
+>| midList* | next | 下一个 |
+
+<br>
+
+### observeList表: observe事件与token、mid映射
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| uint8_t* | token | observe唯一token |
+>| uint8_t | tokenLength | token长度 |
+>| anjay_node* | anjay | obverse事件对应的anjay设备（拿mid） |
+>| observeList * | next | 下一个 |
+
+<br>
+
+### ACKQueue表: 做出两个实例ULACKQueue,DLACKQueue
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_pdu_t* | data | ACK数据 |
+>| ACKQueue* | next | 下一个 |
+
+
+<br><br>
+
+# QoS_organizer表结构
+
+### observeThings表：记录每个设备下全部观测事件
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| lwm2m_uri_t | URI | 观测事件 |
+>| uint8_t* | token | token |
+>| int | tokenLength | token长度 |
+>| observeThings | next | 下一个 |
+
+<br>
+
+### observeList表：记录设备的观测事件
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| uint16_t | clientID | 设备内部ID |
+>| observeThings* | things | 观测事件 |
+>| observeList* | next | 下一个 |
+
+<br>
+
+### nonQueue表：数据上报队列
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_pdu_t* | data | non消息 |
+>| uint8_t* | payload | 上报的数据内容 |
+>| int | Length | 上报的数据长度 |
+>| unsigned int | format | 数据格式 |
+>| nonQueue* | next | 下一个 |
+
+<br>
+
+### ACKQueue表：下行数据的ACK队列
+>| 类型 | 字段  | 解释 |
+>| :--: | :--: | :--: |
+>| coap_pdu_t* | data | ACK消息 |
+>| uint8_t* | payload | ACK数据 |
+>| int | Length | 数据长度 |
+>| ACKQueue* | next | 下一个 |
+
+
+
+
+
 <br/><br/>
 # 进度
 
@@ -59,3 +159,20 @@
 >       3. 设置文本类型
 >       4. 配置数据data
 >       5. **阻塞发送**
+
+
+## **2021.10.19进度**
+>* 完成/observe接口开发
+>   * QoS_analyzer_client 通过 **hnd_get_unknow()** 接收下行observe事件：
+>       * 当判断为observe后：
+>           1. 与read相仿，获取session，token，mid等操作
+>           2. 需要维护更新ObserveList，目的为了让上行的non消息获取token对应的mid消息。
+>   * QoS_organizer目前同样使用 **hnd_read()** 接口接收，通过判别是否是observe事件，使用不同的回调方法，具体参考wakaama的read、observe方法：
+>       * **prv_observe_result_callback** 为observe事件的回调方法，该方法会在一下几种场景中被调用：
+>           1. observe命令的anjay ack回包：当观测队列中尚无该观测事件，则为ACK，否则为non
+>           2. 重复观测同一时间：当重复观测同一个事件时候，该方法会被唤起两次，第一次status为 **COAP_RESPONSE_CODE_DELETED**，需要从observelist中删除对应事件。第二次为1.的情况。
+>           3. non消息上报：当non消息上报时需要注意status描述了observe计数器需要填充 **COAP_OPTION_OBSERVE** 选项的值。 
+>* 完成non数据上报接口开发
+>* 在coap over tcp/udp 场景下手动压测测试现有架构，修复多处异常：
+>   * 重传问题：使用count记录con数量
+>   * 多设备mid问题：在anjay表中添加mid信息，当基于tcp链路通讯时，使用模拟的自增mid

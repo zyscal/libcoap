@@ -184,10 +184,13 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
       uint8_t *value = coap_opt_value(option);
       if(length == 0) { // observe 的ack ，observe选项中的值为0
         ACKorNON = coap_new_pdu(COAP_MESSAGE_ACK, coap_pdu_get_code(received), analyzer_client_session);
-        // 以不删除mid-token项的方式寻找mid
+        // 找到对应的ACK mid
         pthread_mutex_lock(&analyzer_midList_mutex);
-        coap_mid_t mid = findMidByTokenNotDel(token);
+        coap_mid_t mid = findMidByTokenAndDel(token);
         pthread_mutex_unlock(&analyzer_midList_mutex);
+        if(mid == -1) {
+          return COAP_RESPONSE_NULL;
+        }
         // 设置回包中的mid
         coap_pdu_set_mid(ACKorNON, mid);
         // 设置回包中的token
@@ -216,7 +219,12 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
         // 以删除mid-token项的方式寻找mid
         pthread_mutex_lock(&analyzer_midList_mutex);
         coap_mid_t mid = findMidByTokenAndDel(token);
+        printf("find mid from midList : %d\n", mid);
         pthread_mutex_unlock(&analyzer_midList_mutex);
+        if (mid == -1)
+        {
+          return COAP_RESPONSE_NULL;
+        }
         // 设置回包中的mid
         coap_pdu_set_mid(ACKorNON, mid);
         // 设置回包中的token

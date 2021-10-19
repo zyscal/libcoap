@@ -254,9 +254,7 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   // 获取请求中tocken，并将token与mid映射关系加入表中
   coap_bin_const_t token = coap_pdu_get_token(request);
   pthread_mutex_lock(&analyzer_midList_mutex);
-  if(InsertMid(mid, token)) {} else {
-    printf ("token mid 表插入失败\n");
-  }
+  printf("插入midList的结果是：%d, 当前mid是:%d\n", InsertMid(mid, token), mid);
   pthread_mutex_unlock(&analyzer_midList_mutex);
 
   // 添加tocken
@@ -315,7 +313,11 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   // 添加optlist
   coap_add_optlist_pdu(pdu, &analyzer_server_request_option);
   // 将处理好的pdu加入到下行消息队列中
-  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead, &analyzer_DL_queue_mutex);
+  pthread_mutex_lock(&analyzer_DL_queue_mutex);
+  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead);
+  pthread_mutex_unlock(&analyzer_DL_queue_mutex);
+
+
   response->type = COAP_MESSAGE_NOT_SEND;
 }
 

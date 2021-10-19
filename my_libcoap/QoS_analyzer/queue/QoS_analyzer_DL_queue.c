@@ -1,14 +1,12 @@
 #include "QoS_analyzer_DL_queue.h"
 
-int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head, pthread_mutex_t *mutex)
+int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head)
 {
-    pthread_mutex_lock(mutex);
     if(*Head == NULL) {
         *Head = (DLQueue *) malloc (sizeof(DLQueue));
         (*Head)->data = pdu;
         (*Head)->session = session;
         (*Head)->next = NULL;
-        pthread_mutex_unlock(mutex);
         return 1;
     }
     int count = 1;
@@ -24,15 +22,12 @@ int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head, pthrea
     pFront->data = pdu;
     pFront->session = session;
     pFront->next->next = NULL;
-    pthread_mutex_unlock(mutex);
     return count + 1; 
 }
 
-coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointer, pthread_mutex_t *mutex)
+coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointer)
 {
-    pthread_mutex_lock(mutex);
     if(*Head == NULL) {
-        pthread_mutex_unlock(mutex); 
         return NULL;
     }
     DLQueue *p = *Head;
@@ -40,7 +35,6 @@ coap_pdu_t *GetAndDelDLQueueFront(DLQueue** Head,coap_session_t **session_pointe
     coap_pdu_t *front_pdu = p->data;
     *session_pointer = p->session;
     free(p);
-    pthread_mutex_unlock(mutex); 
     return front_pdu;
 }
 
@@ -58,7 +52,8 @@ bool tokenSame(uint8_t* token1, int length1, uint8_t *token2, int length2) {
     return true;
 }
 
-bool InsertMid(coap_mid_t mid, coap_bin_const_t token) {
+int InsertMid(coap_mid_t mid, coap_bin_const_t token) {
+    int count = 0;
     if(midListHead == NULL) {
         // 队列头部为空
         midListHead = (midList *) malloc(sizeof(midList));
@@ -66,26 +61,33 @@ bool InsertMid(coap_mid_t mid, coap_bin_const_t token) {
         midListHead->mid = mid;
         midListHead->tokenLength = token.length;
         midListHead->token = (uint8_t *)malloc(sizeof(uint8_t) * token.length);
+        midListHead->count = 1;
         for(int i = 0 ; i < token.length; i++) {
             (midListHead->token)[i] = (token.s)[i];
         }
-        return true;
+        return 1;
     } else {
         midList *p = midListHead;
         while (p != NULL)
         {
-            // mid已经存在
+            // mid已经存在,考虑到重传问题
             if(p->mid == mid) {
                 if(tokenSame(p->token, p->tokenLength, token.s, token.length)) {
-                    return false;
+                    printf("这是重传包，mid、token相同\n");
+                    p->count++;
+                    return -1;
                 } else { // 更新旧token
+                    printf("mid 相同但是token不同\n");
                     p->tokenLength = token.length;
                     for(int i = 0 ; i < token.length; i++) {
                         (p->token)[i] = (token.s)[i];
                     }
+                    p->count = 1;
+                    return -1;
                 }
             } else {
                 p = p->next;
+                count++;
             }
         }
         // mid不存在，在头部insert一个就好了
@@ -96,9 +98,10 @@ bool InsertMid(coap_mid_t mid, coap_bin_const_t token) {
         for(int i = 0 ; i < token.length; i++) {
             (newMidList->token)[i] = (token.s)[i];
         }
+        newMidList->count = 1;
         newMidList->next = midListHead->next;
         midListHead = newMidList;
-        return true;
+        return count + 1;
     }
 
 }
@@ -124,30 +127,45 @@ coap_mid_t findMidByTokenNotDel(coap_bin_const_t token) {
 
 coap_mid_t findMidByTokenAndDel(coap_bin_const_t token) {
     if(midListHead == NULL) {
+        printf("midList为空\n");
         return -1;
     }
     if(tokenSame(midListHead->token, midListHead->tokenLength, token.s, token.length)){
         // 头结点匹配
-        midList *p = midListHead;
-        midListHead = midListHead->next;
-        int mid = p->mid;
-        free(p->token);
-        free(p);
-        return mid;
+        if(midListHead->count == 1) {
+            midList *p = midListHead;
+            midListHead = midListHead->next;
+            int mid = p->mid;
+            free(p->token);
+            free(p);
+            return mid;
+        } else {
+            midListHead->count--;
+            return midListHead->count;
+        }
     }
     midList *pBack = midListHead->next;
     midList *pFront = midListHead;
     while (pBack != NULL)
     {
         if(tokenSame(pBack->token, pBack->tokenLength, token.s, token.length)) {
-            int mid = pBack->mid;
-            pFront->next = pBack->next;
-            free(pBack->token);
-            free(pBack);
-            return mid;
+            if(pBack->count == 1) {
+                int mid = pBack->mid;
+                pFront->next = pBack->next;
+                free(pBack->token);
+                free(pBack);
+                return mid;
+            }
+            else
+            {
+                pBack->count--;
+                return pBack->count;
+            }
         }
-        /* code */
+        pBack = pBack->next;
+        pFront = pFront->next;
     }
+    printf("midList没有找到匹配\n");
     return -1;
 }
 
