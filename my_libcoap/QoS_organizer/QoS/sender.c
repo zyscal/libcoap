@@ -25,6 +25,15 @@ void simple_sender() {
             continue;
         }
 
+        // 更新消息
+        pthread_mutex_lock(&UdpMessageMutex);
+        pdu = GetAndDelUpdateQueueFront();
+        pthread_mutex_unlock(&UdpMessageMutex);
+        if(pdu != NULL) {
+            int mid = coap_send_large(organizer_client_session, pdu);
+            continue;
+        }
+
         // 看信息上报non队列
         pthread_mutex_lock(&nonMessageMutex);
         pdu = GetAndDelNONQueueFront(&payload, &dataLength);
@@ -36,5 +45,6 @@ void simple_sender() {
             free(payload);
             continue;
         }
+
     }
 }

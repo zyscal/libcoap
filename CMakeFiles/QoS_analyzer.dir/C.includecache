@@ -6,18 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.c
-sender.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.h
-
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS/sender.h
-coap3/coap.h
--
-../queue/QoS_analyzer_DL_queue.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
-stdio.h
--
-
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer.c
 QoS_analyzer_client_header.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
@@ -49,14 +37,8 @@ errno.h
 -
 queue/QoS_analyzer_DL_queue.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
-
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client.c
-QoS_analyzer_client_header.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
 queue/ACK_queue.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/ACK_queue.h
-coap3/option.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/coap3/option.h
 
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/QoS_analyzer_client_header.h
 coap3/coap.h
@@ -146,10 +128,6 @@ coap3/coap.h
 stdbool.h
 -
 
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.c
-QoS_analyzer_DL_queue.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
-
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/queue/QoS_analyzer_DL_queue.h
 coap3/coap.h
 -
@@ -158,10 +136,6 @@ stdio.h
 stdbool.h
 -
 ../sessions/session_list.h
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
-
-/home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.c
-session_list.h
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h
 
 /home/zyscal/Documents/CoAP over TCP/libcoap/my_libcoap/QoS_analyzer/sessions/session_list.h

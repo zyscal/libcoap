@@ -1,0 +1,197 @@
+execve("./QoS_analyzer", ["./QoS_analyzer"], 0x7ffd8abbc9f8 /* 70 vars */) = 0
+brk(NULL)                               = 0x557dc91be000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffc5f79e270) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=136817, ...}) = 0
+mmap(NULL, 136817, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9178018000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\201\0\0\0\0\0\0"..., 832) = 832
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\356\265\260U\251\3278\333d\344P\6_\210\230\v"..., 68, 824) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=157224, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9178016000
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\356\265\260U\251\3278\333d\344P\6_\210\230\v"..., 68, 824) = 68
+mmap(NULL, 140408, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9177ff3000
+mmap(0x7f9177ffa000, 69632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x7000) = 0x7f9177ffa000
+mmap(0x7f917800b000, 20480, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x18000) = 0x7f917800b000
+mmap(0x7f9178010000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0x7f9178010000
+mmap(0x7f9178012000, 13432, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9178012000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libssl.so.1.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0p\367\1\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=598104, ...}) = 0
+mmap(NULL, 600368, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9177f60000
+mprotect(0x7f9177f7c000, 434176, PROT_NONE) = 0
+mmap(0x7f9177f7c000, 323584, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0x7f9177f7c000
+mmap(0x7f9177fcb000, 106496, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6b000) = 0x7f9177fcb000
+mmap(0x7f9177fe6000, 53248, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x85000) = 0x7f9177fe6000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcrypto.so.1.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\220\7\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=2954080, ...}) = 0
+mmap(NULL, 2973600, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9177c8a000
+mmap(0x7f9177d02000, 1683456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x78000) = 0x7f9177d02000
+mmap(0x7f9177e9d000, 593920, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x213000) = 0x7f9177e9d000
+mmap(0x7f9177f2e000, 188416, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2a3000) = 0x7f9177f2e000
+mmap(0x7f9177f5c000, 16288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9177f5c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360q\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\316x.\316\10\320\210\347~\352\334\10o\204\324\210"..., 68, 880) = 68
+fstat(3, {st_mode=S_IFREG|0755, st_size=2029224, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\316x.\316\10\320\210\347~\352\334\10o\204\324\210"..., 68, 880) = 68
+mmap(NULL, 2036952, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9177a98000
+mprotect(0x7f9177abd000, 1847296, PROT_NONE) = 0
+mmap(0x7f9177abd000, 1540096, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x25000) = 0x7f9177abd000
+mmap(0x7f9177c35000, 303104, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19d000) = 0x7f9177c35000
+mmap(0x7f9177c80000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e7000) = 0x7f9177c80000
+mmap(0x7f9177c86000, 13528, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9177c86000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \22\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=18816, ...}) = 0
+mmap(NULL, 20752, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9177a92000
+mmap(0x7f9177a93000, 8192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0x7f9177a93000
+mmap(0x7f9177a95000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f9177a95000
+mmap(0x7f9177a96000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f9177a96000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9177a90000
+arch_prctl(ARCH_SET_FS, 0x7f9177a91480) = 0
+mprotect(0x7f9177c80000, 12288, PROT_READ) = 0
+mprotect(0x7f9177a96000, 4096, PROT_READ) = 0
+mprotect(0x7f9178010000, 4096, PROT_READ) = 0
+mprotect(0x7f9177f2e000, 180224, PROT_READ) = 0
+mprotect(0x7f9177fe6000, 36864, PROT_READ) = 0
+mprotect(0x557dc81f3000, 4096, PROT_READ) = 0
+mprotect(0x7f9178067000, 4096, PROT_READ) = 0
+munmap(0x7f9178018000, 136817)          = 0
+set_tid_address(0x7f9177a91750)         = 709644
+set_robust_list(0x7f9177a91760, 24)     = 0
+rt_sigaction(SIGRTMIN, {sa_handler=0x7f9177ffabf0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7f9178008420}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {sa_handler=0x7f9177ffac90, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f9178008420}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f917728f000
+mprotect(0x7f9177290000, 8388608, PROT_READ|PROT_WRITE) = 0
+brk(NULL)                               = 0x557dc91be000
+brk(0x557dc91df000)                     = 0x557dc91df000
+clone(child_stack=0x7f9177a8efb0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=[709645], tls=0x7f9177a8f700, child_tidptr=0x7f9177a8f9d0) = 709645
+futex(0x7f9177f5e818, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+futex(0x7f9177f5e7fc, FUTEX_WAIT_PRIVATE, 1, NULL) = 0
+futex(0x557dc91be3cc, FUTEX_WAIT_BITSET_PRIVATE|FUTEX_CLOCK_REALTIME, 3, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x557dc91be3cc, FUTEX_WAKE_PRIVATE, 1) = 0
+epoll_create1(0)                        = 6
+timerfd_create(CLOCK_REALTIME, TFD_NONBLOCK) = 7
+epoll_ctl(6, EPOLL_CTL_ADD, 7, {EPOLLIN, {u32=0, u64=0}}) = 0
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+getpid()                                = 709644
+socket(AF_INET6, SOCK_STREAM, IPPROTO_IP) = 8
+ioctl(8, FIONBIO, [1])                  = 0
+setsockopt(8, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
+setsockopt(8, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+setsockopt(8, SOL_IPV6, IPV6_V6ONLY, [0], 4) = 0
+bind(8, {sa_family=AF_INET6, sin6_port=htons(5800), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "::", &sin6_addr), sin6_scope_id=0}, 28) = 0
+getsockname(8, {sa_family=AF_INET6, sin6_port=htons(5800), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "::", &sin6_addr), sin6_scope_id=0}, [32->28]) = 0
+listen(8, 5)                            = 0
+epoll_ctl(6, EPOLL_CTL_ADD, 8, {EPOLLIN, {u32=3374066680, u64=93998733339640}}) = 0
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=0, tv_nsec=0}}, NULL) = 0
+epoll_wait(6, [{EPOLLIN, {u32=3374066680, u64=93998733339640}}], 10, 2000) = 1
+accept(8, {sa_family=AF_INET6, sin6_port=htons(5700), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "::ffff:192.168.3.24", &sin6_addr), sin6_scope_id=0}, [28]) = 9
+getsockname(9, {sa_family=AF_INET6, sin6_port=htons(5800), sin6_flowinfo=htonl(0), inet_pton(AF_INET6, "::ffff:192.168.3.24", &sin6_addr), sin6_scope_id=0}, [28]) = 0
+ioctl(9, FIONBIO, [1])                  = 0
+epoll_ctl(6, EPOLL_CTL_ADD, 9, {EPOLLIN, {u32=3374068008, u64=93998733340968}}) = 0
+sendto(9, "P\341#\200\1\0 ", 7, 0, NULL, 0) = 7
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=300, tv_nsec=0}}, NULL) = 0
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=300, tv_nsec=0}}, NULL) = 0
+epoll_wait(6, [{EPOLLIN, {u32=3374068008, u64=93998733340968}}], 10, 2000) = 1
+recvfrom(9, "P\341#\200\1\0 ", 1472, 0, NULL, NULL) = 7
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=300, tv_nsec=0}}, NULL) = 0
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=300, tv_nsec=0}}, NULL) = 0
+epoll_wait(6, [{EPOLLIN, {u32=3374068008, u64=93998733340968}}], 10, 2000) = 1
+recvfrom(9, "\330>\0022-8\313?\4B\33\262rd\21(4ID=0\tlwm2m=1.0\f"..., 1472, 0, NULL, NULL) = 86
+write(1, "enter into handle request\n", 26) = 26
+write(1, "the resource is found\n", 22) = 22
+write(1, "h is not NULL\n", 14)         = 14
+write(1, "\n\n", 2)                     = 2
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|\346\226\260\347\232\204\346\263\250\345\206\214\346\266\210\346\201\257\345\210\260\350\276\276QoS_ana"..., 38) = 38
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|len of data(payload) : 34\n", 27) = 27
+write(1, "|data is :</1/0>,</5/0>,</3333/0"..., 45) = 45
+write(1, "|query is :ID=0&lwm2m=1.0&ep=dev"..., 46) = 46
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|\ttem_opt len : 9\n", 18)    = 18
+write(1, "|\tl w m 2 m = 1 . 0 \n", 21) = 21
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|\ttem_opt len : 12\n", 19)   = 19
+write(1, "|\te p = d e v i c e 1 - 1 \n", 27) = 27
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|\ttem_opt len : 6\n", 18)    = 18
+write(1, "|\tl t = 5 0 0 \n", 15)       = 15
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "|the InternalID is : 0\n", 23) = 23
+write(1, "|-------------------------------"..., 48) = 48
+sendto(5, "H\2\302\3232-8\313?\4B\33\262rd\21(9lwm2m=1.0\fep=d"..., 82, 0, NULL, 0) = 82
+timerfd_settime(4, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=2, tv_nsec=250000000}}, NULL) = 0
+write(1, "create new pdu success\n", 23) = 23
+write(1, "set mid success\n", 16)       = 16
+write(1, "queue is null\n", 14)         = 14
+futex(0x557dc81f5520, FUTEX_WAKE_PRIVATE, 1) = 1
+write(1, "after insert into ULACKQueue, ch"..., 43) = 43
+write(1, "\n", 1)                       = 1
+write(1, "\n", 1)                       = 1
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "after anjay_node_p insert\n", 26) = 26
+write(1, "|\347\254\2541\344\270\252organizer \344\270\255 anjay\346\225\260\351\207"..., 65) = 65
+write(1, "|   >\tInternalID : 0\n", 21) = 21
+write(1, "|   >\tGlobalIDSize : 10\n", 24) = 24
+write(1, "|   >\tGlobalID : 82cKZn9IuZ\n", 28) = 28
+write(1, "|-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-"..., 38) = 38
+write(1, "|\345\275\223\345\211\215QoS_organizer\346\225\260\351\207\217\344\270\272 : "..., 34) = 34
+write(1, "|-------------------------------"..., 48) = 48
+write(1, "after h\n", 8)                = 8
+write(1, "response type is 4\n", 19)    = 19
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=299, tv_nsec=972000000}}, NULL) = 0
+timerfd_settime(7, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=299, tv_nsec=972000000}}, NULL) = 0
+epoll_wait(6, [{EPOLLIN, {u32=3374068008, u64=93998733340968}}], 10, 2000) = 1
+recvfrom(9, "\321\7\2\1\266updateA0\n82cKZn9IuZ", 1472, 0, NULL, NULL) = 24
+write(1, "enter into handle request\n", 26) = 26
+write(1, "the resource is found\n", 22) = 22
+write(1, "h is not NULL\n", 14)         = 14
+write(1, "---------enter into hnd post upd"..., 45) = 45
+write(1, "\346\227\240\351\234\200\350\277\233\350\241\214\346\233\264\346\226\260\n", 19) = 19
+sendto(5, "A\2\302\325\1\262rd\n82cKZn9IuZ", 19, 0, NULL, 0) = 19
+timerfd_settime(4, 0, {it_interval={tv_sec=0, tv_nsec=0}, it_value={tv_sec=2, tv_nsec=938000000}}, NULL) = 0
+futex(0x557dc81f5420, FUTEX_WAKE_PRIVATE, 1) = 1
+write(1, "ackToOrganizer is not NULL\n", 27) = 27
+write(1, "after add token, checkToken is :"..., 35) = 35
+futex(0x557dc81f5520, FUTEX_WAIT_PRIVATE, 2, NULL) = -1 EAGAIN (Resource temporarily unavailable)
+write(1, "create new pdu success\n", 23) = 23
+write(1, "set mid success\n", 16)       = 16
+--- SIGSEGV {si_signo=SIGSEGV, si_code=SEGV_MAPERR, si_addr=NULL} ---
++++ killed by SIGSEGV (core dumped) +++

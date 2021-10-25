@@ -587,6 +587,7 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/non_queue.h
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/Update_queue.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.h
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/observe/observe.h
   )
@@ -598,6 +599,7 @@ if(ENABLE_EXAMPLES)
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/ACK_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/non_queue.c
+  ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/queue/Update_queue.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/QoS/sender.c
   ${CMAKE_CURRENT_LIST_DIR}/my_libcoap/QoS_organizer/observe/observe.c
 

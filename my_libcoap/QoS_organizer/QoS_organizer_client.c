@@ -126,7 +126,7 @@ void prv_observe_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int statu
     pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
     int num = InsertACKMsg(ACKorNON, organizer_client_ctx, &Qorganizer_DLACKQueue, data, dataLength);
     pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
-    printf("after insert ,队列中数据数量为：%d, mid is :  %d\n\n", num, ACKorNON->mid);
+    printf("prv_observe_result_callback, after insert ,队列中数据数量为：%d, mid is :  %d\n\n", num, ACKorNON->mid);
   }
 }
 void prv_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int status,
@@ -145,7 +145,6 @@ void prv_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int status,
     printf("%c", data[i]);
   }
   printf("\n");
-
   printf("------------------\n");
   // 组装ACK，将ACK加入到队列中,这里的userdata会被释放所以需要进行一次拷贝操作
   coap_pdu_t *ACKfromUserData = (coap_pdu_t *)userData;
@@ -172,6 +171,7 @@ void prv_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int status,
   printf("after insert ,队列中数据数量为：%d, mid is :  %d\n\n", num, ACK->mid);
 }
 
+
 void handle_uri(int *uri, char a) {
   if(*uri == 65535) {
     *uri = 0;
@@ -180,12 +180,7 @@ void handle_uri(int *uri, char a) {
   *uri += a - '0';
 }
 
-
-void hnd_read(coap_resource_t *resource,coap_session_t *session, 
-coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
-
-  printf("***********enter into hnd read*****************\n\n");
-  uint8_t clientID = 0;
+void findURI(lwm2m_uri_t *uri, uint8_t *clientID, coap_string_t *query) {
   int queryID = 1;
   int objectId = 65535;
   int instanceId = 65535;
@@ -194,8 +189,8 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
   for(int i = 0; i < query->length; i++) {
     char a = query->s[i];
     if(queryID == 1 && a >= '0' && a <= '9') { // 首先开始寻找客户端ID
-      clientID *= 10;
-      clientID += a - '0';
+      (*clientID) *= 10;
+      (*clientID) += a - '0';
     } else if(a == '&') { // 开始处理下一个query
       queryID++;
     } else if(queryID == 2) { // objectId
@@ -208,12 +203,80 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
       handle_uri(&resourceInstanceId, a);
     }
   }
-  lwm2m_uri_t uri;
-  uri.objectId = objectId;
-  uri.instanceId = instanceId;
-  uri.resourceId = resourceId;
-  uri.resourceInstanceId = resourceInstanceId;
+  uri->objectId = objectId;
+  uri->instanceId = instanceId;
+  uri->resourceId = resourceId;
+  uri->resourceInstanceId = resourceInstanceId;
+}
 
+void hnd_write(coap_resource_t *resource,coap_session_t *session, 
+coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
+  printf("***********enter into hnd write*****************\n\n");
+  lwm2m_uri_t uri;
+  uint8_t clientID = 0;
+  // 从query中拿出uri和clientID
+  findURI(&uri, &clientID, query);
+  // 输出一些信息看看
+  printf("client id is : %d\n", clientID);
+  printf("uri.objectId is : %d\n", uri.objectId);
+  printf("uri.instanceId : %d\n",uri.instanceId);
+  printf("uri.resourceId : %d\n", uri.resourceId);
+  printf("uri.resourceInstanceId : %d\n", uri.resourceInstanceId);
+  // 找到write数据中的文本类型
+  coap_opt_iterator_t opt_iter;
+  coap_opt_t *option;
+  int sumdelta = 0;
+  uint16_t type = 0;
+  coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
+  while (option = coap_option_next(&opt_iter))
+  {
+    sumdelta += (*option) >> 4;
+    if(sumdelta == COAP_OPTION_CONTENT_FORMAT) { // ACCEPT
+    printf("enter into COAP_OPTION_CONTENT_FORMAT\n");
+      uint8_t *value = coap_opt_value(option);
+      int length = coap_opt_length(option);
+      if (length == 0) {
+        // text 长度为0 不做修改
+      } else {
+        for(int i = 0 ; i < length; i++) {
+          type <<= 8;
+          type |= value[i];
+        }
+      }
+    }
+  }
+  printf("type is : %d\n", type);
+  // 获取数据
+  uint8_t *data;
+  int dataLength;
+  coap_get_data(request, &dataLength, &data);
+
+
+  // 创建回调的ACK
+  coap_pdu_t *ACK = coap_new_pdu(COAP_TYPE_CON, 0, organizer_client_session);
+  // 回包的mid
+  if(WAN_PROTOCOL == COAP_PROTO_TCP) {
+    coap_pdu_set_mid(ACK, 0);
+  } else if(WAN_PROTOCOL == COAP_PROTO_UDP) {
+    coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
+  }  
+  // 回包的token
+  coap_bin_const_t token = coap_pdu_get_token(request);
+  coap_add_token(ACK, token.length, token.s);
+
+  // lwm2m 接口
+  lwm2m_dm_write(lwm2mH, clientID, &uri, type, data, dataLength, prv_result_callback, ACK);
+  response->type = COAP_MESSAGE_NOT_SEND;
+}
+
+
+void hnd_read(coap_resource_t *resource,coap_session_t *session, 
+coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
+
+  printf("***********enter into hnd read*****************\n\n");
+  lwm2m_uri_t uri;
+  uint8_t clientID;
+  findURI(&uri, &clientID, query);
   // observe
   bool checkObserve = false;
   // ACCEPT 类型，默认为text为0
@@ -267,46 +330,6 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
     lwm2m_dm_read(lwm2mH, clientID, &uri, prv_result_callback, ACK);
   }
   response->type = COAP_MESSAGE_NOT_SEND;
-
-  // uint8_t *payload;
-  // uint8_t LengthOfPayload = 0;
-  // // 从队列中取出ACK
-  // while(1) {
-  //   pthread_mutex_lock(&organizer_DL_ACK_queue_mutex);
-  //   coap_pdu_t *p = GetAndDelACKQueueFront(coap_pdu_get_token(request), &Qorganizer_DLACKQueue, &payload, &LengthOfPayload);
-  //   pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
-  //   if(p == NULL) {
-  //     continue;
-  //   }
-  //   printf("find ACK!\n");
-  //   // code 需要从ACK队列中获取
-  //   coap_pdu_set_code(response, coap_pdu_get_code(p));
-  //   // observe 选项
-  //   coap_opt_iterator_t opt_iter;
-  //   coap_opt_t *option;
-  //   coap_option_iterator_init(p, &opt_iter, COAP_OPT_ALL);
-  //   int sumDelta = 0;
-  //   while ((option = coap_option_next(&opt_iter))) {
-  //     sumDelta += *option >> 4;
-  //     if(sumDelta == COAP_OPTION_OBSERVE) {
-  //       coap_insert_option(response, COAP_OPTION_OBSERVE, 0, NULL);
-  //     }
-  //   }
-
-  //   // 此处需要讲URI_QUERY中携带InternalID, 可以不必，因为通过token，mid做匹配
-  //   uint8_t InternalIDTochar[10];
-  //   sprintf(InternalIDTochar, "%d", clientID);
-  //   coap_insert_option(response, COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
-
-  //   // data 
-  //   coap_add_data_large_response(resource, organizer_client_session, request,
-  //   response, query, targetP->format, -1, 0, LengthOfPayload, payload, NULL, NULL);
-
-  //   // 此处应当释放ACK消息 和 payload
-  //   free(payload);
-  //   coap_delete_pdu(ACK);
-  //   break;
-  // }
 }
 
 void init_organizer_client_resources (coap_context_t *ctx) {
@@ -314,8 +337,9 @@ void init_organizer_client_resources (coap_context_t *ctx) {
   r = coap_resource_init(coap_make_str_const("read"), 0);
   coap_register_handler(r, COAP_REQUEST_GET, hnd_read);
   coap_add_resource(ctx, r);
-
-
+  r = coap_resource_init(coap_make_str_const("write"), 0);
+  coap_register_handler(r, COAP_REQUEST_PUT, hnd_write);
+  coap_add_resource(ctx, r);
 }
 
 coap_response_t

@@ -10,10 +10,10 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include<netdb.h>
+#include <netdb.h>
 #include <netinet/in.h>
-#include<coap3/coap_pdu_internal.h>
-#include<pthread.h>
+#include <coap3/coap_pdu_internal.h>
+#include <pthread.h>
 #include <errno.h>
 #include "liblwm2m.h"
 #include <coap3/coap_session_internal.h>

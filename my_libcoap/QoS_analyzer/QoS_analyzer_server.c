@@ -4,43 +4,42 @@
 #include "sessions/session_list.h"
 #include "queue/ACK_queue.h"
 #include "queue/QoS_analyzer_DL_queue.h"
-int GlobalMid = 0;
 
-static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
-const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
-  /* Remove (void) definition if variable is used */
-  (void)resource;
-  coap_pdu_code_t req_code = coap_pdu_get_code(request);
-  coap_resource_t *r;
-  coap_string_t *uri_path;
-  /* get the uri_path - which will get used by coap_resource_init() */
-  uri_path = coap_get_uri_path(request);
-  if (!uri_path) {
-    coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
-    return;
-  }
-  /* Check if new URI Path is valid */
-  // if (!check_url_fn (uri_path, req_code)) {
-  //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
-  //   coap_delete_string(uri_path);
-  //   return;
-  // }
-  /*
-   * Create a resource to handle the new URI
-   * uri_path will get deleted when the resource is removed
-   */
-  // r = coap_resource_init((coap_str_const_t*)uri_path,
-  //       COAP_RESOURCE_FLAGS_RELEASE_URI | COAP_RESOURCE_FLAGS_NOTIFY_NON);
-  // coap_register_handler(r, COAP_REQUEST_PUT, hnd_put);
-  // coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete);
-  // /* We possibly want to Observe the GETs */
-  // coap_resource_set_get_observable(r, 1);
-  // coap_register_handler(r, COAP_REQUEST_GET, hnd_get);
-  // coap_add_resource(coap_session_get_context(session), r);
-  /* Do the PUT for this first call */
-  // hnd_put(r, session, request, query, response);
-  return;
-}
+// static void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
+// const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
+//   /* Remove (void) definition if variable is used */
+//   (void)resource;
+//   coap_pdu_code_t req_code = coap_pdu_get_code(request);
+//   coap_resource_t *r;
+//   coap_string_t *uri_path;
+//   /* get the uri_path - which will get used by coap_resource_init() */
+//   uri_path = coap_get_uri_path(request);
+//   if (!uri_path) {
+//     coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
+//     return;
+//   }
+//   /* Check if new URI Path is valid */
+//   // if (!check_url_fn (uri_path, req_code)) {
+//   //   coap_pdu_set_code(response, COAP_RESPONSE_CODE_NOT_FOUND);
+//   //   coap_delete_string(uri_path);
+//   //   return;
+//   // }
+//   /*
+//    * Create a resource to handle the new URI
+//    * uri_path will get deleted when the resource is removed
+//    */
+//   // r = coap_resource_init((coap_str_const_t*)uri_path,
+//   //       COAP_RESOURCE_FLAGS_RELEASE_URI | COAP_RESOURCE_FLAGS_NOTIFY_NON);
+//   // coap_register_handler(r, COAP_REQUEST_PUT, hnd_put);
+//   // coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete);
+//   // /* We possibly want to Observe the GETs */
+//   // coap_resource_set_get_observable(r, 1);
+//   // coap_register_handler(r, COAP_REQUEST_GET, hnd_get);
+//   // coap_add_resource(coap_session_get_context(session), r);
+//   /* Do the PUT for this first call */
+//   // hnd_put(r, session, request, query, response);
+//   return;
+// }
 
 
 
@@ -244,11 +243,124 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
   return COAP_RESPONSE_NULL;
 }
 
+bool updateSession(coap_session_t *newSession, int LengthOfGlobalID, uint8_t *GlobalID, int newInternalID) {
+  coap_session_t *oldSession;
+  int oldInternalID = findSessionAndInternalIDByGlobalID(GlobalID, LengthOfGlobalID, &oldSession);
+  if(oldSession != newSession) {
+    printf("oldSession 与 newSession 不同\n");
+    return true;
+  }
+  if(oldInternalID != newInternalID) {
+    printf("oldInternalID 与 newInternalID 不同\n");
+    printf("oldInternalID is : %d\n", oldInternalID);
+    printf("newInternalID is : %d\n", newInternalID);
+    return true;
+  }
+  return false;
+}
+
+void hnd_post_update(coap_resource_t *resource, coap_session_t *session, 
+coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
+  printf("---------enter into hnd post update---------\n");
+
+  // query计数器
+  int num = 0;
+  // 内部id
+  int internalID = 0;
+  // 全局id
+  int lengthOfGlobalID;
+  uint8_t *GlobalID;
+  // 首先拿internalID 和 GlobalID
+  coap_opt_iterator_t opt_iter;
+  coap_opt_t *option;
+  int sumdelta = 0;
+  coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
+  while (option = coap_option_next(&opt_iter)) {
+    sumdelta += (*option) >> 4;
+    int length = coap_opt_length(option);
+    uint8_t *value = coap_opt_value(option);
+    if(sumdelta == COAP_OPTION_URI_QUERY) {
+      if(num == 0) { // 更新con中规定第一个query是internalid
+        num++;
+        for(int i = 0; i < length; i++) {
+          internalID *= 10;
+          internalID += value[i] - '0';
+        }
+      } else if (num == 1) { // 更新中con中规定第二个query是GlobalID
+        lengthOfGlobalID = length;
+        GlobalID = (uint8_t *) malloc (sizeof(uint8_t) * length);
+        memcpy(GlobalID, value, length);
+      }
+    }
+  }
+  // 这里尚未明确session是否会发生变化，直觉上认定应当判断
+  
+  if(!updateSession(session, lengthOfGlobalID, GlobalID, internalID)) {
+    printf("无需进行更新\n");
+  }
+
+  // 将更新消息转发到服务器
+  coap_pdu_t *pdu = coap_new_pdu(COAP_MESSAGE_CON, coap_pdu_get_code(request), analyzer_client_session);
+  
+  // 添加token
+  coap_bin_const_t token = coap_pdu_get_token(request);
+  coap_add_token(pdu, token.length, token.s);
+
+  // uri path
+  uint8_t rd[] = "rd";
+  coap_insert_option(pdu, COAP_OPTION_URI_PATH, strlen(rd), rd);
+  coap_insert_option(pdu, COAP_OPTION_URI_PATH, lengthOfGlobalID, GlobalID);
+
+  // 发送
+  int mid = coap_send_large(analyzer_client_session, pdu);
+
+  // 接受更新消息并进行处理，主要是将session添加
+  while (1)
+  {
+    pthread_mutex_lock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+    coap_pdu_t *ackToOrganizer = GetAndDelACKQueueByMid(mid, &ULACKUnhandledQueue);
+    pthread_mutex_unlock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+
+    if(ackToOrganizer == NULL) {
+      continue;
+    }
+    printf("ackToOrganizer code is : %d\n", coap_pdu_get_code(ackToOrganizer));
+    // if(WAN_PROTOCOL == COAP_PROTO_TCP) {
+    //   // 如果是TCP协议则无需回包
+    //   break;
+    // }
+    // mid
+    if(WAN_PROTOCOL == COAP_PROTO_UDP) {
+      coap_pdu_set_mid(ackToOrganizer, coap_pdu_get_mid(request));
+    }
+    // token
+    int checkToken = coap_update_token(ackToOrganizer, token.length, token.s);
+    printf("after add token, checkToken is : %d\n", checkToken);
+    // 加入到发送队列中
+    pthread_mutex_lock(&analyzer_UL_ACK_queue_mutex);
+    int check = InsertACKMsg(ackToOrganizer, session, &ULACKQueue);
+    pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+
+    printf("the check is : %d\n", check);
+
+    break;
+  }
+  
+  response->type = COAP_MESSAGE_NOT_SEND;
+  return;
+} 
+
+
+
 
 void init_analyzer_server_resources (coap_context_t *ctx) {
   coap_resource_t *r;
   r = coap_resource_init(coap_make_str_const("rd"), 0);
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_reg);
+  coap_add_resource(ctx, r);
+
+  r = coap_resource_init(coap_make_str_const("update"), 0);
+  coap_register_handler(r, COAP_REQUEST_POST, hnd_post_update);
   coap_add_resource(ctx, r);
 
   // 注册回调方法，用于下行数据ACK接收
@@ -393,14 +505,25 @@ coap_pdu_t *response) {
   // 拿ack中globalID消息
   uint8_t* GlobalID;
   int Length;
+  // 处理回包
+  coap_pdu_t *responseToOrganizer;
   while (true)
   {
     // 获取ACK
-    coap_pdu_t* ack = GetAndDelACKQueueFront(mid_con, &ULACKQueue ,&analyzer_UL_ACK_queue_mutex);    /* code */
+    pthread_mutex_lock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+    coap_pdu_t* ack = GetAndDelACKQueueByMid(mid_con, &ULACKUnhandledQueue);
+    pthread_mutex_unlock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+
     if(ack == NULL) {
       continue;
     }
-    coap_pdu_set_code(response, coap_pdu_get_code(ack));
+    // 初始化回包
+    responseToOrganizer = coap_new_pdu(coap_pdu_get_type(ack), coap_pdu_get_code(ack), session);
+
+    // 设置回包中token
+    coap_bin_const_t ackToken = coap_pdu_get_token(ack);
+    coap_add_token(responseToOrganizer, ackToken.length,ackToken.s);
+    // 添加option
     int i = 1;
     coap_opt_iterator_t opt_iter;
     coap_opt_t *option;
@@ -418,11 +541,16 @@ coap_pdu_t *response) {
         Length = coap_opt_length(option);
         GlobalID = coap_opt_value(option);
       }
-      coap_add_option(response, opt_iter.number,Length,GlobalID);
+      coap_add_option(responseToOrganizer, opt_iter.number, Length, GlobalID);
       i++;
     }
     break;
   }
+  // 将responseToOranizer 加入到下行ack队列中
+  pthread_mutex_lock(&analyzer_UL_ACK_queue_mutex);
+  int check = InsertACKMsg(responseToOrganizer, session, &ULACKQueue);  
+  pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
+  printf("after insert into ULACKQueue, check is : %d\n", check);
 
   printf("\n\n");
   printf("|---------------------------------------------|\n");
@@ -465,21 +593,8 @@ coap_pdu_t *response) {
   printf("|当前QoS_organizer数量为 : %d\n",numOfOrganizer);
   printf("|---------------------------------------------|\n");
 
-  // coap_endpoint_t *tem_endpoint = session->endpoint;
-  // int i = 0;
-  // while (tem_endpoint != NULL)
-  // {
-  //   printf("第%d个endpoint地址为：%d, endpoint中ctx地址：%d，endpoint中session ： %d\n", i,
-  //   tem_endpoint, tem_endpoint->context, tem_endpoint->sessions);
-  //   i++;
-  //   tem_endpoint  = tem_endpoint->next;
-  // }
-  // printf("session addr is : %d\n", session);
-  // printf("session 中 endpoint : %d\n", session->endpoint);
-  // printf("session 中 endpoint 中 session ： %d\n", session->endpoint->sessions);
-  // printf("session 中 endpoint 中 ctx ： %d\n", session->endpoint->context);
-  // printf("session ctx : %d\n", session->context);
-  // printf("session ctx 中 endpoint: %d\n", session->context->endpoint);
+  // 不在本方法中进行返回
+  response->type = COAP_MESSAGE_NOT_SEND;
 }
 
 

@@ -834,10 +834,44 @@ static void prv_monitor_callback(uint16_t clientID,
 
     case COAP_204_CHANGED:
         fprintf(stdout, "\r\nClient #%d updated.\r\n", clientID);
-
         targetP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)lwm2mH->clientList, clientID);
-
         prv_dump_client(targetP);
+        // 这里对设备进行了更新操作，需要向analyzer发送同步消息
+        // 创建更新pdu
+        coap_pdu_t *UpdataPdu = coap_new_pdu(COAP_MESSAGE_CON, COAP_204_CHANGED, organizer_client_session);
+        // 创建新的上行token
+        int tokenLength;
+        uint8_t buf[8];
+        coap_session_new_token(organizer_client_session, &tokenLength, buf);
+        // 添加token
+        coap_add_token(UpdataPdu, tokenLength, buf);
+        
+        // 添加post
+        coap_pdu_set_code(UpdataPdu, COAP_POST);
+
+        // 添加uri_path
+        uint8_t uri_path[] = "update";
+        coap_insert_option(UpdataPdu, COAP_OPTION_URI_PATH, strlen(uri_path), uri_path);
+
+        // 将InternalID 添加到query
+        uint8_t InternalIDToChar[20];
+        sprintf(InternalIDToChar, "%d", clientID);
+        coap_insert_option(UpdataPdu, COAP_OPTION_URI_QUERY, strlen(InternalIDToChar), InternalIDToChar);
+
+        // 找到GlobalID 添加到query
+        targetP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)lwm2mH->clientList, clientID);
+        printf("client #%d GlobalID is :\n", clientID);
+        for(int i = 0; i < targetP->LengthOfGlobalID; i++) {
+            printf("%c",targetP->GlobalID[i]);
+        }
+        printf("\n");
+        coap_insert_option(UpdataPdu, COAP_OPTION_URI_QUERY, targetP->LengthOfGlobalID, targetP->GlobalID);
+
+        // 插入到上行发送队列中
+        pthread_mutex_lock(&UdpMessageMutex);
+        int check = InsertUpdateMessage(UpdataPdu);
+        pthread_mutex_unlock(&UdpMessageMutex);
+        printf("after insert update message , the queue size is %d\n", check);
         break;
 
     default:
@@ -1083,6 +1117,7 @@ int main(int argc, char *argv[])
     pthread_mutex_init(&observe_mutex, NULL);
     pthread_mutex_init(&observeMutex, NULL);
     pthread_mutex_init(&nonMessageMutex, NULL);
+    pthread_mutex_init(&UdpMessageMutex, NULL);
 
     
     pthread_t tids;

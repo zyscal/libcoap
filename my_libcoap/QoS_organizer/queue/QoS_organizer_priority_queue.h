@@ -1,5 +1,5 @@
-#ifndef QoS_O_QUEUE
-#define QoS_O_QUEUE
+#ifndef ORGANIZER_REG_QUEUE
+#define ORGANIZER_REG_QUEUE
 #include <coap3/coap.h>
 #include <stdbool.h>
 #include "../../QoS_organizer_analyzer_port.h"

@@ -14,14 +14,11 @@
 #include <netinet/in.h>
 #include <errno.h>
 #include "queue/QoS_analyzer_DL_queue.h"
+#include "queue/ACK_queue.h"
 coap_context_t *analyzer_client_ctx;
 coap_context_t *analyzer_server_ctx;
 coap_session_t *analyzer_client_session;
 int len_analyer_received;
-extern pthread_mutex_t analyzer_UL_ACK_queue_mutex;
-extern pthread_mutex_t analyzer_DL_ACK_queue_mutex;
-extern pthread_mutex_t analyzer_DL_queue_mutex;
-extern pthread_mutex_t analyzer_midList_mutex;
 
 void* analyzer_server_sender(void* arg) {
     printf("enter into analyzer_server_sender\n");
@@ -95,6 +92,9 @@ int main()
     pthread_mutex_init(&analyzer_midList_mutex, NULL);
     pthread_mutex_init(&organizerNodeMutex, NULL);
     pthread_mutex_init(&analyzer_observeList_mutex, NULL);
+    pthread_mutex_init(&analyzer_UL_ACKUNHSNDLED_queue_mutex, NULL);
+
+
 
     
     pthread_t tids[0];

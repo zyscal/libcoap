@@ -786,6 +786,33 @@ my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s:
 	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s
 .PHONY : my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.c.s
 
+my_libcoap/QoS_organizer/queue/Update_queue.o: my_libcoap/QoS_organizer/queue/Update_queue.c.o
+
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.o
+
+# target to build an object file
+my_libcoap/QoS_organizer/queue/Update_queue.c.o:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/Update_queue.c.o
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.c.o
+
+my_libcoap/QoS_organizer/queue/Update_queue.i: my_libcoap/QoS_organizer/queue/Update_queue.c.i
+
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.i
+
+# target to preprocess a source file
+my_libcoap/QoS_organizer/queue/Update_queue.c.i:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/Update_queue.c.i
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.c.i
+
+my_libcoap/QoS_organizer/queue/Update_queue.s: my_libcoap/QoS_organizer/queue/Update_queue.c.s
+
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.s
+
+# target to generate assembly for a file
+my_libcoap/QoS_organizer/queue/Update_queue.c.s:
+	$(MAKE) -f CMakeFiles/wakaama_server.dir/build.make CMakeFiles/wakaama_server.dir/my_libcoap/QoS_organizer/queue/Update_queue.c.s
+.PHONY : my_libcoap/QoS_organizer/queue/Update_queue.c.s
+
 my_libcoap/QoS_organizer/queue/non_queue.o: my_libcoap/QoS_organizer/queue/non_queue.c.o
 
 .PHONY : my_libcoap/QoS_organizer/queue/non_queue.o
@@ -2187,6 +2214,9 @@ help:
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.o"
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.i"
 	@echo "... my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.s"
+	@echo "... my_libcoap/QoS_organizer/queue/Update_queue.o"
+	@echo "... my_libcoap/QoS_organizer/queue/Update_queue.i"
+	@echo "... my_libcoap/QoS_organizer/queue/Update_queue.s"
 	@echo "... my_libcoap/QoS_organizer/queue/non_queue.o"
 	@echo "... my_libcoap/QoS_organizer/queue/non_queue.i"
 	@echo "... my_libcoap/QoS_organizer/queue/non_queue.s"

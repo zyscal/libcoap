@@ -7,10 +7,17 @@ message_handler(coap_session_t *session,
                 const coap_pdu_t *received,
                 const coap_mid_t id COAP_UNUSED)
 {
+
+
   if(coap_pdu_get_type(received) == COAP_MESSAGE_ACK ||
   coap_pdu_get_type(received) == COAP_MESSAGE_RST)
-  { // ACK 数据，应当放到ACK队列中
-    coap_pdu_t *ack_pdu = InsertACKMsg(received, session, &ULACKQueue, &analyzer_UL_ACK_queue_mutex);
+  { // ACK 数据
+    if(coap_pdu_get_code(received) == COAP_RESPONSE_CODE_CREATED || 
+        coap_pdu_get_code(received) == COAP_RESPONSE_CODE_CHANGED) { // 注册ACK
+      pthread_mutex_lock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+      int check = InsertACKMsg(received, session, &ULACKUnhandledQueue);
+      pthread_mutex_unlock(&analyzer_UL_ACKUNHSNDLED_queue_mutex);
+    }
   } 
   coap_response_t ans;
   return ans;
@@ -183,8 +190,99 @@ coap_new_request_analyzer_client(coap_context_t *ctx,
 
 void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
-    printf("enter into hnd_unknown_put");
+  printf("enter into hnd_unknown_put\n");
+  // 用于寻找请求中的GlobalID
+  uint8_t* GlobalID;
+  int LengthOfGlobalID = 0;
+  // 定义迭代器，遍历请求中所有的option
+  coap_opt_iterator_t opt_iter;
+  coap_opt_t *option;
+  coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
+  int sumDelta = 0;
+  // 首先找到请求中的globalid
+  while ((option = coap_option_next(&opt_iter))) {
+    sumDelta += *option >> 4;
+    int Length = coap_opt_length(option);
+    uint8_t *opt = coap_opt_value(option);    
+    if( sumDelta == COAP_OPTION_URI_PATH) {
+      // 定位到utipath，然后找到GlobalID,
+      if(Length >= 7) { // 是GlobalID
+        GlobalID = (uint8_t *) malloc (sizeof(Length));
+        LengthOfGlobalID = Length;
+        for(int i = 0; i < Length; i++) {
+          GlobalID[i] = opt[i];
+        }
+      }
+    }
+  }
+  // 输出Globelid
+  for(int i = 0 ; i < LengthOfGlobalID; i++) {
+    printf("%c", GlobalID[i]);
+  }
+  printf("\n");
+  // 通过GlobalID找到对应的session和Internalid
+  coap_session_t *organizerSession = NULL;
+  int InternalID = findSessionAndInternalIDByGlobalID(GlobalID, LengthOfGlobalID, &organizerSession);
+  if(organizerSession == NULL){
+    printf("organizer session failed\n");
+  }  
+  // 拿请求中的type code
+  coap_pdu_code_t code = coap_pdu_get_code(request);
+  coap_pdu_type_t type = coap_pdu_get_type(request);
+  coap_mid_t mid = coap_pdu_get_mid(request);
+  // 获取请求中tocken，并将token与mid映射关系加入表中
+  coap_bin_const_t token = coap_pdu_get_token(request);
+  // 完善midlist
+  pthread_mutex_lock(&analyzer_midList_mutex);
+  printf("插入midList的结果是：%d, 当前mid是:%d\n", InsertMid(mid, token), mid);
+  pthread_mutex_unlock(&analyzer_midList_mutex);
+  // 创建下行pdu
+  coap_pdu_t *pdu = coap_new_pdu(type, code, organizerSession);
+  // 设置mid
+  coap_pdu_set_mid(pdu, mid);
+  // 设置token
+  coap_add_token(pdu, token.length, token.s);
+  // 设置uri path
+  uint8_t uri_path[] = "write";
+  coap_insert_option(pdu, COAP_OPTION_URI_PATH, strlen(uri_path), uri_path);
+
+  // 在query中添加clientID
+  uint8_t InternalIDTochar[10];
+  sprintf(InternalIDTochar, "%d", InternalID);
+  coap_insert_option(pdu, COAP_OPTION_URI_QUERY, strlen(InternalIDTochar), InternalIDTochar);
+  // 设置query
+  sumDelta = 0;
+  coap_option_iterator_init(request, &opt_iter, COAP_OPT_ALL);
+  while ((option = coap_option_next(&opt_iter))) {
+    sumDelta += *option >> 4;
+    int Length = coap_opt_length(option);
+    uint8_t *opt = coap_opt_value(option);    
+    if( sumDelta == COAP_OPTION_URI_PATH && Length < 7) {
+      // request 中 uripath，转为query携带
+      coap_insert_option(pdu, COAP_OPTION_URI_QUERY, Length, opt);
+    } else if (sumDelta == COAP_OPTION_CONTENT_FORMAT) {
+      coap_insert_option(pdu, COAP_OPTION_CONTENT_FORMAT, Length, opt);
+    }
+  }
+  // 获取write事件的数据
+  int LengthOfData;
+  uint8_t *data;
+  coap_get_data(request, &LengthOfData, &data);
+  if (pdu == NULL) {
+    printf ("pdu is null\n");
+  } else {
+    printf ("pdu is not null\n");
+  }
+  int check = coap_add_data(pdu, LengthOfData, data);
+
+  // 将消息加入队列
+  pthread_mutex_lock(&analyzer_DL_queue_mutex);
+  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead);
+  pthread_mutex_unlock(&analyzer_DL_queue_mutex);
+  response->type = COAP_MESSAGE_NOT_SEND;
 }
+
+
 void hnd_post_unknown(coap_resource_t *resource,
               coap_session_t *session,
               const coap_pdu_t *request,
@@ -309,15 +407,12 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   }
   // 如果是observe消息需要更新observe
 
-
   // 添加optlist
   coap_add_optlist_pdu(pdu, &analyzer_server_request_option);
   // 将处理好的pdu加入到下行消息队列中
   pthread_mutex_lock(&analyzer_DL_queue_mutex);
   int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead);
   pthread_mutex_unlock(&analyzer_DL_queue_mutex);
-
-
   response->type = COAP_MESSAGE_NOT_SEND;
 }
 
@@ -333,6 +428,7 @@ void init_analyzer_client_resources() {
   coap_resource_t *r;
   r = coap_resource_unknown_init(hnd_unknown_put);
   coap_register_handler(r, COAP_REQUEST_POST, hnd_post_unknown);
+  coap_register_handler(r, COAP_REQUEST_PUT, hnd_unknown_put);
   coap_register_handler(r, COAP_REQUEST_GET, hnd_get_unknown);
   coap_register_handler(r, COAP_REQUEST_DELETE, hnd_delete_unknown);
   coap_add_resource(analyzer_client_ctx, r);

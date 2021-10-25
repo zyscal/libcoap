@@ -26,6 +26,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "my_libcoap/QoS_organizer/queue/QoS_organizer_priority_queue.h"
   "my_libcoap/QoS_organizer/queue/ACK_queue.h"
   "my_libcoap/QoS_organizer/queue/non_queue.h"
+  "my_libcoap/QoS_organizer/queue/Update_queue.h"
   "my_libcoap/QoS_organizer/QoS/sender.h"
   "my_libcoap/QoS_organizer/observe/observe.h"
   "my_libcoap/QoS_analyzer/QoS_analyzer_server_header.h"

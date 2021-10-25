@@ -2,24 +2,6 @@
 
 
 
-coap_context_t * setup_server_context (void) {
-  coap_endpoint_t *endpoint;
-  coap_address_t listen_addr;
-  coap_context_t *context = coap_new_context(NULL);
-  if (!context)
-    return NULL;
-  coap_address_init(&listen_addr);
-  listen_addr.addr.sa.sa_family = AF_INET;
-  listen_addr.addr.sin.sin_port = htons (organizer_server_port);
-
-  endpoint = coap_new_endpoint(context, &listen_addr, COAP_PROTO_UDP);
-  if (!endpoint) {
-    coap_free_context(context);
-    return NULL;
-  }
-  return context;
-}
-
 void
 free_xmit_data_organizer_server(coap_session_t *session COAP_UNUSED, void *app_ptr) {
   coap_free(app_ptr);
@@ -51,34 +33,8 @@ free_xmit_data_organizer_server(coap_session_t *session COAP_UNUSED, void *app_p
 //   return pdu;
 // }
 
-int check_token(coap_bin_const_t a, coap_bin_const_t b)
-{
-  if(a.length != b.length)
-  {
-    return 0;
-  }
-  for(int i = 0; i < a.length; i++)
-  {
-    if(a.s[i] != b.s[i])
-    {
-      return 0;
-    }
-  }
-  return 1;
-}
-int check_segment_o_s(const uint8_t *s, size_t length) {
-  int n = 0;
-  while (length) {
-    if (*s == '%') {
-      if (length < 2 || !(isxdigit(s[1]) && isxdigit(s[2])))
-        return -1;
-      s += 2;
-      length -= 2;
-    }
-    ++s; ++n; --length;
-  }
-  return n;
-}
+
+
 
 
 
