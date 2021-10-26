@@ -651,6 +651,8 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
     }
 
     coap_pkt = (coap_packet_t_wakaama *)transaction->message;
+                printf("free7\n");
+
     free_multi_option(coap_pkt->uri_query);
     if (attrP->toSet & LWM2M_ATTR_FLAG_MIN_PERIOD)
     {

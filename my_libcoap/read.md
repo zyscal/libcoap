@@ -20,7 +20,7 @@
 
 <br/><br/>
 
-# QoS_analyzer表结构
+# QoS_analyzer表结构（云侧）
 
 ### anjay_node 表 
 >| 类型 | 字段  | 解释 |
@@ -73,7 +73,7 @@
 
 <br>
 
-### ACKQueue表: 做出两个实例ULACKQueue,DLACKQueue
+### ACKQueue表: 三个实例ULACKQueue，DLACKQueue， ULACKUnhandledQueue
 >| 类型 | 字段  | 解释 |
 >| :--: | :--: | :--: |
 >| coap_pdu_t* | data | ACK数据 |
@@ -82,7 +82,7 @@
 
 <br><br>
 
-# QoS_organizer表结构
+# QoS_organizer表结构（边缘侧）
 
 ### observeThings表：记录每个设备下全部观测事件
 >| 类型 | 字段  | 解释 |
@@ -122,11 +122,17 @@
 >| int | Length | 数据长度 |
 >| ACKQueue* | next | 下一个 |
 
+<br>
 
-
+### update_queue表：数据更新表
+>| 类型 | 字段 | 解释 |
+>| :--: | :--: | :--:|
+>| coap_pdu_t * | data | 更新数据 |
+>| update_queue * | next | 下一个 |
 
 
 <br/><br/>
+
 # 进度
 
 ## **2021.10.5进度**
@@ -176,3 +182,24 @@
 >* 在coap over tcp/udp 场景下手动压测测试现有架构，修复多处异常：
 >   * 重传问题：使用count记录con数量
 >   * 多设备mid问题：在anjay表中添加mid信息，当基于tcp链路通讯时，使用模拟的自增mid
+
+## **2021.10.26进度**
+>* 完成write事件：
+>   * QoS_analyzer_client 通过 **hnd_unknown_put**方法同一接受所有下行的write请求，具体逻辑如下：
+>       * 通过option迭代器找到GlobalID，并从Session表中拿到对应边缘的session和InternalID信息。
+>       * 维护midlist表
+>       * 创建并组装下行的pdu数据，将数据发送到边缘侧"write"接口
+>       * 将pdu和数据一起添加到 **hnd_unknown_put** 队列中。
+>   * QoS_organizer_client 通过 **hnd_write** 方法注册 **write** 接口，用于接受下行的write事件，具体逻辑如下：
+>       * 解析出目标资源的uri，InternalID（clientID），解析数据类型
+>       * 创建ACK作为userdata传递到 wakaama 回调方法中，用于传递token，mid等信息。
+>       * 调用 **lwm2m_dm_write** 方法向终端设备发送写事件请求，并取消libcoap回包
+>   * **prv_result_callback** 作为wakaama observe方法的回调，采用了和read相同的回调方法，逻辑相仿。
+>   * QoS_analyzer_server 使用 **analyzer_server_message_handler** 方法接受ack消息，逻辑与read相仿。
+>* 完成update事件
+>   * QoS_organizer_server 接受到update消息后，组装上行数据报文，其中uri_path为 **update** ，并将数据加入到 **update_queue** 队列中
+>   * QoS_analyzer_server 通过 **hnd_post_update** 方法接受处理更新请求，组装数据包并转发到乐山，同时监听 **ULACKUnhandledQueue** 队列数据，将回包处理后，添加到 **ULACKQueue** 队列中等待发送。
+>   * QoS_organizer_client **message_handler** 接受消息后无需进一步处理。
+>* TODO : 
+>   * observe事件压测偶然性崩溃问题。
+>   * TCP over NB-IoT 驱动编写。

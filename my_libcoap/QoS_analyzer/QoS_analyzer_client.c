@@ -277,7 +277,7 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
 
   // 将消息加入队列
   pthread_mutex_lock(&analyzer_DL_queue_mutex);
-  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead);
+  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &hnd_unknown_put);
   pthread_mutex_unlock(&analyzer_DL_queue_mutex);
   response->type = COAP_MESSAGE_NOT_SEND;
 }

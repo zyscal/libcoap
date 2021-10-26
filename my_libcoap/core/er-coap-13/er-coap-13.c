@@ -405,9 +405,25 @@ void
 coap_free_header(void *packet)
 {
     coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
-
+    printf("free1\n");
+    multi_option_t *p = coap_pkt->uri_path;
+    int count = 1;
+    while (p != NULL)
+    {
+      printf("uri %d is :", count);
+      for(int i = 0; i < p->len; i++) {
+        printf("%c", p->data[i]);
+      }
+      printf("\n");
+      count++;
+      p = p->next;
+    }
+    
     free_multi_option(coap_pkt->uri_path);
+    printf("free2\n");
     free_multi_option(coap_pkt->uri_query);
+            printf("free3\n");
+
     free_multi_option(coap_pkt->location_path);
     coap_pkt->uri_path = NULL;
     coap_pkt->uri_query = NULL;
@@ -1110,7 +1126,7 @@ coap_set_header_uri_path(void *packet, const char *path)
 {
   coap_packet_t_wakaama *coap_pkt = (coap_packet_t_wakaama *) packet;
   int length = 0;
-
+            printf("free4\n");
   free_multi_option(coap_pkt->uri_path);
   coap_pkt->uri_path = NULL;
 
@@ -1169,6 +1185,7 @@ coap_set_header_uri_query(void *packet, const char *query)
 {
     int length = 0;
     coap_packet_t_wakaama *const coap_pkt = (coap_packet_t_wakaama *) packet;
+            printf("free5\n");
 
     free_multi_option(coap_pkt->uri_query);
     coap_pkt->uri_query = NULL;
@@ -1207,6 +1224,7 @@ coap_set_header_location_path(void *packet, const char *path)
 {
     coap_packet_t_wakaama *coap_pkt = (coap_packet_t_wakaama *) packet;
     int length = 0;
+            printf("free6\n");
 
     free_multi_option(coap_pkt->location_path);
     coap_pkt->location_path = NULL;
