@@ -465,6 +465,7 @@ static int prv_makeOperation(lwm2m_context_t * contextP,
         dataP = (dm_data_t *)lwm2m_malloc(sizeof(dm_data_t));
         if (dataP == NULL)
         {
+            printf(" transaction_free 5\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -478,7 +479,7 @@ static int prv_makeOperation(lwm2m_context_t * contextP,
     }
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
-
+    printf(" transaction_send 1 \n");
     return transaction_send(contextP, transaction);
 }
 
@@ -495,7 +496,7 @@ int lwm2m_dm_read(lwm2m_context_t * contextP,
 
     clientP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)contextP->clientList, clientID);
     if (clientP == NULL) return COAP_404_NOT_FOUND;
-
+    printf("before lwm2m dm read prv make operation\n");
     return prv_makeOperation(contextP, clientID, uriP,
                              COAP_GET,
                              clientP->format,
@@ -638,6 +639,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         dataP = (dm_data_t *)lwm2m_malloc(sizeof(dm_data_t));
         if (dataP == NULL)
         {
+            printf(" transaction_free 6\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -660,6 +662,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         length = utils_intToText(attrP->minPeriod, buffer + ATTR_MIN_PERIOD_LEN, _PRV_BUFFER_SIZE - ATTR_MIN_PERIOD_LEN);
         if (length == 0)
         {
+            printf(" transaction_free 7\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -672,6 +675,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         length = utils_intToText(attrP->maxPeriod, buffer + ATTR_MAX_PERIOD_LEN, _PRV_BUFFER_SIZE - ATTR_MAX_PERIOD_LEN);
         if (length == 0)
         {
+            printf(" transaction_free 8\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -684,6 +688,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         length = utils_floatToText(attrP->greaterThan, buffer + ATTR_GREATER_THAN_LEN, _PRV_BUFFER_SIZE - ATTR_GREATER_THAN_LEN);
         if (length == 0)
         {
+            printf(" transaction_free 9\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -696,6 +701,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         length = utils_floatToText(attrP->lessThan, buffer + ATTR_LESS_THAN_LEN, _PRV_BUFFER_SIZE - ATTR_LESS_THAN_LEN);
         if (length == 0)
         {
+            printf(" transaction_free 10\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -708,6 +714,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
         length = utils_floatToText(attrP->step, buffer + ATTR_STEP_LEN, _PRV_BUFFER_SIZE - ATTR_STEP_LEN);
         if (length == 0)
         {
+            printf(" transaction_free 11\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -741,6 +748,7 @@ int lwm2m_dm_write_attributes(lwm2m_context_t * contextP,
     }
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+    printf(" transaction_send 2 \n");
 
     return transaction_send(contextP, transaction);
 }
@@ -770,6 +778,7 @@ int lwm2m_dm_discover(lwm2m_context_t * contextP,
         dataP = (dm_data_t *)lwm2m_malloc(sizeof(dm_data_t));
         if (dataP == NULL)
         {
+            printf(" transaction_free 12\n");
             transaction_free(transaction);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -783,6 +792,7 @@ int lwm2m_dm_discover(lwm2m_context_t * contextP,
     }
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+    printf(" transaction_send 3 \n");
 
     return transaction_send(contextP, transaction);
 }

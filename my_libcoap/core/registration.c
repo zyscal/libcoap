@@ -754,6 +754,8 @@ static uint8_t prv_register(lwm2m_context_t * contextP,
     transaction->userData = (void *) server;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+            printf(" transaction_send 10 \n");
+
     if (transaction_send(contextP, transaction) != 0)
     {
         lwm2m_free(payload);
@@ -847,6 +849,7 @@ static int prv_updateRegistration(lwm2m_context_t * contextP,
     transaction->userData = (void *) server;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+            printf(" transaction_send 11 \n");
 
     if (transaction_send(contextP, transaction) == 0)
     {
@@ -1104,6 +1107,8 @@ void registration_deregister(lwm2m_context_t * contextP,
     transaction->userData = (void *) serverP;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+                printf(" transaction_send 12 \n");
+
     if (transaction_send(contextP, transaction) == 0)
     {
         serverP->status = STATE_DEREG_PENDING;

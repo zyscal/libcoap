@@ -68,7 +68,6 @@ uint8_t **payload, int *dataLength) {
     if(*organizerACKQueueHead == NULL) {
         return NULL;
     }
-    printf("there is something in ACK queue\n");
     ACKQueue *p = *organizerACKQueueHead;
     *organizerACKQueueHead = (*organizerACKQueueHead)->next;
     *dataLength = p->Length;

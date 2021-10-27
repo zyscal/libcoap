@@ -19,9 +19,9 @@ coap_context_t *analyzer_client_ctx;
 coap_context_t *analyzer_server_ctx;
 coap_session_t *analyzer_client_session;
 int len_analyer_received;
+char serverIP[20];
 
 void* analyzer_server_sender(void* arg) {
-    printf("enter into analyzer_server_sender\n");
     analyzer_DL_simple_sender();
 }
 
@@ -31,9 +31,10 @@ void* analyzer_client(void* arg)
     analyzer_client_ctx = coap_new_context( NULL );
     coap_address_t dst;
     static coap_str_const_t server;
-    char server_ip[] = "192.168.3.24";
-    server.s = server_ip;
-    server.length = sizeof(server_ip);
+    // char server_ip[] = "192.168.3.24";
+    // server.s = server_ip;
+    server.s = serverIP;
+    server.length = strlen(serverIP);
     int res = resolve_address(&server, &dst.addr.sa);
     dst.size = res;
     dst.addr.sin.sin_port = htons(leshan_server_port);
@@ -42,7 +43,9 @@ void* analyzer_client(void* arg)
 
     analyzer_client_session = get_session(
     analyzer_client_ctx,
-    "192.168.3.24", analyzer_client_port_str,
+    serverIP,
+    // "192.168.3.24", 
+    analyzer_client_port_str,
     COAP_PROTO_UDP,
     &dst,
     NULL,
@@ -84,7 +87,7 @@ void* analyzer_client(void* arg)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
     pthread_mutex_init(&analyzer_UL_ACK_queue_mutex,NULL);
     pthread_mutex_init(&analyzer_DL_ACK_queue_mutex,NULL);
@@ -94,6 +97,8 @@ int main()
     pthread_mutex_init(&analyzer_observeList_mutex, NULL);
     pthread_mutex_init(&analyzer_UL_ACKUNHSNDLED_queue_mutex, NULL);
 
+    // id 为 1 的 argv参数是，服务器本机的ip地址
+    memcpy(serverIP, argv[1], strlen(argv[1]));
 
 
     
@@ -101,6 +106,7 @@ int main()
     int i = pthread_create(&tids[0], NULL, analyzer_client, NULL);
     if(i == 0)
     {
+
     }
     else{
         printf("thread analyzer_client failed!\n");

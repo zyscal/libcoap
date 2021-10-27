@@ -1108,6 +1108,7 @@ int lwm2m_observe(lwm2m_context_t * contextP,
     {
         LOG("transaction_send failed!");
         lwm2m_free(observationData);
+        printf("after lwm2m_free observaitonData\n");
     }
     return ret;
 }
@@ -1171,6 +1172,7 @@ int lwm2m_observe_cancel(lwm2m_context_t * contextP,
         contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transactionP);
 
         observationP->status = STATE_DEREG_PENDING;
+    printf(" transaction_send 4 \n");
 
         int ret = transaction_send(contextP, transactionP);
         if (ret != 0) lwm2m_free(cancelP);

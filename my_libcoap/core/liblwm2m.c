@@ -165,6 +165,7 @@ void prv_deleteTransactionList(lwm2m_context_t * context)
 
         transaction = context->transactionList;
         context->transactionList = context->transactionList->next;
+        printf(" transaction_free 4\n");
         transaction_free(transaction);
     }
 }

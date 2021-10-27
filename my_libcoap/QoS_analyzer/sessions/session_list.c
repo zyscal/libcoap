@@ -4,7 +4,6 @@ anjay_node* insert_anjay_node(organizer_node* Gateway,
 int InternalID, uint8_t* GlobalID, int LengthOfGlobalID, int mid) {
     // organizer 下anjay节点列表为空，则添加在头部
     if(Gateway->anjay_client_node == NULL) {
-        // printf("当前organizer为空\n");
         Gateway->anjay_client_node = (anjay_node*) malloc(sizeof(anjay_node));
         Gateway->anjay_client_node->InternalID = InternalID;
         Gateway->anjay_client_node->GlobalIDSize = LengthOfGlobalID;
@@ -65,14 +64,12 @@ organizer_node *handle_organizer(coap_session_t *session){
     while(p != NULL){
         if(p->session == session){
             // 找到organizer
-            // printf("找到对应的organizer\n");
             return p;
         } else {
             p = p->next;
         }
     }
     // 没有找到对应的边缘，在开始添加一个新的
-    // printf("没有找到准备创建新的organizer\n");
     return insert_organizer(session);
 }
 

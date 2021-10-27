@@ -70,7 +70,6 @@ void prv_observe_result_callback(uint16_t clientID,lwm2m_uri_t * uriP, int statu
       printf("成功插入新的观测内容\n");
     } else {
       // non消息会触发该回调函数，需要将token赋值给ack
-      printf("观测内容已经存在，本条callback是non信息上报，需要转发\n");
       ACKorNON = coap_new_pdu(COAP_MESSAGE_NON, COAP_RESPONSE_CODE_CONTENT, organizer_client_session);
       coap_add_token(ACKorNON, nonTokenLength, nonToken);
       checkNon = true;
@@ -232,7 +231,6 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
   {
     sumdelta += (*option) >> 4;
     if(sumdelta == COAP_OPTION_CONTENT_FORMAT) { // ACCEPT
-    printf("enter into COAP_OPTION_CONTENT_FORMAT\n");
       uint8_t *value = coap_opt_value(option);
       int length = coap_opt_length(option);
       if (length == 0) {
@@ -245,7 +243,6 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
       }
     }
   }
-  printf("type is : %d\n", type);
   // 获取数据
   uint8_t *data;
   int dataLength;
@@ -314,18 +311,14 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
   // mid
   if(WAN_PROTOCOL == COAP_PROTO_TCP) {
     coap_pdu_set_mid(ACK, 0);
-    printf("after set mid is : %d\n", coap_pdu_get_mid(ACK));
   } else if(WAN_PROTOCOL == COAP_PROTO_UDP) {
     coap_pdu_set_mid(ACK, coap_pdu_get_mid(request));
   }
-  printf("request mid is : %d\n", request->mid);
 
   if(checkObserve) {
     // wakaama observe
-    printf("before wakaama observe, ACK mid is : %d\n", coap_pdu_get_mid(ACK));
     lwm2m_observe(lwm2mH, clientID, &uri,prv_observe_result_callback, ACK);
   } else {
-    printf("before wakaama read\n");
     // wakaama的read方法， 将ACK信息进行传递
     lwm2m_dm_read(lwm2mH, clientID, &uri, prv_result_callback, ACK);
   }

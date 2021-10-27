@@ -401,6 +401,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
             case COAP_TYPE_NON:
             case COAP_TYPE_CON:
                 {
+                    printf("transaction_handleResponse 1 \n");
                     bool done = transaction_handleResponse(contextP, fromSessionH, message, response);
 
 #ifdef LWM2M_SERVER_MODE
@@ -421,10 +422,12 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
             case COAP_TYPE_RST:
                 /* Cancel possible subscriptions. */
                 handle_reset(contextP, fromSessionH, message);
+                printf("transaction_handleResponse 2 \n");
                 transaction_handleResponse(contextP, fromSessionH, message, NULL);
                 break;
 
             case COAP_TYPE_ACK:
+                printf("transaction_handleResponse 3 \n");
                 transaction_handleResponse(contextP, fromSessionH, message, NULL);
                 break;
 
@@ -432,6 +435,7 @@ void lwm2m_handle_packet(lwm2m_context_t * contextP,
                 break;
             }
         } /* Request or Response */
+        printf("before coap_free_header1\n");
         coap_free_header(message);
     } /* if (parsed correctly) */
     else

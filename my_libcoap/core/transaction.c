@@ -248,6 +248,7 @@ void transaction_free(lwm2m_transaction_t * transacP)
     LOG_ARG("Entering. transaction=%p", transacP);
     if (transacP->message)
     {
+        printf("before coap_free_header2\n");
        coap_free_header(transacP->message);
        lwm2m_free(transacP->message);
     }
@@ -261,6 +262,7 @@ void transaction_remove(lwm2m_context_t * contextP,
 {
     LOG_ARG("Entering. transaction=%p", transacP);
     contextP->transactionList = (lwm2m_transaction_t *) LWM2M_LIST_RM(contextP->transactionList, transacP->mID, NULL);
+    printf(" transaction_free 13\n");
     transaction_free(transacP);
 }
 
@@ -317,6 +319,7 @@ bool transaction_handleResponse(lwm2m_context_t * contextP,
                 {
                     transacP->callback(contextP, transacP, message);
                 }
+                printf("transaction_remove 1 \n");
                 transaction_remove(contextP, transacP);
                 return true;
             }
@@ -356,6 +359,7 @@ int transaction_send(lwm2m_context_t * contextP,
         transacP->buffer_len = coap_serialize_get_size(transacP->message);
         if (transacP->buffer_len == 0)
         {
+                            printf("transaction_remove 2 \n");
            transaction_remove(contextP, transacP);
            return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -363,6 +367,7 @@ int transaction_send(lwm2m_context_t * contextP,
         transacP->buffer = (uint8_t*)lwm2m_malloc(transacP->buffer_len);
         if (transacP->buffer == NULL)
         {
+            printf("transaction_remove 3 \n");
            transaction_remove(contextP, transacP);
            return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -372,6 +377,7 @@ int transaction_send(lwm2m_context_t * contextP,
         {
             lwm2m_free(transacP->buffer);
             transacP->buffer = NULL;
+            printf("transaction_remove 4 \n");
             transaction_remove(contextP, transacP);
             return COAP_500_INTERNAL_SERVER_ERROR;
         }
@@ -419,6 +425,7 @@ int transaction_send(lwm2m_context_t * contextP,
             LOG_ARG("transaction %p expired..calling callback", transacP);
             transacP->callback(contextP, transacP, NULL);
         }
+        printf("transaction_remove 5 \n");
         transaction_remove(contextP, transacP);
         return -1;
     }
@@ -442,6 +449,8 @@ void transaction_step(lwm2m_context_t * contextP,
 
         if (transacP->retrans_time <= currentTime)
         {
+                printf(" transaction_send 5 \n");
+
             removed = transaction_send(contextP, transacP);
         }
 

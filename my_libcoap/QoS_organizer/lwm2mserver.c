@@ -83,6 +83,8 @@ coap_context_t *organizer_client_ctx = NULL;
 coap_context_t *organizer_server_ctx = NULL;
 coap_session_t *organizer_client_session = NULL;
 
+char OrganizerIP[20];
+
 // queue
 struct regQueue *head = NULL;
 int len_organizer_received;
@@ -282,7 +284,6 @@ static void prv_notify_callback(uint16_t clientID,
                                 int dataLength,
                                 void * userData)
 {
-    printf("enter into prv_notify_callback\n");
     fprintf(stdout, "\r\nNotify from client #%d ", clientID);
     prv_printUri(uriP);
     fprintf(stdout, " number %d\r\n", count);
@@ -860,11 +861,6 @@ static void prv_monitor_callback(uint16_t clientID,
 
         // 找到GlobalID 添加到query
         targetP = (lwm2m_client_t *)lwm2m_list_find((lwm2m_list_t *)lwm2mH->clientList, clientID);
-        printf("client #%d GlobalID is :\n", clientID);
-        for(int i = 0; i < targetP->LengthOfGlobalID; i++) {
-            printf("%c",targetP->GlobalID[i]);
-        }
-        printf("\n");
         coap_insert_option(UpdataPdu, COAP_OPTION_URI_QUERY, targetP->LengthOfGlobalID, targetP->GlobalID);
 
         // 插入到上行发送队列中
@@ -915,9 +911,10 @@ void* organizer_client(void* arg)
     organizer_client_ctx = coap_new_context( NULL );
     coap_address_t dst;
     static coap_str_const_t server;
-    char server_ip[] = "192.168.3.24";
-    server.s = server_ip;
-    server.length = sizeof(server_ip);
+    // char server_ip[] = "192.168.3.24";
+    // server.s = server_ip;
+    server.s = OrganizerIP;
+    server.length = strlen(OrganizerIP);
     int res = resolve_address(&server, &dst.addr.sa);
     dst.size = res;
     dst.addr.sin.sin_port = htons(analyzer_server_port);
@@ -926,7 +923,8 @@ void* organizer_client(void* arg)
     organizer_client_session = get_session(
     organizer_client_ctx,
     // "172.20.10.5",
-    "192.168.3.24", 
+    // "192.168.3.24", 
+    OrganizerIP,
     localClientPort,
     WAN_PROTOCOL,
     // COAP_PROTO_UDP,
@@ -1041,50 +1039,10 @@ int main(int argc, char *argv[])
 
             COMMAND_END_LIST
     };
-    if(argc < 5) {
-        printf("参数数量错误\n");
-        return 0;
-    }
+
+    memcpy(OrganizerIP, argv[1], strlen(argv[1]));
     localPort = argv[2];
-    localClientPort = argv[4];
-    // int opt;
-    // opt = 1;
-    // while (opt < argc)
-    // {
-    //     if (argv[opt] == NULL
-    //         || argv[opt][0] != '-'
-    //         || argv[opt][2] != 0)
-    //     {
-    //         print_usage();
-    //         return 0;
-    //     }
-    //     switch (argv[opt][1])
-    //     {
-    //     case '4':
-    //         addressFamily = AF_INET;
-    //         break;
-    //     case 'l':
-    //         opt++;
-    //         if (opt >= argc)
-    //         {
-    //             print_usage();
-    //             return 0;
-    //         }
-    //         localPort = argv[opt];
-    //         break;
-    //     case 'w':
-    //         opt++;
-    //         if(opt >= argc)
-    //         {
-    //             return 0;
-    //         }
-    //         localClientPort = argv[opt];
-    //     default:
-    //         print_usage();
-    //         return 0;
-    //     }
-    //     opt += 1;
-    // }
+    localClientPort = argv[3];
 
     sock = create_socket(localPort, addressFamily);
     if (sock < 0)

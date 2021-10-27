@@ -190,7 +190,6 @@ coap_new_request_analyzer_client(coap_context_t *ctx,
 
 void hnd_unknown_put(coap_resource_t *resource, coap_session_t *session,
 const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
-  printf("enter into hnd_unknown_put\n");
   // 用于寻找请求中的GlobalID
   uint8_t* GlobalID;
   int LengthOfGlobalID = 0;
@@ -215,11 +214,6 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
       }
     }
   }
-  // 输出Globelid
-  for(int i = 0 ; i < LengthOfGlobalID; i++) {
-    printf("%c", GlobalID[i]);
-  }
-  printf("\n");
   // 通过GlobalID找到对应的session和Internalid
   coap_session_t *organizerSession = NULL;
   int InternalID = findSessionAndInternalIDByGlobalID(GlobalID, LengthOfGlobalID, &organizerSession);
@@ -234,7 +228,7 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
   coap_bin_const_t token = coap_pdu_get_token(request);
   // 完善midlist
   pthread_mutex_lock(&analyzer_midList_mutex);
-  printf("插入midList的结果是：%d, 当前mid是:%d\n", InsertMid(mid, token), mid);
+  InsertMid(mid, token);
   pthread_mutex_unlock(&analyzer_midList_mutex);
   // 创建下行pdu
   coap_pdu_t *pdu = coap_new_pdu(type, code, organizerSession);
@@ -270,14 +264,12 @@ const coap_pdu_t *request, const coap_string_t *query, coap_pdu_t *response) {
   coap_get_data(request, &LengthOfData, &data);
   if (pdu == NULL) {
     printf ("pdu is null\n");
-  } else {
-    printf ("pdu is not null\n");
   }
   int check = coap_add_data(pdu, LengthOfData, data);
 
   // 将消息加入队列
   pthread_mutex_lock(&analyzer_DL_queue_mutex);
-  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &hnd_unknown_put);
+  int numOfDLQueuue = InsertDLMsg(pdu, organizerSession, &DLQueueHead);
   pthread_mutex_unlock(&analyzer_DL_queue_mutex);
   response->type = COAP_MESSAGE_NOT_SEND;
 }
@@ -288,7 +280,6 @@ void hnd_post_unknown(coap_resource_t *resource,
               const coap_pdu_t *request,
               const coap_string_t *query COAP_UNUSED,
               coap_pdu_t *response) {
-    printf("enter into hnd_post_unknown");
               }
 
 void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
@@ -302,7 +293,6 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
   int length = request->used_size - request->token_length - request->body_length;
   uint8_t *queryBegin = request->token + request->token_length;
   if (queryBegin[0] == 96) {
-    printf("this is observe\n");
     checkObserve = 1;
   } else if (queryBegin[0] == 97) {
     checkObserve = 2;
@@ -367,11 +357,9 @@ void hnd_get_unknown(coap_resource_t *resource, coap_session_t *session,
 
   if(checkObserve == 1) { 
     // 同时需要完善observelist
-    printf("before insert observe list\n");
     pthread_mutex_lock(&analyzer_observeList_mutex);
     InsertObserveList(token, GlobalID, LengthOfGlobalID);
     pthread_mutex_unlock(&analyzer_observeList_mutex);
-    printf("after insert observe list\n");
   }
 
   // 首先将InternalID添加在首段
@@ -422,7 +410,6 @@ void hnd_delete_unknown(coap_resource_t *resource,
           const coap_pdu_t *request,
           const coap_string_t *query COAP_UNUSED,
           coap_pdu_t *response) {
-printf("enter into hnd_delete_unknown");
           }
 void init_analyzer_client_resources() {
   coap_resource_t *r;

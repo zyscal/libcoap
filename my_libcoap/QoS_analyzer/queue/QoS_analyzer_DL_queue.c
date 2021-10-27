@@ -19,8 +19,8 @@ int InsertDLMsg(coap_pdu_t *pdu, coap_session_t *session, DLQueue** Head)
         pFront = pFront->next;
     }
     pFront->next = (DLQueue *) malloc(sizeof(DLQueue));
-    pFront->data = pdu;
-    pFront->session = session;
+    pFront->next->data = pdu;
+    pFront->next->session = session;
     pFront->next->next = NULL;
     return count + 1; 
 }
@@ -73,16 +73,18 @@ int InsertMid(coap_mid_t mid, coap_bin_const_t token) {
             // mid已经存在,考虑到重传问题
             if(p->mid == mid) {
                 if(tokenSame(p->token, p->tokenLength, token.s, token.length)) {
-                    printf("这是重传包，mid、token相同\n");
                     p->count++;
+                    printf("重传\n");
                     return -1;
                 } else { // 更新旧token
-                    printf("mid 相同但是token不同\n");
                     p->tokenLength = token.length;
+                    free(p->token);
+                    p->token = (uint8_t *) malloc (sizeof(uint8_t) * token.length);
                     for(int i = 0 ; i < token.length; i++) {
                         (p->token)[i] = (token.s)[i];
                     }
                     p->count = 1;
+                    printf("token 更新\n");
                     return -1;
                 }
             } else {
@@ -99,7 +101,7 @@ int InsertMid(coap_mid_t mid, coap_bin_const_t token) {
             (newMidList->token)[i] = (token.s)[i];
         }
         newMidList->count = 1;
-        newMidList->next = midListHead->next;
+        newMidList->next = midListHead;
         midListHead = newMidList;
         return count + 1;
     }
@@ -141,7 +143,7 @@ coap_mid_t findMidByTokenAndDel(coap_bin_const_t token) {
             return mid;
         } else {
             midListHead->count--;
-            return midListHead->count;
+            return midListHead->mid;
         }
     }
     midList *pBack = midListHead->next;
@@ -159,7 +161,7 @@ coap_mid_t findMidByTokenAndDel(coap_bin_const_t token) {
             else
             {
                 pBack->count--;
-                return pBack->count;
+                return pBack->mid;
             }
         }
         pBack = pBack->next;

@@ -33,7 +33,8 @@ typedef unsigned char method_t;
 
 #define organizer_client_port 5700
 #define organizer_client_port_str "5700"
-  
+
+
 #define WAN_PROTOCOL COAP_PROTO_TCP
 // #define WAN_PROTOCOL COAP_PROTO_UDP
 

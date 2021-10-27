@@ -600,6 +600,7 @@ coap_serialize_message(void *packet, uint8_t *buffer)
   PRINTF("-Done serializing at %p----\n", option);
 
   /* Free allocated header fields */
+          printf("before coap_free_header3\n");
   coap_free_header(packet);
 
   /* Pack payload */
@@ -719,6 +720,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
     if (current_option + option_length > data + data_len)
     {
         PRINTF("OPTION %u (delta %u, len %u) has invalid length.\n", option_number, option_delta, option_length);
+        printf("before coap_free_header4\n");
         coap_free_header(coap_pkt);
         return BAD_REQUEST_4_00;
     }
@@ -852,6 +854,7 @@ coap_parse_message(void *packet, uint8_t *data, uint16_t data_len)
         if (option_number & 1)
         {
           coap_error_message = "Unsupported critical option";
+          printf("before coap_free_header5\n");
           coap_free_header(coap_pkt);
           return BAD_OPTION_4_02;
         }

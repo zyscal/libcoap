@@ -3,6 +3,7 @@
 void simple_sender() {
     while (true)
     {
+        // sleep(2);
         coap_pdu_t* pdu;
         uint8_t *payload;
         int dataLength;
@@ -11,7 +12,6 @@ void simple_sender() {
         pdu = GetAndDelACKQueueFront(&Qorganizer_DLACKQueue, &payload, &dataLength);
         pthread_mutex_unlock(&organizer_DL_ACK_queue_mutex);
         if(pdu != NULL) {
-            printf("ack queue has something \n");
             coap_add_data(pdu, dataLength, payload);
             int mid = coap_send_large(organizer_client_session, pdu);
             free(payload);

@@ -115,6 +115,7 @@ static void prv_requestBootstrap(lwm2m_context_t * context,
         transaction->callback = prv_handleBootstrapReply;
         transaction->userData = (void *)bootstrapServer;
         context->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(context->transactionList, transaction);
+        printf(" transaction_send 6 \n");
         if (transaction_send(context, transaction) == 0)
         {
             LOG("CI bootstrap requested to BS server");
@@ -673,6 +674,7 @@ int lwm2m_bootstrap_delete(lwm2m_context_t * contextP,
     dataP = (bs_data_t *)lwm2m_malloc(sizeof(bs_data_t));
     if (dataP == NULL)
     {
+        printf(" transaction_free 1\n");
         transaction_free(transaction);
         return COAP_500_INTERNAL_SERVER_ERROR;
     }
@@ -691,6 +693,7 @@ int lwm2m_bootstrap_delete(lwm2m_context_t * contextP,
     transaction->userData = (void *)dataP;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+        printf(" transaction_send 7 \n");
 
     return transaction_send(contextP, transaction);
 }
@@ -722,6 +725,8 @@ int lwm2m_bootstrap_write(lwm2m_context_t * contextP,
     dataP = (bs_data_t *)lwm2m_malloc(sizeof(bs_data_t));
     if (dataP == NULL)
     {
+        printf(" transaction_free 2\n");
+
         transaction_free(transaction);
         return COAP_500_INTERNAL_SERVER_ERROR;
     }
@@ -733,6 +738,7 @@ int lwm2m_bootstrap_write(lwm2m_context_t * contextP,
     transaction->userData = (void *)dataP;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+        printf(" transaction_send 8 \n");
 
     return transaction_send(contextP, transaction);
 }
@@ -752,6 +758,7 @@ int lwm2m_bootstrap_finish(lwm2m_context_t * contextP,
     dataP = (bs_data_t *)lwm2m_malloc(sizeof(bs_data_t));
     if (dataP == NULL)
     {
+        printf(" transaction_free 3\n");
         transaction_free(transaction);
         return COAP_500_INTERNAL_SERVER_ERROR;
     }
@@ -763,6 +770,7 @@ int lwm2m_bootstrap_finish(lwm2m_context_t * contextP,
     transaction->userData = (void *)dataP;
 
     contextP->transactionList = (lwm2m_transaction_t *)LWM2M_LIST_ADD(contextP->transactionList, transaction);
+        printf(" transaction_send 9 \n");
 
     return transaction_send(contextP, transaction);
 }

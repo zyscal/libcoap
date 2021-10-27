@@ -13,10 +13,7 @@ void analyzer_DL_simple_sender() {
         pdu = GetAndDelACKQueueFront(&ULACKQueue, &session);
         pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
         if(pdu != NULL) {
-            printf("there is something in ULACKQueue\n");
-            printf("before send code is : %d\n", coap_pdu_get_code(pdu));
             mid = coap_send_large(session, pdu);
-            printf("the mid is : %d\n", mid);
             continue;
         }
 

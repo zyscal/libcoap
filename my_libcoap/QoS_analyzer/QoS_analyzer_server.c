@@ -167,7 +167,6 @@ coap_response_t
 analyzer_server_message_handler(coap_session_t *session,const coap_pdu_t *sent,
 const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
 {
-  printf("enter into analyzer_server_message_handler\n\n");
   // 获取token
   coap_bin_const_t token =   coap_pdu_get_token(received);
   // 来的是ACK或者NON消息
@@ -204,7 +203,6 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
         pthread_mutex_lock(&organizerNodeMutex);
         int mid = findAndUpdateMidByToken(token);
         pthread_mutex_unlock(&organizerNodeMutex);
-        printf("non mid is : %d\n", mid);
         // 设置回包中的mid
         coap_pdu_set_mid(ACKorNON, mid);
         // 设置回包中的token
@@ -324,7 +322,6 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
     if(ackToOrganizer == NULL) {
       continue;
     }
-    printf("ackToOrganizer code is : %d\n", coap_pdu_get_code(ackToOrganizer));
     // if(WAN_PROTOCOL == COAP_PROTO_TCP) {
     //   // 如果是TCP协议则无需回包
     //   break;
@@ -340,9 +337,7 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
     pthread_mutex_lock(&analyzer_UL_ACK_queue_mutex);
     int check = InsertACKMsg(ackToOrganizer, session, &ULACKQueue);
     pthread_mutex_unlock(&analyzer_UL_ACK_queue_mutex);
-
     printf("the check is : %d\n", check);
-
     break;
   }
   
@@ -494,7 +489,6 @@ coap_pdu_t *response) {
   coap_add_optlist_pdu(pdu, &analyzer_client_request_option);
   // payload
   int payload_len = request->used_size - (request->data - request->token);
-  // printf("payload size : %d\n", payload_len);
 
   int dataLength = 0;
   uint8_t *requestData;
@@ -560,7 +554,6 @@ coap_pdu_t *response) {
   // 注册时回携带初始mid，当基于tcp传输时为0
   anjay_node* anjay_node_p = handle_anjay_node(session, InternalID, GlobalID, Length, coap_pdu_get_mid(request));
   pthread_mutex_unlock(&organizerNodeMutex);
-  printf("after anjay_node_p insert\n");
   organizer_node *p = organizer_node_head.next;
   int numOfOrganizer = 0;
   while (p != NULL)
