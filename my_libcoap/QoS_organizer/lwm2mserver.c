@@ -84,6 +84,7 @@ coap_context_t *organizer_server_ctx = NULL;
 coap_session_t *organizer_client_session = NULL;
 
 char OrganizerIP[20];
+char LeshanIP[20];
 
 // queue
 struct regQueue *head = NULL;
@@ -913,11 +914,13 @@ void* organizer_client(void* arg)
     static coap_str_const_t server;
     // char server_ip[] = "192.168.3.24";
     // server.s = server_ip;
-    server.s = OrganizerIP;
-    server.length = strlen(OrganizerIP);
+    server.s = LeshanIP;
+    server.length = strlen(LeshanIP);
     int res = resolve_address(&server, &dst.addr.sa);
     dst.size = res;
-    dst.addr.sin.sin_port = htons(analyzer_server_port);
+    // dst.addr.sin.sin_port = htons(analyzer_server_port);
+    dst.addr.sin.sin_port = htons(5800);
+
     coap_context_set_keepalive(organizer_client_ctx, 0);
     coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
     organizer_client_session = get_session(
@@ -1040,9 +1043,14 @@ int main(int argc, char *argv[])
             COMMAND_END_LIST
     };
 
+    // 第一个参数信息为局域网内ip地址
     memcpy(OrganizerIP, argv[1], strlen(argv[1]));
+    // 第二个参数为organizer_server的端口号，用于接受anjay客户端
     localPort = argv[2];
+    // 第三个参数为organizer_client的端口号，用于向云端发送数据，这里可以不用规范，规范的目的在于方便数据包分析工作
     localClientPort = argv[3];
+    // 第四个参数为云端服务器端ip地址
+    memcpy(LeshanIP, argv[4], strlen(argv[4]));
 
     sock = create_socket(localPort, addressFamily);
     if (sock < 0)

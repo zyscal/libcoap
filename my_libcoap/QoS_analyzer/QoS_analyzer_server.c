@@ -169,7 +169,7 @@ const coap_pdu_t *received,const coap_mid_t id COAP_UNUSED)
 {
   // 获取token
   coap_bin_const_t token =   coap_pdu_get_token(received);
-  // 来的是ACK或者NON消息
+  // 来的是ACK或者NON消息 
   coap_pdu_t *ACKorNON = NULL;
   coap_opt_iterator_t opt_iter;
   coap_opt_t *option;
@@ -513,6 +513,9 @@ coap_pdu_t *response) {
     }
     // 初始化回包
     responseToOrganizer = coap_new_pdu(coap_pdu_get_type(ack), coap_pdu_get_code(ack), session);
+
+    //设置mid
+    coap_pdu_set_mid(responseToOrganizer, coap_pdu_get_mid(request));
 
     // 设置回包中token
     coap_bin_const_t ackToken = coap_pdu_get_token(ack);

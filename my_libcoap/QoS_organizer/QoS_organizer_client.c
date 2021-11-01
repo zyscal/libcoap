@@ -250,7 +250,7 @@ coap_pdu_t *request, coap_string_t *query, coap_pdu_t *response) {
 
 
   // 创建回调的ACK
-  coap_pdu_t *ACK = coap_new_pdu(COAP_TYPE_CON, 0, organizer_client_session);
+  coap_pdu_t *ACK = coap_new_pdu(COAP_TYPE_ACK, 0, organizer_client_session);
   // 回包的mid
   if(WAN_PROTOCOL == COAP_PROTO_TCP) {
     coap_pdu_set_mid(ACK, 0);

@@ -10,7 +10,8 @@
 > ## QoS组织者（QoS_organizer）
 >* **描述：** 存在于边缘侧，接受、管理同一局域网下anjay客户端设备。整个系统中将会存在多个边缘设备
 >* **文件目录：** my_libcoap/QoS_organizer
->* **运行指令：** ./wakaama_server -l 6100 -w 5710
+>* **运行指令：** ./wakaama_server 局域网内ip地址 organizer_server端口号 organizer_client端口号 analyzer端口号
+>* **命令样例** 
 >* **指令解释：** -l 参数描述了内部服务器线程监听的端口，-w 参数描述了内部客户端线程占用的端口号，用于与云端通讯。本方法便于端口管理，在同一机器上运行可以避免端口占用问题。
 
 > ## QoS解析者（QoS_analyzer）
