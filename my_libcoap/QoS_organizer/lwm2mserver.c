@@ -85,7 +85,7 @@ coap_session_t *organizer_client_session = NULL;
 
 char OrganizerIP[20];
 char LeshanIP[20];
-
+int  AnalyzerPort;
 // queue
 struct regQueue *head = NULL;
 int len_organizer_received;
@@ -919,7 +919,7 @@ void* organizer_client(void* arg)
     int res = resolve_address(&server, &dst.addr.sa);
     dst.size = res;
     // dst.addr.sin.sin_port = htons(analyzer_server_port);
-    dst.addr.sin.sin_port = htons(5800);
+    dst.addr.sin.sin_port = htons(AnalyzerPort);
 
     coap_context_set_keepalive(organizer_client_ctx, 0);
     coap_context_set_block_mode(organizer_client_ctx, COAP_BLOCK_USE_LIBCOAP);
@@ -1051,6 +1051,12 @@ int main(int argc, char *argv[])
     localClientPort = argv[3];
     // 第四个参数为云端服务器端ip地址
     memcpy(LeshanIP, argv[4], strlen(argv[4]));
+    // 第五个参数是云服务器端口
+    AnalyzerPort = 0;
+    for(int i = 0; i < strlen(argv[5]); i++) {
+        AnalyzerPort *= 10;
+        AnalyzerPort += argv[5][i] - '0';
+    }
 
     sock = create_socket(localPort, addressFamily);
     if (sock < 0)
